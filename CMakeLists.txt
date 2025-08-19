@@ -3,8 +3,7 @@ project(HLFGL)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_library(HLFGL STATIC
-        src/HLFGL.cpp)
+add_library(HLFGL INTERFACE)
 
-target_include_directories(HLFGL PUBLIC
+target_include_directories(HLFGL INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}/include)
