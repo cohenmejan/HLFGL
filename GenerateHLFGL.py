@@ -109,8 +109,8 @@ def generate_header(functions):
         entries = [f'\t\t{{ "{func["name"]}", (void**)&_{func["name"]} }},'
                    for func in version_groups[version]]
 
-        tables.append(f"\n\tstatic const GLFnEntry {table_name}[] = {{\n{'\n'.join(entries)}\n\t}};")
-        table_entries.append(f"\t\t{{ GLVersion {{{major}, {minor}}}, {table_name}, {len(entries)} }},")
+        tables.append(f"\n\tstatic const FnEntry {table_name}[] = {{\n{'\n'.join(entries)}\n\t}};")
+        table_entries.append(f"\t\t{{ Version {{{major}, {minor}}}, {table_name}, {len(entries)} }},")
 
     wrappers = []
     for func in functions:
@@ -121,7 +121,7 @@ def generate_header(functions):
         wrapper = f"inline {ret} {func['name']}({params_decl}) {{ "
         if ret != "void":
             wrapper += "return "
-        wrapper += f"HLF::_{func['name']}({param_names}); }}"
+        wrapper += f"HLF::GL::_{func['name']}({param_names}); }}"
         wrappers.append(wrapper)
 
     return f"""// generated
@@ -130,13 +130,13 @@ def generate_header(functions):
 
 #include <GL/gl.h>
 
-namespace HLF {{
+namespace HLF::GL {{
 {'\n'.join(typedefs)}
     
 {'\n'.join(pointers)}
 {'\n'.join(tables)}
 
-    static const GLFuncTableGroup glFuncGroups[] = {{
+    static const FuncTableGroup glFuncGroups[] = {{
 {'\n'.join(table_entries)}
     }};
 }}
