@@ -3954,12 +3954,8 @@ namespace HLF::GL {
 	inline PFN_glMultiDrawElementsIndirectCount fn_glMultiDrawElementsIndirectCount {};
 	typedef void(*PFN_glPolygonOffsetClamp)(GLfloat factor, GLfloat units, GLfloat clamp);
 	inline PFN_glPolygonOffsetClamp fn_glPolygonOffsetClamp {};
-	inline bool Init(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {
-        Version version {GetVersion(proc)};
-        
-        if(version < initVersion)
-            return false;
 
+	inline bool LoadFunctionPointers(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {
 		if (initVersion >= Version {1, 0}) {
 			fn_glCullFace = (PFN_glCullFace)proc("glCullFace");
 			fn_glFrontFace = (PFN_glFrontFace)proc("glFrontFace");

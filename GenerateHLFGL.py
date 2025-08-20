@@ -11,26 +11,26 @@ HEADER_PATH = "include/HLFGL/GLDefinitions.h"
 
 class ConstantDefinition:
     def __init__(self):
-        self.name = str
-        self.value = str
+        self.name = str()
+        self.value = str()
 
 class Param:
     def __init__(self):
-        self.type = str
-        self.name = str
+        self.type = str()
+        self.name = str()
 
 class FunctionDefinition:
     def __init__(self):
-        self.return_type = str
-        self.name = str
-        self.params = []
+        self.return_type = str()
+        self.name = str()
+        self.params = list()
 
 class GLVersionData:
     def __init__(self):
-        self.versionText = str
+        self.versionText = str()
         self.version = (int, int)
-        self.constants = []
-        self.functions = []
+        self.constants = list()
+        self.functions = list()
 
 def format_params(params):
     return f"({", ".join(f"{param.type} {param.name}" for param in params)})"
@@ -38,6 +38,15 @@ def format_params(params):
 print("downloading gl.xml ...")
 
 tree = etree.parse(urlopen(GL_XML_URL))
+
+constantTable = {}
+for enum in tree.findall("enums/enum"):
+    constantTable[enum.get("name")] = enum
+
+commandTable = {}
+for command in tree.findall("commands/command"):
+    proto = command.find("proto")
+    commandTable[proto.find("name").text] = command
 
 typedefs = []
 for typeData in tree.findall("types/type"):
@@ -70,7 +79,7 @@ for feature in tree.findall("feature"):
             continue
         definedNames.append(name)
 
-        constantData = tree.find(f"enums/enum[@name='{name}']")
+        constantData = constantTable.get(name)
         value = constantData.get("value")
 
         constant = ConstantDefinition()
@@ -79,30 +88,25 @@ for feature in tree.findall("feature"):
         versionData.constants.append(constant)
 
     for command in feature.findall("require/command"):
-        commandName = command.get("name")
-        if commandName in definedNames:
+        name = command.get("name")
+        if name in definedNames:
             continue
-        definedNames.append(commandName)
+        definedNames.append(name)
 
-        for functionData in tree.findall(f"commands/command"):
-            proto = functionData.find("proto")
-            name = proto.find("name").text
+        functionData = commandTable.get(name)
+        proto = functionData.find("proto")
+        text = proto.itertext()
 
-            if name != commandName:
-                continue
+        function = FunctionDefinition()
+        function.return_type = "void" if proto.text is None else ''.join(s for s in text if s != name).strip()
+        function.name = name
+        for paramData in functionData.findall("param"):
+            param = Param()
+            param.name = paramData.find("name").text.strip()
+            param.type = ''.join(s for s in paramData.itertext() if s != param.name).strip()
+            function.params.append(param)
 
-            text = proto.itertext()
-
-            function = FunctionDefinition()
-            function.return_type = "void" if proto.text is None else ''.join(s for s in text if s != name).strip()
-            function.name = name
-            for paramData in functionData.findall("param"):
-                param = Param()
-                param.name = paramData.find("name").text.strip()
-                param.type = ''.join(s for s in paramData.itertext() if s != param.name).strip()
-                function.params.append(param)
-
-            versionData.functions.append(function)
+        versionData.functions.append(function)
 
     versions.append(versionData)
 
@@ -126,12 +130,7 @@ for versionData in versions:
         output += f"\n\ttypedef {function.return_type}(*{pfnName}){format_params(function.params)};"
         output += f"\n\tinline PFN_{function.name} fn_{function.name} {{}};"
 
-output += f'''\n\tinline bool Init(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {{
-        Version version {{GetVersion(proc)}};
-        
-        if(version < initVersion)
-            return false;
-'''
+output += f"\n\n\tinline bool LoadFunctionPointers(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {{"
 
 for versionData in versions:
     output += f"\n\t\tif (initVersion >= Version {{{versionData.version[0]}, {versionData.version[1]}}}) {{"

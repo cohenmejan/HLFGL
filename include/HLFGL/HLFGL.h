@@ -80,4 +80,15 @@ namespace HLF::GL {
 
 		return _cachedVersion;
 	}
+
+	inline bool Init(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {
+		Version version = GetVersion(proc);
+
+		if(version < initVersion) {
+			LoadFunctionPointers(version, proc);
+			return false;
+		}
+
+		return LoadFunctionPointers(initVersion, proc);
+	}
 }
