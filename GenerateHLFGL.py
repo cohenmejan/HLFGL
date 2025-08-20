@@ -2,154 +2,151 @@
 
 # generates include/HLFGLDefinitions.h
 
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as etree
 from urllib.request import urlopen
 from pathlib import Path
 
 GL_XML_URL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/xml/gl.xml"
-HEADER_PATH = "include/HLFGLDefintions.h"
-TARGET_VERSION = (4, 6)
+HEADER_PATH = "include/HLFGL/GLDefinitions.h"
 
+class ConstantDefinition:
+    def __init__(self):
+        self.name = str
+        self.value = str
 
-def format_params(params, names_only=False):
-    if not params:
-        return "" if names_only else "void"
+class Param:
+    def __init__(self):
+        self.type = str
+        self.name = str
 
-    if names_only:
-        return ", ".join(name for _, name in params)
-    return ", ".join(f"{ptype} {name}" for ptype, name in params)
+class FunctionDefinition:
+    def __init__(self):
+        self.return_type = str
+        self.name = str
+        self.params = []
 
+class GLVersionData:
+    def __init__(self):
+        self.versionText = str
+        self.version = (int, int)
+        self.constants = []
+        self.functions = []
 
-def generate_header(functions):
-    typedefs = [
-        f"\tusing PFN_{func['name']} = {func['return_type']}(*)({format_params(func['params'])});"
-        for func in functions
-    ]
-
-    pointers = [f"\tinline PFN_{func['name']} _{func['name']} {{}};" for func in functions]
-
-    version_groups = {}
-    for func in functions:
-        version = func["min_version"]
-        version_groups.setdefault(version, []).append(func)
-
-    tables = []
-    table_entries = []
-
-    for version in sorted(version_groups.keys()):
-        major, minor = version
-        table_name = f"glFnTable_{major}_{minor}"
-
-        entries = [f'\t\t{{ "{func["name"]}", (void**)&_{func["name"]} }},'
-                   for func in version_groups[version]]
-
-        tables.append(f"\n\tstatic const FnEntry {table_name}[] = {{\n{'\n'.join(entries)}\n\t}};")
-        table_entries.append(f"\t\t{{ Version {{{major}, {minor}}}, {table_name}, {len(entries)} }},")
-
-    wrappers = []
-    for func in functions:
-        ret = func['return_type']
-        params_decl = format_params(func['params'])
-        param_names = format_params(func['params'], names_only=True)
-
-        wrapper = f"inline {ret} {func['name']}({params_decl}) {{ "
-        if ret != "void":
-            wrapper += "return "
-        wrapper += f"HLF::GL::_{func['name']}({param_names}); }}"
-        wrappers.append(wrapper)
-
-    return f"""// generated
-
-#pragma once
-
-#include <GL/gl.h>
-
-namespace HLF::GL {{
-{'\n'.join(typedefs)}
-    
-{'\n'.join(pointers)}
-{'\n'.join(tables)}
-
-    static const FuncTableGroup glFuncGroups[] = {{
-{'\n'.join(table_entries)}
-    }};
-}}
-
-{'\n'.join(wrappers)}
-"""
-
-
-# main
+def format_params(params):
+    return f"({", ".join(f"{param.type} {param.name}" for param in params)})"
 
 print("downloading gl.xml ...")
 
-with urlopen(GL_XML_URL) as response:
-    xml_content = response.read().decode('utf-8')
+tree = etree.parse(urlopen(GL_XML_URL))
 
-print("gl.xml downloaded")
-
-root = ET.fromstring(xml_content)
-cmd_min_version = {}
-
-# version requirements
-for feature in root.findall(".//feature"):
-    name = feature.get("name", "")
-    if not name.startswith("GL_VERSION_"):
+typedefs = []
+for typeData in tree.findall("types/type"):
+    if typeData.text is None:
         continue
 
-    version_str = name.replace("GL_VERSION_", "").replace('_', '.')
-    try:
-        major, minor = map(int, version_str.split('.'))
-    except ValueError:
+    typeName = ''.join(typeData.itertext())
+    typedefs.append(typeName)
+
+versions = []
+definedNames = []
+
+for feature in tree.findall("feature"):
+    api = feature.get("api")
+    if api != "gl":
         continue
 
-    for cmd in feature.findall(".//command"):
-        cmd_name = cmd.get("name")
-        if cmd_name and cmd_name not in cmd_min_version:
-            cmd_min_version[cmd_name] = (major, minor)
-
-# function signatures
-functions = []
-for command in root.findall(".//commands/command"):
-    proto = command.find("proto")
-    name_elem = proto.find("name") if proto is not None else None
-
-    if name_elem is None or not name_elem.text.startswith("gl"):
+    featureName = feature.get("name")
+    if not featureName.startswith("GL_VERSION_"):
         continue
 
-    name = name_elem.text.strip()
+    versionData = GLVersionData()
+    versionData.versionText = featureName.split("GL_VERSION_")[1]
+    versionData.version = (int(versionData.versionText.split("_")[0]), int(versionData.versionText.split("_")[1]))
+    print(f"found version {versionData.version[0]}.{versionData.version[1]}")
 
-    # return type
-    proto_texts = [t.strip() for t in proto.itertext() if t.strip()]
-    return_type = " ".join(proto_texts[:-1]) if len(proto_texts) >= 2 else "void"
-
-    # parameters
-    params = []
-    for param in command.findall("param"):
-        param_name_elem = param.find("name")
-        if param_name_elem is None:
+    for constantNameData in feature.findall("require/enum"):
+        name = constantNameData.get("name")
+        if name in definedNames:
             continue
+        definedNames.append(name)
 
-        param_name = param_name_elem.text.strip()
-        param_texts = [t.strip() for t in param.itertext() if t.strip()]
-        param_type = " ".join(t for t in param_texts if t != param_name).strip()
-        params.append((param_type, param_name))
+        constantData = tree.find(f"enums/enum[@name='{name}']")
+        value = constantData.get("value")
 
-    # only include functions within target version
-    min_ver = cmd_min_version.get(name)
-    if min_ver and min_ver <= TARGET_VERSION:
-        functions.append({
-            "name": name,
-            "return_type": return_type,
-            "params": params,
-            "min_version": min_ver
-        })
+        constant = ConstantDefinition()
+        constant.name = name
+        constant.value = value
+        versionData.constants.append(constant)
 
-print(f"found {len(functions)} functions for versions 1.0 - {TARGET_VERSION[0]}.{TARGET_VERSION[1]}")
+    for command in feature.findall("require/command"):
+        commandName = command.get("name")
+        if commandName in definedNames:
+            continue
+        definedNames.append(commandName)
 
-Path(HEADER_PATH).parent.mkdir(parents=True, exist_ok=True)
+        for functionData in tree.findall(f"commands/command"):
+            proto = functionData.find("proto")
+            name = proto.find("name").text
 
-with open(HEADER_PATH, "w", newline="\n") as f:
-    f.write(generate_header(functions))
+            if name != commandName:
+                continue
 
-print(f"output ./{HEADER_PATH}")
+            text = proto.itertext()
+
+            function = FunctionDefinition()
+            function.return_type = "void" if proto.text is None else ''.join(s for s in text if s != name).strip()
+            function.name = name
+            for paramData in functionData.findall("param"):
+                param = Param()
+                param.name = paramData.find("name").text.strip()
+                param.type = ''.join(s for s in paramData.itertext() if s != param.name).strip()
+                function.params.append(param)
+
+            versionData.functions.append(function)
+
+    versions.append(versionData)
+
+output = '''// generated
+
+#pragma once
+
+'''
+
+output += f"{"\n".join(typedefs)}\n"
+    
+for versionData in versions:
+    for constant in versionData.constants:
+        output += f"\n#define {constant.name} {constant.value}"
+
+output += "\n\nnamespace HLF::GL {"
+
+for versionData in versions:
+    for function in versionData.functions:
+        pfnName = f"PFN_{function.name}"
+        output += f"\n\ttypedef {function.return_type}(*{pfnName}){format_params(function.params)};"
+        output += f"\n\tinline PFN_{function.name} fn_{function.name} {{}};"
+
+output += f'''\n\tinline bool Init(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {{
+        Version version {{GetVersion(proc)}};
+        
+        if(version < initVersion)
+            return false;
+'''
+
+for versionData in versions:
+    output += f"\n\t\tif (initVersion >= Version {{{versionData.version[0]}, {versionData.version[1]}}}) {{"
+    for function in versionData.functions:
+        output += f"\n\t\t\tfn_{function.name} = (PFN_{function.name})proc(\"{function.name}\");"
+    output += "\n\t\t}\n\t\telse return true;\n"
+output += "\t\treturn true;\n\t}\n}"
+
+output += "\n"
+for versionData in versions:
+    for function in versionData.functions:
+        body = f"return HLF::GL::fn_{function.name}({', '.join(param.name for param in function.params)});"
+        output += f"\ninline {function.return_type} {function.name}{format_params(function.params)} {{ {body} }}"
+
+
+path = Path(HEADER_PATH)
+path.parent.mkdir(parents=True, exist_ok=True)
+path.write_text(output)
