@@ -1,6 +1,5 @@
 # generates include/HLFGLDefinitions.h
 
-GL_VERSION = (4, 6)
 HEADER_PATH = "include/HLFGL/"
 
 GL_XML_URL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/xml/gl.xml"
@@ -34,10 +33,12 @@ class TypedefData:
         self.requires = ""
 
 def generate_api(api_prefix, api_name, xml_url):
+    # all definition trees
     typedefs_table = {}
     constants_table = {}
     functions_table = {}
 
+    # definitions in api
     defined_names = []
     api_typedefs = []
     api_constants = []
@@ -206,7 +207,7 @@ def generate_api(api_prefix, api_name, xml_url):
         if requirements is None: continue
         output += generate_api_tree(extension.find("require"), name)
 
-    output += f"\n\nnamespace HLF::GL {{\n\tinline void {api_prefix}InitFunctionPointers(Fn_GetProcAddress proc) {{\n"
+    output += f"\nnamespace HLF::GL {{\n\tinline void {api_prefix}InitFunctionPointers(Fn_GetProcAddress proc) {{\n"
     for function in api_functions:
         output += f"\t\ts_fn_{function.name} = (Fn_{function.name})proc(\"{function.name}\");\n"
     output += "\t}\n}\n}"
