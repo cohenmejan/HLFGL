@@ -11,26 +11,26 @@ HEADER_PATH = "include/HLFGL/GLDefinitions.h"
 
 class ConstantDefinition:
     def __init__(self):
-        self.name = str()
-        self.value = str()
+        self.name = ""
+        self.value = ""
 
 class Param:
     def __init__(self):
-        self.type = str()
-        self.name = str()
+        self.type = ""
+        self.name = ""
 
 class FunctionDefinition:
     def __init__(self):
-        self.return_type = str()
-        self.name = str()
-        self.params = list()
+        self.return_type = ""
+        self.name = ""
+        self.params = []
 
 class GLVersionData:
     def __init__(self):
-        self.versionText = str()
-        self.version = (int, int)
-        self.constants = list()
-        self.functions = list()
+        self.versionText = ""
+        self.version = (0, 0)
+        self.constants = []
+        self.functions = []
 
 def format_params(params):
     return f"({", ".join(f"{param.type} {param.name}" for param in params)})"
@@ -71,7 +71,6 @@ for feature in tree.findall("feature"):
     versionData = GLVersionData()
     versionData.versionText = featureName.split("GL_VERSION_")[1]
     versionData.version = (int(versionData.versionText.split("_")[0]), int(versionData.versionText.split("_")[1]))
-    print(f"found version {versionData.version[0]}.{versionData.version[1]}")
 
     for constantNameData in feature.findall("require/enum"):
         name = constantNameData.get("name")
@@ -100,6 +99,7 @@ for feature in tree.findall("feature"):
         function = FunctionDefinition()
         function.return_type = "void" if proto.text is None else ''.join(s for s in text if s != name).strip()
         function.name = name
+
         for paramData in functionData.findall("param"):
             param = Param()
             param.name = paramData.find("name").text.strip()
@@ -130,14 +130,14 @@ for versionData in versions:
         output += f"\n\ttypedef {function.return_type}(*{pfnName}){format_params(function.params)};"
         output += f"\n\tinline PFN_{function.name} fn_{function.name} {{}};"
 
-output += f"\n\n\tinline bool LoadFunctionPointers(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {{"
+output += f"\n\n\tinline void LoadFunctionPointers(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {{"
 
 for versionData in versions:
     output += f"\n\t\tif (initVersion >= Version {{{versionData.version[0]}, {versionData.version[1]}}}) {{"
     for function in versionData.functions:
         output += f"\n\t\t\tfn_{function.name} = (PFN_{function.name})proc(\"{function.name}\");"
-    output += "\n\t\t}\n\t\telse return true;\n"
-output += "\t\treturn true;\n\t}\n}"
+    output += "\n\t\t}\n\t\telse return;\n"
+output += "\t}\n}"
 
 output += "\n"
 for versionData in versions:
@@ -149,3 +149,5 @@ for versionData in versions:
 path = Path(HEADER_PATH)
 path.parent.mkdir(parents=True, exist_ok=True)
 path.write_text(output)
+
+print(f"{HEADER_PATH} generated")

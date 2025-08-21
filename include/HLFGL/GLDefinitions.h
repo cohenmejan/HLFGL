@@ -3955,7 +3955,7 @@ namespace HLF::GL {
 	typedef void(*PFN_glPolygonOffsetClamp)(GLfloat factor, GLfloat units, GLfloat clamp);
 	inline PFN_glPolygonOffsetClamp fn_glPolygonOffsetClamp {};
 
-	inline bool LoadFunctionPointers(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {
+	inline void LoadFunctionPointers(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {
 		if (initVersion >= Version {1, 0}) {
 			fn_glCullFace = (PFN_glCullFace)proc("glCullFace");
 			fn_glFrontFace = (PFN_glFrontFace)proc("glFrontFace");
@@ -4264,7 +4264,7 @@ namespace HLF::GL {
 			fn_glTranslated = (PFN_glTranslated)proc("glTranslated");
 			fn_glTranslatef = (PFN_glTranslatef)proc("glTranslatef");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {1, 1}) {
 			fn_glDrawArrays = (PFN_glDrawArrays)proc("glDrawArrays");
@@ -4298,7 +4298,7 @@ namespace HLF::GL {
 			fn_glPopClientAttrib = (PFN_glPopClientAttrib)proc("glPopClientAttrib");
 			fn_glPushClientAttrib = (PFN_glPushClientAttrib)proc("glPushClientAttrib");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {1, 2}) {
 			fn_glDrawRangeElements = (PFN_glDrawRangeElements)proc("glDrawRangeElements");
@@ -4306,7 +4306,7 @@ namespace HLF::GL {
 			fn_glTexSubImage3D = (PFN_glTexSubImage3D)proc("glTexSubImage3D");
 			fn_glCopyTexSubImage3D = (PFN_glCopyTexSubImage3D)proc("glCopyTexSubImage3D");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {1, 3}) {
 			fn_glActiveTexture = (PFN_glActiveTexture)proc("glActiveTexture");
@@ -4356,7 +4356,7 @@ namespace HLF::GL {
 			fn_glMultTransposeMatrixf = (PFN_glMultTransposeMatrixf)proc("glMultTransposeMatrixf");
 			fn_glMultTransposeMatrixd = (PFN_glMultTransposeMatrixd)proc("glMultTransposeMatrixd");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {1, 4}) {
 			fn_glBlendFuncSeparate = (PFN_glBlendFuncSeparate)proc("glBlendFuncSeparate");
@@ -4407,7 +4407,7 @@ namespace HLF::GL {
 			fn_glBlendColor = (PFN_glBlendColor)proc("glBlendColor");
 			fn_glBlendEquation = (PFN_glBlendEquation)proc("glBlendEquation");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {1, 5}) {
 			fn_glGenQueries = (PFN_glGenQueries)proc("glGenQueries");
@@ -4430,7 +4430,7 @@ namespace HLF::GL {
 			fn_glGetBufferParameteriv = (PFN_glGetBufferParameteriv)proc("glGetBufferParameteriv");
 			fn_glGetBufferPointerv = (PFN_glGetBufferPointerv)proc("glGetBufferPointerv");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {2, 0}) {
 			fn_glBlendEquationSeparate = (PFN_glBlendEquationSeparate)proc("glBlendEquationSeparate");
@@ -4527,7 +4527,7 @@ namespace HLF::GL {
 			fn_glVertexAttrib4usv = (PFN_glVertexAttrib4usv)proc("glVertexAttrib4usv");
 			fn_glVertexAttribPointer = (PFN_glVertexAttribPointer)proc("glVertexAttribPointer");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {2, 1}) {
 			fn_glUniformMatrix2x3fv = (PFN_glUniformMatrix2x3fv)proc("glUniformMatrix2x3fv");
@@ -4537,7 +4537,7 @@ namespace HLF::GL {
 			fn_glUniformMatrix3x4fv = (PFN_glUniformMatrix3x4fv)proc("glUniformMatrix3x4fv");
 			fn_glUniformMatrix4x3fv = (PFN_glUniformMatrix4x3fv)proc("glUniformMatrix4x3fv");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {3, 0}) {
 			fn_glColorMaski = (PFN_glColorMaski)proc("glColorMaski");
@@ -4625,7 +4625,7 @@ namespace HLF::GL {
 			fn_glGenVertexArrays = (PFN_glGenVertexArrays)proc("glGenVertexArrays");
 			fn_glIsVertexArray = (PFN_glIsVertexArray)proc("glIsVertexArray");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {3, 1}) {
 			fn_glDrawArraysInstanced = (PFN_glDrawArraysInstanced)proc("glDrawArraysInstanced");
@@ -4641,7 +4641,7 @@ namespace HLF::GL {
 			fn_glGetActiveUniformBlockName = (PFN_glGetActiveUniformBlockName)proc("glGetActiveUniformBlockName");
 			fn_glUniformBlockBinding = (PFN_glUniformBlockBinding)proc("glUniformBlockBinding");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {3, 2}) {
 			fn_glDrawElementsBaseVertex = (PFN_glDrawElementsBaseVertex)proc("glDrawElementsBaseVertex");
@@ -4664,7 +4664,7 @@ namespace HLF::GL {
 			fn_glGetMultisamplefv = (PFN_glGetMultisamplefv)proc("glGetMultisamplefv");
 			fn_glSampleMaski = (PFN_glSampleMaski)proc("glSampleMaski");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {3, 3}) {
 			fn_glBindFragDataLocationIndexed = (PFN_glBindFragDataLocationIndexed)proc("glBindFragDataLocationIndexed");
@@ -4726,7 +4726,7 @@ namespace HLF::GL {
 			fn_glSecondaryColorP3ui = (PFN_glSecondaryColorP3ui)proc("glSecondaryColorP3ui");
 			fn_glSecondaryColorP3uiv = (PFN_glSecondaryColorP3uiv)proc("glSecondaryColorP3uiv");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {4, 0}) {
 			fn_glMinSampleShading = (PFN_glMinSampleShading)proc("glMinSampleShading");
@@ -4776,7 +4776,7 @@ namespace HLF::GL {
 			fn_glEndQueryIndexed = (PFN_glEndQueryIndexed)proc("glEndQueryIndexed");
 			fn_glGetQueryIndexediv = (PFN_glGetQueryIndexediv)proc("glGetQueryIndexediv");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {4, 1}) {
 			fn_glReleaseShaderCompiler = (PFN_glReleaseShaderCompiler)proc("glReleaseShaderCompiler");
@@ -4868,7 +4868,7 @@ namespace HLF::GL {
 			fn_glGetFloati_v = (PFN_glGetFloati_v)proc("glGetFloati_v");
 			fn_glGetDoublei_v = (PFN_glGetDoublei_v)proc("glGetDoublei_v");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {4, 2}) {
 			fn_glDrawArraysInstancedBaseInstance = (PFN_glDrawArraysInstancedBaseInstance)proc("glDrawArraysInstancedBaseInstance");
@@ -4884,7 +4884,7 @@ namespace HLF::GL {
 			fn_glDrawTransformFeedbackInstanced = (PFN_glDrawTransformFeedbackInstanced)proc("glDrawTransformFeedbackInstanced");
 			fn_glDrawTransformFeedbackStreamInstanced = (PFN_glDrawTransformFeedbackStreamInstanced)proc("glDrawTransformFeedbackStreamInstanced");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {4, 3}) {
 			fn_glClearBufferData = (PFN_glClearBufferData)proc("glClearBufferData");
@@ -4931,7 +4931,7 @@ namespace HLF::GL {
 			fn_glObjectPtrLabel = (PFN_glObjectPtrLabel)proc("glObjectPtrLabel");
 			fn_glGetObjectPtrLabel = (PFN_glGetObjectPtrLabel)proc("glGetObjectPtrLabel");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {4, 4}) {
 			fn_glBufferStorage = (PFN_glBufferStorage)proc("glBufferStorage");
@@ -4944,7 +4944,7 @@ namespace HLF::GL {
 			fn_glBindImageTextures = (PFN_glBindImageTextures)proc("glBindImageTextures");
 			fn_glBindVertexBuffers = (PFN_glBindVertexBuffers)proc("glBindVertexBuffers");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {4, 5}) {
 			fn_glClipControl = (PFN_glClipControl)proc("glClipControl");
@@ -5070,7 +5070,7 @@ namespace HLF::GL {
 			fn_glGetnMinmax = (PFN_glGetnMinmax)proc("glGetnMinmax");
 			fn_glTextureBarrier = (PFN_glTextureBarrier)proc("glTextureBarrier");
 		}
-		else return true;
+		else return;
 
 		if (initVersion >= Version {4, 6}) {
 			fn_glSpecializeShader = (PFN_glSpecializeShader)proc("glSpecializeShader");
@@ -5078,8 +5078,7 @@ namespace HLF::GL {
 			fn_glMultiDrawElementsIndirectCount = (PFN_glMultiDrawElementsIndirectCount)proc("glMultiDrawElementsIndirectCount");
 			fn_glPolygonOffsetClamp = (PFN_glPolygonOffsetClamp)proc("glPolygonOffsetClamp");
 		}
-		else return true;
-		return true;
+		else return;
 	}
 }
 
