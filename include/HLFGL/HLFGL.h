@@ -26,6 +26,7 @@ namespace HLF::GL {
 	enum struct InitStatusCode {
 		Success,
 		LibraryFailedToLoad,
+		DisplayFailedToInitialize,
 		RequestedVersionNotSupported,
 		FunctionsFailedToLoad,
 	};
@@ -113,8 +114,8 @@ namespace HLF::GL {
 				return version;
 		}
 
-		s_fn_glGetIntegerv = (Fn_glGetIntegerv)proc("glGetIntegerv");
-		s_fn_glGetString = (Fn_glGetString)proc("glGetString");
+		if(!s_fn_glGetIntegerv) s_fn_glGetIntegerv = (Fn_glGetIntegerv)proc("glGetIntegerv");
+		if(!s_fn_glGetString) s_fn_glGetString = (Fn_glGetString)proc("glGetString");
 
 		if(s_fn_glGetIntegerv) {
 			int major {};
@@ -150,11 +151,8 @@ namespace HLF::GL {
 	/// 'initVersion' will be loaded. if the highest supported GL version is less than 'initVersion',
 	/// this function will load GL functions up to the highest supported GL version
 	/// @param proc the function that will be used to load each function
-	inline InitStatus GLInit(Version initVersion = {1, 0}, Fn_GetProcAddress proc = GLGetProcAddress) {
-		if(s_glLibHandle)
-			GLDelete();
-
-		if(!GLLoadLibraries())
+	inline InitStatus GLInit(Version initVersion = GLGetVersion(), Fn_GetProcAddress proc = GLGetProcAddress) {
+		if(!s_glLibHandle && !GLLoadLibraries())
 			return InitStatus {false, InitStatusCode::LibraryFailedToLoad};
 
 		Version version = GLGetVersion(proc);
@@ -198,24 +196,73 @@ namespace HLF::GL {
 
 namespace HLF::GL {
 	inline void* s_eglLibHandle {};
+	inline EGLDisplay s_eglDefaultDisplay {};
+	inline Version s_eglVersion {};
 
 	bool EGLLoadLibrary();
 	void* EGLGetProcAddress(const char* functionName);
 
+	inline bool EGLInitDisplay() {
+		if(!s_eglLibHandle) {
+			EGLLoadLibrary();
+			if(!s_eglLibHandle) return false;
+		}
+
+		if(!s_fn_eglGetDisplay) {
+			s_fn_eglGetDisplay = (Fn_eglGetDisplay)eglGetProcAddress("eglGetDisplay");
+			if(!s_fn_eglGetDisplay) return false;
+		}
+
+		if(!s_fn_eglQueryString) {
+			s_fn_eglQueryString = (Fn_eglQueryString)eglGetProcAddress("eglQueryString");
+			if(!s_fn_eglQueryString) return false;
+		}
+
+		if(!s_fn_eglInitialize) {
+			s_fn_eglInitialize = (Fn_eglInitialize)eglGetProcAddress("eglInitialize");
+			if(!s_fn_eglInitialize) return false;
+		}
+
+		s_eglDefaultDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+		if(s_eglDefaultDisplay == EGL_NO_DISPLAY) return false;
+
+		s_eglVersion = {};
+		EGLint major {};
+		EGLint minor {};
+		if(!eglInitialize(s_eglDefaultDisplay, &major, &minor)) return false;
+
+		s_eglVersion = Version {(unsigned int)major, (unsigned int)minor};
+
+		return true;
+	}
+
+	inline Version EGLGetVersion() {
+		if(!s_eglDefaultDisplay && !EGLInitDisplay()) return Version {};
+		return s_eglVersion;
+	}
+
 	inline bool EGLDelete() {
+		s_eglDefaultDisplay = 0;
+		s_eglVersion = {};
 		if(!UnloadLibrary(s_eglLibHandle)) return false;
 		s_eglLibHandle = 0;
 		return true;
 	}
 
-	inline InitStatus EGLInit(Version version = {1, 0}, Fn_GetProcAddress proc = EGLGetProcAddress) {
-		if(s_eglLibHandle)
-			EGLDelete();
-
-		if(!EGLLoadLibrary())
+	inline InitStatus EGLInit(Version initVersion = EGLGetVersion(), Fn_GetProcAddress proc = EGLGetProcAddress) {
+		if(!s_eglLibHandle && !EGLLoadLibrary())
 			return InitStatus {false, InitStatusCode::LibraryFailedToLoad};
 
-		EGLLoadFunctionPointers(version, proc);
+		if(!s_eglDefaultDisplay && !EGLInitDisplay())
+			return InitStatus {false, InitStatusCode::DisplayFailedToInitialize};
+
+		if(initVersion < EGLGetVersion())
+			return InitStatus {false, InitStatusCode::RequestedVersionNotSupported};
+
+		EGLLoadFunctionPointers(initVersion, proc);
+
+		const char* extensions {eglQueryString(s_eglDefaultDisplay, EGL_EXTENSIONS)};
+
 		return InitStatus {true, InitStatusCode::Success};
 	}
 }

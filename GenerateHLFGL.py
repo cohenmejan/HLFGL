@@ -44,6 +44,10 @@ def generate_api(api_prefix, api_name, xml_url):
     print(f"downloading {api_prefix} xml ...")
     tree = etree.parse(urlopen(xml_url))
 
+    typedefs = []
+    versions = []
+    definedNames = []
+
     typesTable = {}
     for typeData in tree.findall("types/type"):
         name = typeData.get("name")
@@ -56,8 +60,7 @@ def generate_api(api_prefix, api_name, xml_url):
         typedef.name = name.strip()
         typedef.value = ''.join(typeData.itertext()).strip()
         typedef.requires = typeData.get("requires")
-        if typedef.requires is not None:
-            typedef.requires = typedef.requires.strip()
+        typedef.requires = typedef.requires.strip() if typedef.requires is not None else None
 
         typesTable[name] = typedef
 
@@ -69,10 +72,6 @@ def generate_api(api_prefix, api_name, xml_url):
     for command in tree.findall("commands/command"):
         proto = command.find("proto")
         commandTable[proto.find("name").text] = command
-
-    typedefs = []
-    versions = []
-    definedNames = []
 
     def addTypedef(name):
         if name is None or name in definedNames:
@@ -87,8 +86,8 @@ def generate_api(api_prefix, api_name, xml_url):
         if value.value is None or len(value.value) == 0:
             return
 
-        print(f"adding typedef {name} -- {value.value}")
         typedefs.append(value)
+    # /addTypedef
 
     versionPrefix = f"{api_prefix}_VERSION_"
 
@@ -151,9 +150,9 @@ def generate_api(api_prefix, api_name, xml_url):
                 param.type = ''.join(s for s in paramData.itertext() if s != param.name).strip()
                 function.params.append(param)
 
-                ptype = paramData.find("ptype")
-                if ptype is not None and ptype.text is not None:
-                    addTypedef(ptype.text)
+                param_ptype = paramData.find("ptype")
+                if param_ptype is not None and param_ptype.text is not None:
+                    addTypedef(param_ptype.text)
 
             function.formattedParams = f"({", ".join(f"{param.type} {param.name}" for param in function.params)})"
             versionData.functions.append(function)
