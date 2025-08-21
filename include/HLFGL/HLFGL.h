@@ -2,7 +2,15 @@
 
 #include <compare>
 
+#if __unix__
+#define HLFGL_SYSTEM_UNIX 1
+#endif
+
+#include <HLFGL/Config.h>
+
 namespace HLF::GL {
+	using Fn_GetProcAddress = void*(*)(const char* name);
+
 	struct Version {
 		unsigned int major {};
 		unsigned int minor {};
@@ -11,75 +19,13 @@ namespace HLF::GL {
 			if(auto cmp = major <=> other.major; cmp != 0) return cmp;
 			return minor <=> other.minor;
 		}
+
+		constexpr bool operator==(const Version& other) const = default;
 	};
-
-	void* LoadLibrary(const char* path);
-	bool FreeLibrary(void* handle);
-
-	void* LoadGLLibrary();
-
-	using PFN_GetProcAddress = void*(*)(const char* name);
-	void* GetProcAddress(const char* name);
-
-	Version GetVersion(PFN_GetProcAddress proc = GetProcAddress);
-}
-
-#include <HLFGL/GLDefinitions.h>
-#include <stdio.h>
-
-#ifdef __unix__
-#define HLF_SYSTEM_UNIX 1
-#include <EGL/egl.h>
-#include <dlfcn.h>
-#elif defined(WIN32) || defined(_WIN32)
-#define HLF_SYSTEM_WINDOWS 1
-#include <Windows.h>
-#endif
-
-namespace HLF::GL {
-	inline void* s_glLibHandle {};
-
-	/// gets the highest supported GL version\n
-	/// returns {0, 0} if no version is supported
-	inline Version GetVersion(PFN_GetProcAddress proc) {
-		static Version _cachedVersion {};
-
-		if(_cachedVersion.major != 0 && _cachedVersion.minor != 0)
-			return _cachedVersion;
-
-		_cachedVersion = {};
-
-		fn_glGetIntegerv = (PFN_glGetIntegerv)proc("glGetIntegerv");
-		fn_glGetString = (PFN_glGetString)proc("glGetString");
-
-		if(fn_glGetIntegerv) {
-			int major {};
-			int minor {};
-			glGetIntegerv(GL_MAJOR_VERSION, &major);
-			glGetIntegerv(GL_MINOR_VERSION, &minor);
-			_cachedVersion = Version {(unsigned int)major, (unsigned int)minor};
-		}
-		else if(fn_glGetString) {
-			const GLubyte* versionString = glGetString(GL_VERSION);
-			if(versionString) {
-				sscanf((const char*)versionString, "%d.%d", &_cachedVersion.major, &_cachedVersion.minor);
-			}
-		}
-
-		return _cachedVersion;
-	}
-
-	/// unloads the GL library
-	/// @return true on success
-	inline bool Delete() {
-		bool status = FreeLibrary(s_glLibHandle);
-		s_glLibHandle = 0;
-		return status;
-	}
 
 	enum struct InitStatusCode {
 		Success,
-		GLLibFailedToLoad,
+		LibraryFailedToLoad,
 		RequestedVersionNotSupported,
 		FunctionsFailedToLoad,
 	};
@@ -87,7 +33,7 @@ namespace HLF::GL {
 	constexpr const char* ToString(InitStatusCode code) {
 		switch(code) {
 			case InitStatusCode::Success: return "Success";
-			case InitStatusCode::GLLibFailedToLoad: return "GLLibFailedToLoad";
+			case InitStatusCode::LibraryFailedToLoad: return "GLLibFailedToLoad";
 			case InitStatusCode::RequestedVersionNotSupported: return "RequestedVersionNotSupported";
 			case InitStatusCode::FunctionsFailedToLoad: return "FunctionsFailedToLoad";
 			default: return "Unknown";
@@ -103,49 +49,197 @@ namespace HLF::GL {
 		}
 	};
 
+	void* LoadLibrary(const char* path);
+	bool UnloadLibrary(void* handle);
+}
+
+// common platform specific definitions
+
+#if HLFGL_SYSTEM_UNIX
+
+#include <dlfcn.h>
+
+namespace HLF::GL {
+	inline void* LoadLibrary(const char* path) {
+		if(!path) return 0;
+		return dlopen(path, RTLD_NOW | RTLD_LOCAL);
+	}
+
+	inline bool UnloadLibrary(void* handle) {
+		if(!handle) return false;
+		return dlclose(handle) == 0;
+	}
+}
+
+#endif // HLFGL_SYSTEM_UNIX
+
+// generated definitions
+#include <HLFGL/GLDefinitions.h>
+
+#include <stdio.h>
+
+// usage implementations
+
+#if HLFGL_ENABLE_GL
+
+namespace HLF::GL {
+	inline void* s_glLibHandle {};
+	inline void* s_glPlatformLibHandle {};
+
+	inline Fn_GetProcAddress s_fn_GLPlatformGetProcAddress {};
+
+	/// gets the function's address via the platform's GL API
+	inline void* GLPlatformGetProcAddress(const char* functionName) {
+		return s_fn_GLPlatformGetProcAddress(functionName);
+	}
+
+	/// gets the function's address first using the platform's GL API.
+	/// if that fails, it will attempt to load the function using the OS API
+	/// @return the address of the function
+	void* GLGetProcAddress(const char* functionName);
+
+	/// loads the GL library and the platform's GL library (e.g., EGL/WGL),
+	/// as well as the platform's GL function loader
+	bool GLLoadLibraries();
+
+	/// gets the highest supported GL version\n
+	/// returns {0, 0} if no version is supported or if the gl lib fails to load
+	inline Version GLGetVersion(Fn_GetProcAddress proc = GLGetProcAddress) {
+		Version version {};
+
+		if(!s_glLibHandle) {
+			GLLoadLibraries();
+			if(!s_glLibHandle)
+				return version;
+		}
+
+		s_fn_glGetIntegerv = (Fn_glGetIntegerv)proc("glGetIntegerv");
+		s_fn_glGetString = (Fn_glGetString)proc("glGetString");
+
+		if(s_fn_glGetIntegerv) {
+			int major {};
+			int minor {};
+			glGetIntegerv(GL_MAJOR_VERSION, &major);
+			glGetIntegerv(GL_MINOR_VERSION, &minor);
+			version = Version {(unsigned int)major, (unsigned int)minor};
+		}
+		else if(s_fn_glGetString) {
+			const GLubyte* versionString = glGetString(GL_VERSION);
+			if(versionString) {
+				sscanf((const char*)versionString, "%d.%d", &version.major, &version.minor);
+			}
+		}
+
+		return version;
+	}
+
+	/// unloads the GL libraries and frees their resources
+	inline bool GLDelete() {
+		if(!UnloadLibrary(s_glLibHandle)) return false;
+		if(!UnloadLibrary(s_glPlatformLibHandle)) return false;
+
+		s_glLibHandle = 0;
+		s_glPlatformLibHandle = 0;
+		s_fn_GLPlatformGetProcAddress = 0;
+
+		return true;
+	}
+
 	/// loads the GL library and initializes GL function pointers
 	/// @param initVersion the version to be initialized. function pointers for GL functions from version 1.0 to
 	/// 'initVersion' will be loaded. if the highest supported GL version is less than 'initVersion',
 	/// this function will load GL functions up to the highest supported GL version
 	/// @param proc the function that will be used to load each function
-	inline InitStatus Init(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {
+	inline InitStatus GLInit(Version initVersion = {1, 0}, Fn_GetProcAddress proc = GLGetProcAddress) {
 		if(s_glLibHandle)
-			Delete();
+			GLDelete();
 
-		s_glLibHandle = LoadGLLibrary();
-		if(!s_glLibHandle)
-			return InitStatus {false, InitStatusCode::GLLibFailedToLoad};
+		if(!GLLoadLibraries())
+			return InitStatus {false, InitStatusCode::LibraryFailedToLoad};
 
-		Version version = GetVersion(proc);
+		Version version = GLGetVersion(proc);
 		if(version < initVersion) {
-			LoadFunctionPointers(version, proc);
-			FreeLibrary(s_glLibHandle);
+			GLLoadFunctionPointers(version, proc);
 			return InitStatus {false, InitStatusCode::RequestedVersionNotSupported};
 		}
 
-		LoadFunctionPointers(initVersion, proc);
+		GLLoadFunctionPointers(initVersion, proc);
 		return InitStatus {true, InitStatusCode::Success};
 	}
 }
 
-#if HLF_SYSTEM_UNIX
+#if HLFGL_SYSTEM_UNIX
 
 namespace HLF::GL {
-	inline void* LoadLibrary(const char* path) {
-		return dlopen(path, RTLD_NOW | RTLD_LOCAL);
+	inline bool GLLoadLibraries() {
+		s_glLibHandle = LoadLibrary("libGL.so.1");
+		if(!s_glLibHandle) return false;
+
+		s_glPlatformLibHandle = LoadLibrary("libEGL.so.1");
+		if(!s_glPlatformLibHandle) return false;
+
+		s_fn_GLPlatformGetProcAddress = (Fn_GetProcAddress)dlsym(s_glPlatformLibHandle, "eglGetProcAddress");
+		if(!s_fn_GLPlatformGetProcAddress) return false;
+
+		return true;
 	}
 
-	inline bool FreeLibrary(void* handle) {
-		return dlclose(handle) == 0;
-	}
-
-	inline void* LoadGLLibrary() {
-		return LoadLibrary("libGL.so.1");
-	}
-
-	inline void* GetProcAddress(const char* name) {
-		return (void*)eglGetProcAddress(name);
+	inline void* GLGetProcAddress(const char* functionName) {
+		void* ptr {GLPlatformGetProcAddress(functionName)};
+		if(!ptr) ptr = dlsym(s_glLibHandle, functionName);
+		return ptr;
 	}
 }
 
 #endif // HLF_SYSTEM_UNIX
+#endif // HLFGL_ENABLE_GL
+
+#if HLFGL_ENABLE_EGL
+
+namespace HLF::GL {
+	inline void* s_eglLibHandle {};
+
+	bool EGLLoadLibrary();
+	void* EGLGetProcAddress(const char* functionName);
+
+	inline bool EGLDelete() {
+		if(!UnloadLibrary(s_eglLibHandle)) return false;
+		s_eglLibHandle = 0;
+		return true;
+	}
+
+	inline InitStatus EGLInit(Version version = {1, 0}, Fn_GetProcAddress proc = EGLGetProcAddress) {
+		if(s_eglLibHandle)
+			EGLDelete();
+
+		if(!EGLLoadLibrary())
+			return InitStatus {false, InitStatusCode::LibraryFailedToLoad};
+
+		EGLLoadFunctionPointers(version, proc);
+		return InitStatus {true, InitStatusCode::Success};
+	}
+}
+
+
+#if HLFGL_SYSTEM_UNIX
+
+namespace HLF::GL {
+	inline bool EGLLoadLibrary() {
+		s_eglLibHandle = LoadLibrary("libEGL.so.1");
+		if(!s_eglLibHandle) return false;
+
+		s_fn_eglGetProcAddress = (Fn_eglGetProcAddress)dlsym(s_eglLibHandle, "eglGetProcAddress");
+		if(!s_fn_eglGetProcAddress) return false;
+
+		return true;
+	}
+
+	inline void* EGLGetProcAddress(const char* functionName) {
+		void* ptr {(void*)eglGetProcAddress(functionName)};
+		if(!ptr) ptr = dlsym(s_eglLibHandle, functionName);
+		return ptr;
+	}
+}
+
+#endif // HLFGL_SYSTEM_UNIX
+#endif // HLFGL_ENABLE_EGL

@@ -1,13 +1,14 @@
-#!/usr/bin/env python3
-
 # generates include/HLFGLDefinitions.h
+
+GL_VERSION = (4, 6)
+HEADER_PATH = "include/HLFGL/GLDefinitions.h"
+
+GL_XML_URL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/xml/gl.xml"
+EGL_XML_URL = "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/egl.xml"
 
 import xml.etree.ElementTree as etree
 from urllib.request import urlopen
 from pathlib import Path
-
-GL_XML_URL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/xml/gl.xml"
-HEADER_PATH = "include/HLFGL/GLDefinitions.h"
 
 class ConstantDefinition:
     def __init__(self):
@@ -24,127 +25,186 @@ class FunctionDefinition:
         self.return_type = ""
         self.name = ""
         self.params = []
+        self.formattedParams = ""
 
-class GLVersionData:
+class VersionData:
     def __init__(self):
         self.versionText = ""
         self.version = (0, 0)
         self.constants = []
         self.functions = []
 
-def format_params(params):
-    return f"({", ".join(f"{param.type} {param.name}" for param in params)})"
+class TypedefData:
+    def __init__(self):
+        self.name = ""
+        self.value = ""
+        self.requires = ""
 
-print("downloading gl.xml ...")
+def generate_api(api_prefix, api_name, xml_url):
+    print(f"downloading {api_prefix} xml ...")
+    tree = etree.parse(urlopen(xml_url))
 
-tree = etree.parse(urlopen(GL_XML_URL))
+    typesTable = {}
+    for typeData in tree.findall("types/type"):
+        name = typeData.get("name")
+        if name is None:
+            name = typeData.find("name").text
+            if name is None:
+                continue
 
-constantTable = {}
-for enum in tree.findall("enums/enum"):
-    constantTable[enum.get("name")] = enum
+        typedef = TypedefData()
+        typedef.name = name.strip()
+        typedef.value = ''.join(typeData.itertext()).strip()
+        typedef.requires = typeData.get("requires")
+        if typedef.requires is not None:
+            typedef.requires = typedef.requires.strip()
 
-commandTable = {}
-for command in tree.findall("commands/command"):
-    proto = command.find("proto")
-    commandTable[proto.find("name").text] = command
+        typesTable[name] = typedef
 
-typedefs = []
-for typeData in tree.findall("types/type"):
-    if typeData.text is None:
-        continue
+    constantTable = {}
+    for enum in tree.findall("enums/enum"):
+        constantTable[enum.get("name")] = enum
 
-    typeName = ''.join(typeData.itertext())
-    typedefs.append(typeName)
+    commandTable = {}
+    for command in tree.findall("commands/command"):
+        proto = command.find("proto")
+        commandTable[proto.find("name").text] = command
 
-versions = []
-definedNames = []
+    typedefs = []
+    versions = []
+    definedNames = []
 
-for feature in tree.findall("feature"):
-    api = feature.get("api")
-    if api != "gl":
-        continue
-
-    featureName = feature.get("name")
-    if not featureName.startswith("GL_VERSION_"):
-        continue
-
-    versionData = GLVersionData()
-    versionData.versionText = featureName.split("GL_VERSION_")[1]
-    versionData.version = (int(versionData.versionText.split("_")[0]), int(versionData.versionText.split("_")[1]))
-
-    for constantNameData in feature.findall("require/enum"):
-        name = constantNameData.get("name")
-        if name in definedNames:
-            continue
+    def addTypedef(name):
+        if name is None or name in definedNames:
+            return
         definedNames.append(name)
 
-        constantData = constantTable.get(name)
-        value = constantData.get("value")
+        value = typesTable.get(name)
 
-        constant = ConstantDefinition()
-        constant.name = name
-        constant.value = value
-        versionData.constants.append(constant)
+        if value is not None and value.requires is not None:
+            addTypedef(value.requires)
 
-    for command in feature.findall("require/command"):
-        name = command.get("name")
-        if name in definedNames:
+        if value.value is None or len(value.value) == 0:
+            return
+
+        print(f"adding typedef {name} -- {value.value}")
+        typedefs.append(value)
+
+    versionPrefix = f"{api_prefix}_VERSION_"
+
+    for feature in tree.findall("feature"):
+        api = feature.get("api")
+        if api != api_name:
             continue
-        definedNames.append(name)
 
-        functionData = commandTable.get(name)
-        proto = functionData.find("proto")
-        text = proto.itertext()
+        featureName = feature.get("name")
 
-        function = FunctionDefinition()
-        function.return_type = "void" if proto.text is None else ''.join(s for s in text if s != name).strip()
-        function.name = name
+        if not featureName.startswith(versionPrefix):
+            continue
 
-        for paramData in functionData.findall("param"):
-            param = Param()
-            param.name = paramData.find("name").text.strip()
-            param.type = ''.join(s for s in paramData.itertext() if s != param.name).strip()
-            function.params.append(param)
+        versionData = VersionData()
+        versionData.versionText = featureName.split(versionPrefix)[1]
+        versionData.version = (int(versionData.versionText.split("_")[0]), int(versionData.versionText.split("_")[1]))
 
-        versionData.functions.append(function)
+        for constantNameData in feature.findall("require/enum"):
+            name = constantNameData.get("name")
+            if name in definedNames:
+                continue
+            definedNames.append(name)
 
-    versions.append(versionData)
+            constantData = constantTable.get(name)
+            value = constantData.get("value")
 
-output = '''// generated
+            constant = ConstantDefinition()
+            constant.name = name
+            constant.value = value
+            versionData.constants.append(constant)
 
-#pragma once
+        for command in feature.findall("require/command"):
+            name = command.get("name")
+            if name in definedNames:
+                continue
+            definedNames.append(name)
 
-'''
+            functionData = commandTable.get(name)
+            proto = functionData.find("proto")
+            ptype = proto.find("ptype")
+            text = proto.itertext()
 
-output += f"{"\n".join(typedefs)}\n"
-    
-for versionData in versions:
-    for constant in versionData.constants:
-        output += f"\n#define {constant.name} {constant.value}"
+            function = FunctionDefinition()
 
-output += "\n\nnamespace HLF::GL {"
+            if ptype is not None and ptype.text is not None:
+                addTypedef(ptype.text.strip())
 
-for versionData in versions:
-    for function in versionData.functions:
-        pfnName = f"PFN_{function.name}"
-        output += f"\n\ttypedef {function.return_type}(*{pfnName}){format_params(function.params)};"
-        output += f"\n\tinline PFN_{function.name} fn_{function.name} {{}};"
+            if proto.text is not None:
+                function.return_type += ''.join(s for s in text if s != name).strip()
+            elif ptype is not None and ptype.text is not None:
+                function.return_type = ptype.text.strip()
+            else:
+                function.return_type = "void"
 
-output += f"\n\n\tinline void LoadFunctionPointers(Version initVersion = GetVersion(), PFN_GetProcAddress proc = GetProcAddress) {{"
+            function.name = name
 
-for versionData in versions:
-    output += f"\n\t\tif (initVersion >= Version {{{versionData.version[0]}, {versionData.version[1]}}}) {{"
-    for function in versionData.functions:
-        output += f"\n\t\t\tfn_{function.name} = (PFN_{function.name})proc(\"{function.name}\");"
-    output += "\n\t\t}\n\t\telse return;\n"
-output += "\t}\n}"
+            for paramData in functionData.findall("param"):
+                param = Param()
+                param.name = paramData.find("name").text.strip()
+                param.type = ''.join(s for s in paramData.itertext() if s != param.name).strip()
+                function.params.append(param)
 
-output += "\n"
-for versionData in versions:
-    for function in versionData.functions:
-        body = f"return HLF::GL::fn_{function.name}({', '.join(param.name for param in function.params)});"
-        output += f"\ninline {function.return_type} {function.name}{format_params(function.params)} {{ {body} }}"
+                ptype = paramData.find("ptype")
+                if ptype is not None and ptype.text is not None:
+                    addTypedef(ptype.text)
 
+            function.formattedParams = f"({", ".join(f"{param.type} {param.name}" for param in function.params)})"
+            versionData.functions.append(function)
+
+        versions.append(versionData)
+
+    defineTag = f"HLFGL_ENABLE_{api_prefix}"
+    output = f"\n\n#if {defineTag}"
+
+    output += f"\n\nextern \"C\" {{"
+    for typedef in typedefs:
+        if typedef is not None and typedef.value is not None:
+            output += f"\n\t{typedef.value}"
+    output += "\n}\n"
+
+    for versionData in versions:
+        for constant in versionData.constants:
+            output += f"\n#define {constant.name} {constant.value}"
+
+    output += f"\n\nnamespace HLF::GL {{"
+
+    for versionData in versions:
+        for function in versionData.functions:
+            fnTypeName = f"Fn_{function.name}"
+            output += f"\n\ttypedef {function.return_type}(*{fnTypeName}){function.formattedParams};"
+            output += f"\n\tinline {fnTypeName} s_fn_{function.name} {{}};"
+
+    output += f"\n\n\tinline void {api_prefix}LoadFunctionPointers(Version initVersion, Fn_GetProcAddress proc) {{"
+
+    for versionData in versions:
+        if len(versionData.functions) == 0:
+            continue
+
+        output += f"\n\t\tif (initVersion >= Version {{{versionData.version[0]}, {versionData.version[1]}}}) {{"
+        for function in versionData.functions:
+            output += f"\n\t\t\ts_fn_{function.name} = (Fn_{function.name})proc(\"{function.name}\");"
+        output += "\n\t\t}\n\t\telse return;\n"
+    output += "\t}\n}"
+
+    output += "\n\nextern \"C\" {"
+    for versionData in versions:
+        for function in versionData.functions:
+            body = f"return HLF::GL::s_fn_{function.name}({', '.join(param.name for param in function.params)});"
+            output += f"\n\tinline {function.return_type} {function.name}{function.formattedParams} {{ {body} }}"
+
+    output += f"\n}}\n\n#endif // {defineTag}"
+    return output
+
+output = "// generated\n\n#pragma once"
+output += generate_api("GL", "gl", GL_XML_URL)
+output += generate_api("EGL", "egl", EGL_XML_URL)
 
 path = Path(HEADER_PATH)
 path.parent.mkdir(parents=True, exist_ok=True)
