@@ -26,17 +26,12 @@ namespace HLF::GL {
 	enum struct InitStatusCode {
 		Success,
 		LibraryFailedToLoad,
-		DisplayFailedToInitialize,
-		RequestedVersionNotSupported,
-		FunctionsFailedToLoad,
 	};
 
 	constexpr const char* ToString(InitStatusCode code) {
 		switch(code) {
 			case InitStatusCode::Success: return "Success";
 			case InitStatusCode::LibraryFailedToLoad: return "GLLibFailedToLoad";
-			case InitStatusCode::RequestedVersionNotSupported: return "RequestedVersionNotSupported";
-			case InitStatusCode::FunctionsFailedToLoad: return "FunctionsFailedToLoad";
 			default: return "Unknown";
 		}
 	}
@@ -147,21 +142,12 @@ namespace HLF::GL {
 	}
 
 	/// loads the GL library and initializes GL function pointers
-	/// @param initVersion the version to be initialized. function pointers for GL functions from version 1.0 to
-	/// 'initVersion' will be loaded. if the highest supported GL version is less than 'initVersion',
-	/// this function will load GL functions up to the highest supported GL version
 	/// @param proc the function that will be used to load each function
-	inline InitStatus GLInit(Version initVersion = GLGetVersion(), Fn_GetProcAddress proc = GLGetProcAddress) {
+	inline InitStatus GLInit(Fn_GetProcAddress proc = GLGetProcAddress) {
 		if(!s_glLibHandle && !GLLoadLibraries())
 			return InitStatus {false, InitStatusCode::LibraryFailedToLoad};
 
-		Version version = GLGetVersion(proc);
-		if(version < initVersion) {
-			GLLoadFunctionPointers(version, proc);
-			return InitStatus {false, InitStatusCode::RequestedVersionNotSupported};
-		}
-
-		GLLoadFunctionPointers(initVersion, proc);
+		GLInitFunctionPointers(proc);
 		return InitStatus {true, InitStatusCode::Success};
 	}
 }
@@ -194,6 +180,8 @@ namespace HLF::GL {
 
 #if HLFGL_ENABLE_EGL
 
+#include <HLFGL/EGLDefinitions.h>
+
 namespace HLF::GL {
 	inline void* s_eglLibHandle {};
 	inline EGLDisplay s_eglDefaultDisplay {};
@@ -202,7 +190,7 @@ namespace HLF::GL {
 	bool EGLLoadLibrary();
 	void* EGLGetProcAddress(const char* functionName);
 
-	inline bool EGLInitDisplay() {
+	inline bool EGLInitDefaultDisplay() {
 		if(!s_eglLibHandle) {
 			EGLLoadLibrary();
 			if(!s_eglLibHandle) return false;
@@ -237,8 +225,13 @@ namespace HLF::GL {
 	}
 
 	inline Version EGLGetVersion() {
-		if(!s_eglDefaultDisplay && !EGLInitDisplay()) return Version {};
+		if(!s_eglDefaultDisplay && !EGLInitDefaultDisplay()) return Version {};
 		return s_eglVersion;
+	}
+
+	inline EGLDisplay EGLGetDefaultDisplay() {
+		if(!s_eglDefaultDisplay && !EGLInitDefaultDisplay()) return 0;
+		return s_eglDefaultDisplay;
 	}
 
 	inline bool EGLDelete() {
@@ -249,20 +242,11 @@ namespace HLF::GL {
 		return true;
 	}
 
-	inline InitStatus EGLInit(Version initVersion = EGLGetVersion(), Fn_GetProcAddress proc = EGLGetProcAddress) {
+	inline InitStatus EGLInit(Fn_GetProcAddress proc = EGLGetProcAddress) {
 		if(!s_eglLibHandle && !EGLLoadLibrary())
 			return InitStatus {false, InitStatusCode::LibraryFailedToLoad};
 
-		if(!s_eglDefaultDisplay && !EGLInitDisplay())
-			return InitStatus {false, InitStatusCode::DisplayFailedToInitialize};
-
-		if(initVersion < EGLGetVersion())
-			return InitStatus {false, InitStatusCode::RequestedVersionNotSupported};
-
-		EGLLoadFunctionPointers(initVersion, proc);
-
-		const char* extensions {eglQueryString(s_eglDefaultDisplay, EGL_EXTENSIONS)};
-
+		EGLInitFunctionPointers(proc);
 		return InitStatus {true, InitStatusCode::Success};
 	}
 }
