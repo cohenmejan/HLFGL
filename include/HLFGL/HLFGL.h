@@ -2,10 +2,7 @@
 
 #include <compare>
 
-#if __linux__
-#define HLFGL_SYSTEM_LINUX 1
-#endif
-
+#include <HLFGL/Platform.h>
 #include <HLFGL/Config.h>
 
 namespace HLFGL {
@@ -95,10 +92,30 @@ namespace HLFGL {
 
 namespace HLFGL {
 	inline bool GLLoadLibraries() {
-		s_glLibHandle = LoadLibrary("libGL.so.1");
+		const char* glLibNames[] {
+			"libGL.so.1",
+			"usr/lib/libGL.so.1",
+			"libGL.so",
+			"usr/lib/libGL.so"
+		};
+
+		for(const char** name = glLibNames; *name; ++name) {
+			s_glLibHandle = LoadLibrary(*name);
+			if(s_glLibHandle) break;
+		}
 		if(!s_glLibHandle) return false;
 
-		s_glPlatformLibHandle = LoadLibrary("libEGL.so.1");
+		const char* eglLibNames[] {
+			"libEGL.so.1",
+			"usr/lib/libEGL.so.1",
+			"libEGL.so",
+			"usr/lib/libEGL.so"
+		};
+
+		for(const char** name = eglLibNames; *name; ++name) {
+			s_glPlatformLibHandle = LoadLibrary(*name);
+			if(s_glPlatformLibHandle) break;
+		}
 		if(!s_glPlatformLibHandle) return false;
 
 		s_fn_GLPlatformGetProcAddress = (Fn_GetProcAddress)dlsym(s_glPlatformLibHandle, "eglGetProcAddress");
@@ -144,12 +161,21 @@ namespace HLFGL {
 	}
 }
 
-
 #if HLFGL_SYSTEM_LINUX
 
 namespace HLFGL {
 	inline bool EGLLoadLibrary() {
-		s_eglLibHandle = LoadLibrary("libEGL.so.1");
+		const char* eglLibNames[] {
+			"libEGL.so.1",
+			"usr/lib/libEGL.so.1",
+			"libEGL.so",
+			"usr/lib/libEGL.so"
+		};
+
+		for(const char** name = eglLibNames; *name; ++name) {
+			s_eglLibHandle = LoadLibrary(*name);
+			if(s_eglLibHandle) break;
+		}
 		if(!s_eglLibHandle) return false;
 
 		s_fn_eglGetProcAddress = (Fn_eglGetProcAddress)GetProcAddress(s_eglLibHandle, "eglGetProcAddress");

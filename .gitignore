@@ -1,2 +1,1 @@
-include/HLFGL/GLDefinitions.h
-include/HLFGL/EGLDefinitions.h
+__pycache__/*

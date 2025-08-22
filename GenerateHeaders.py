@@ -2,11 +2,11 @@
 
 HEADER_PATH = "include/HLFGL/"
 
-GL_XML_URL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/xml/gl.xml"
-EGL_XML_URL = "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/egl.xml"
+GL_XML_PATH = "registries/gl.xml"
+EGL_XML_PATH = "registries/egl.xml"
 
+import GeneratorConfig as config
 import xml.etree.ElementTree as etree
-from urllib.request import urlopen
 from pathlib import Path
 
 class ConstantDefinition:
@@ -32,7 +32,7 @@ class TypedefData:
         self.definition = ""
         self.requires = ""
 
-def generate_api(api_prefix, api_name, xml_url):
+def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
     # all definition trees
     typedefs_table = {}
     constants_table = {}
@@ -46,8 +46,8 @@ def generate_api(api_prefix, api_name, xml_url):
 
     output = "\nextern \"C\" {"
 
-    print(f"downloading {api_prefix} xml ...")
-    root = etree.parse(urlopen(xml_url))
+    print(f"generating header for {api_prefix}...")
+    root = etree.parse(xml_path)
 
     for typedef_entry in root.findall("types/type"):
         if typedef_entry in typedefs_table: continue
@@ -182,12 +182,17 @@ def generate_api(api_prefix, api_name, xml_url):
             if constant is None: continue
             output += f"\n#define {constant.name} {constant.value}"
 
+        output += "\nnamespace HLFGL {"
         for function in functions:
             if function is None: continue
             fn_typename = f"Fn_{function.name}"
-            output += f"\ntypedef {function.return_type}(*{fn_typename}){function.formatted_params};"
-            output += f"\ninline {fn_typename} s_fn_{function.name} {{}};"
-            body = f"return s_fn_{function.name}({', '.join(param.name for param in function.params)});"
+            output += f"\n\ttypedef {function.return_type}({api_prefix}APIENTRY *{fn_typename}){function.formatted_params};"
+            output += f"\n\tinline {fn_typename} s_fn_{function.name} {{}};"
+        output += "\n}"
+
+        for function in functions:
+            if function is None: continue
+            body = f"return HLFGL::s_fn_{function.name}({', '.join(param.name for param in function.params)});"
             output += f"\ninline {function.return_type} {function.name}{function.formatted_params} {{ {body} }}"
 
         output += f"\n#endif // {define_name}\n"
@@ -197,12 +202,18 @@ def generate_api(api_prefix, api_name, xml_url):
         api = feature.get("api")
         if api != api_name: continue
         name = feature.get("name")
+
+        version_parts = name.split("_")[-2:]
+        version = (int(version_parts[0]), int(version_parts[1]))
+        if api_version[0] < version[0] or (api_version[0] == version[0] and api_version[1] < version[1]): continue
+
         requirements = feature.find("require")
         if requirements is None: continue
         output += generate_api_tree(feature.find("require"), name)
 
     for extension in root.findall("extensions/extension"):
         name = extension.get("name")
+        if name not in api_extensions: continue
         requirements = extension.find("require")
         if requirements is None: continue
         output += generate_api_tree(extension.find("require"), name)
@@ -218,9 +229,10 @@ def write(content, name):
     path = Path(HEADER_PATH + name)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content)
+    print(f"{HEADER_PATH}{name} generated")
 
 header = "// generated\n\n#pragma once"
-write(header + generate_api("GL", "gl", GL_XML_URL), "GLDefinitions.h")
-write(header + generate_api("EGL", "egl", EGL_XML_URL), "EGLDefinitions.h")
+if config.GL_ENABLED: write(header + generate_api("GL", "gl", config.GL_CORE_VERSION, config.GL_EXTENSIONS, GL_XML_PATH), "GLDefinitions.h")
+if config.EGL_ENABLED: write(header + generate_api("EGL", "egl", config.EGL_CORE_VERSION, config.EGL_EXTENSIONS, EGL_XML_PATH), "EGLDefinitions.h")
 
 print(f"files generated")
