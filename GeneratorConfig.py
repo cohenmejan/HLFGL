@@ -1,15 +1,15 @@
-# <API>_ENABLED
+# --- <API>_ENABLED ---
 # if True, <API> definitions will be generated
 # example:
 # GL_ENABLED = True
 
-# <API>_CORE_VERSION
+# --- <API>_CORE_VERSION ---
 # the highest core <API> version that will be generated.
 # core <API> versions 1.0 through '<API>_CORE_VERSION' will be generated.
 # example:
 # GL_CORE_VERSION = (4, 5)
 
-# <API>_EXTENSIONS
+# --- <API>_EXTENSIONS ---
 # list of names of <API> extensions to be generated
 # example:
 # GL_EXTENSIONS = [
