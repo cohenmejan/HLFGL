@@ -4,6 +4,8 @@ A GL loader.
 Loads core libraries as well as extensions.
 Defines constants, types, and functions.
 
+Includes a header generator script.
+
 **Supported APIs**
 - GL
 - EGL
