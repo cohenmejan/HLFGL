@@ -5,5 +5,5 @@
 #endif
 
 #ifndef HLFGL_ENABLE_EGL
-#define HLFGL_ENABLE_EGL 0
+#define HLFGL_ENABLE_EGL 1
 #endif
