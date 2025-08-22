@@ -2980,8 +2980,6 @@ inline void glPrimitiveRestartIndex(GLuint index) { return HLFGL::s_fn_glPrimiti
 #define GL_MAX_GEOMETRY_OUTPUT_COMPONENTS 0x9124
 #define GL_MAX_FRAGMENT_INPUT_COMPONENTS 0x9125
 #define GL_CONTEXT_PROFILE_MASK 0x9126
-namespace HLFGL {
-}
 #endif // HLFGL_ENABLE_GL_VERSION_3_2
 
 
@@ -2992,8 +2990,6 @@ namespace HLFGL {
 #if HLFGL_ENABLE_GL_VERSION_3_3 && !defined(GL_VERSION_3_3)
 #define GL_VERSION_3_3 1
 #define GL_VERTEX_ATTRIB_ARRAY_DIVISOR 0x88FE
-namespace HLFGL {
-}
 #endif // HLFGL_ENABLE_GL_VERSION_3_3
 
 namespace HLFGL {

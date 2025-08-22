@@ -182,13 +182,14 @@ def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
             if constant is None: continue
             output += f"\n#define {constant.name} {constant.value}"
 
-        output += "\nnamespace HLFGL {"
-        for function in functions:
-            if function is None: continue
-            fn_typename = f"Fn_{function.name}"
-            output += f"\n\ttypedef {function.return_type}({api_prefix}APIENTRY *{fn_typename}){function.formatted_params};"
-            output += f"\n\tinline {fn_typename} s_fn_{function.name} {{}};"
-        output += "\n}"
+        if len(functions) != 0:
+            output += "\nnamespace HLFGL {"
+            for function in functions:
+                if function is None: continue
+                fn_typename = f"Fn_{function.name}"
+                output += f"\n\ttypedef {function.return_type}({api_prefix}APIENTRY *{fn_typename}){function.formatted_params};"
+                output += f"\n\tinline {fn_typename} s_fn_{function.name} {{}};"
+            output += "\n}"
 
         for function in functions:
             if function is None: continue

@@ -265,8 +265,6 @@ inline EGLBoolean eglWaitClient() { return HLFGL::s_fn_eglWaitClient(); }
 #define EGL_VG_COLORSPACE_sRGB 0x3089
 #define EGL_VG_COLORSPACE_LINEAR 0x308A
 #define EGL_VG_COLORSPACE_LINEAR_BIT 0x0020
-namespace HLFGL {
-}
 #endif // HLFGL_ENABLE_EGL_VERSION_1_3
 
 
