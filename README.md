@@ -1,10 +1,7 @@
 # HLFGL
-A GL loader.
+A GL loader with header generation.
 
-Loads core libraries as well as extensions.
-Defines constants, types, and functions.
-
-Includes a header generator script.
+Loads core libraries as well as extensions. Defines constants, types, and functions.
 
 **Supported APIs**
 - GL
