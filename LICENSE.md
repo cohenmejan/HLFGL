@@ -1,4 +1,4 @@
-**HLFGL:**
+# HLFGL
 
 MIT License
 
@@ -24,7 +24,7 @@ SOFTWARE.
 
 ---
 
-**Khronos headers:**
+# Khronos headers
 
 Copyright (c) 2008-2018 The Khronos Group Inc.
 Permission is hereby granted, free of charge, to any person obtaining a
@@ -48,7 +48,7 @@ MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
 
 ---
 
-**Khronos registries:**
+# Khronos registries
 
 Copyright 2013-2020 The Khronos Group Inc.
 
