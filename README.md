@@ -1,34 +1,105 @@
 # HLFGL
-A GL loader with header generation.
 
-Loads core libraries as well as extensions. Defines constants, types, and functions.
+A lightweight GL loader with a simple header generation script.  
+HLFGL generates headers for constants, types, and functions, and loads both core APIs and extensions.
 
-**Supported APIs**
-- GL
-- EGL
-
-**Supported Platforms**
-- Linux
+**Supported APIs:** OpenGL, EGL  
+**Supported platforms:** Linux
 
 ## Integration
-1. Clone the repo: ```git clone https://github.com/cohenmejan/HLFGL.git```
 
-2. Run GenerateHeaders.py
-3. Add to your build system
-   * **CMake:** ```add_subdirectory(HLFGL)```
+1. Clone the repo: 
+
+```
+git clone https://github.com/cohenmejan/HLFGL.git
+```
+
+2. Add to your build system
+   * **CMake:**
+
+   ```cmake
+   add_subdirectory(path/to/HLFGL)
+   target_link_libraries(your_target PRIVATE HLFGL)
+   ```
+
    * **Manual:** add ```HLFGL/include``` to your include paths
 
-4. Include HLFGL in your project with ```#include <HLFGL/HLFGL.h>```
+3. Include HLFGL in your project with ```#include <HLFGL/HLFGL.h>```
+
+## Configuration (optional)
+
+The GL definition headers included in the repository by default do not contain any
+extensions, and they include core versions as follows:
+
+**GL:** 3.3  
+**EGL:** 1.4
+
+You can regenerate the GL definition headers to suit the APIs and extensions your project needs.
+
+Edit `GeneratorConfig.py`:
+
+```py
+# GL
+
+# enable GL header generation
+GL_ENABLED = True 
+# generates GL 1.0 through 4.5     
+GL_CORE_VERSION = (4, 5)   
+# list of GL extensions to generate
+GL_EXTENSIONS = [
+    "GL_ARB_debug_output",
+    "GL_EXT_texture_filter_anisotropic"
+]
+
+# EGL
+
+# enable EGL header generation
+EGL_ENABLED = True
+# generates EGL 1.0 through 1.5
+EGL_CORE_VERSION = (1, 5)
+# list of EGL extensions to generate
+EGL_EXTENSIONS = [
+    "EGL_KHR_create_context",
+    "EGL_EXT_platform_wayland"
+]
+```
+
+Once configured, run `GenerateHeaders.py` from within the root HLFGL directory:
+
+```
+python GenerateHeaders.py
+```
 
 ## Usage
-Initialize functions with ```HLFGL::GLInit()``` for OpenGL.
-For EGL, ```HLFGL::EGLInit()```.
 
-Unload and free resources with ```HLFGL::GLDelete()```, or for EGL, ```HLFGL::EGLDelete()``` 
+For OpenGL:
 
-APIs can be selected at compile time either by modifying ```Config.h```, or by defining the following values before
-including ```HLFGL.h```:
-* HLFGL_ENABLE_GL
-* HLFGL_ENABLE_EGL
+```c++
+#include <HLFGL/HLFGL.h>
 
-Set a definition to 1 to enable it, or 0 to disable it, like so for EGL: ```#define HLFGL_ENABLE_EGL 1```
+int main() {
+    HLFGL::GLInit();
+    // use OpenGL functions...
+    HLFGL::GLDelete();
+}
+```
+
+For EGL:
+
+```c++
+#include <HLFGL/HLFGL.h>
+
+int main() {
+    HLFGL::EGLInit();
+    // use EGL functions...
+    HLFGL::EGLDelete();
+}
+```
+
+To control which APIs are enabled, either modify Config.h, or add definitions before including HLFGL.h:
+
+```c++
+#define HLFGL_ENABLE_GL 1
+#define HLFGL_ENABLE_EGL 0
+#include <HLFGL/HLFGL.h>
+```
