@@ -207,7 +207,7 @@ def generate_api(api_prefix, api_name, xml_url):
         if requirements is None: continue
         output += generate_api_tree(extension.find("require"), name)
 
-    output += f"\nnamespace HLF::GL {{\n\tinline void {api_prefix}InitFunctionPointers(Fn_GetProcAddress proc) {{\n"
+    output += f"\nnamespace HLFGL {{\n\tinline void {api_prefix}InitFunctionPointers(Fn_GetProcAddress proc) {{\n"
     for function in api_functions:
         output += f"\t\ts_fn_{function.name} = (Fn_{function.name})proc(\"{function.name}\");\n"
     output += "\t}\n}\n}"

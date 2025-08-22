@@ -2,13 +2,13 @@
 
 #include <compare>
 
-#if __unix__
-#define HLFGL_SYSTEM_UNIX 1
+#if __linux__
+#define HLFGL_SYSTEM_LINUX 1
 #endif
 
 #include <HLFGL/Config.h>
 
-namespace HLF::GL {
+namespace HLFGL {
 	using Fn_GetProcAddress = void*(*)(const char* name);
 
 	void* LoadLibrary(const char* path);
@@ -16,13 +16,11 @@ namespace HLF::GL {
 	void* GetProcAddress(void* library, const char* functionName);
 }
 
-// common platform-specific definitions
-
-#if HLFGL_SYSTEM_UNIX
+#if HLFGL_SYSTEM_LINUX
 
 #include <dlfcn.h>
 
-namespace HLF::GL {
+namespace HLFGL {
 	inline void* LoadLibrary(const char* path) {
 		if(!path) return 0;
 		return dlopen(path, RTLD_NOW | RTLD_LOCAL);
@@ -39,13 +37,13 @@ namespace HLF::GL {
 	}
 }
 
-#endif // HLFGL_SYSTEM_UNIX
+#endif // HLFGL_SYSTEM_LINUX
 
 #if HLFGL_ENABLE_GL
 
 #include <HLFGL/GLDefinitions.h>
 
-namespace HLF::GL {
+namespace HLFGL {
 	inline void* s_glLibHandle {};
 	inline void* s_glPlatformLibHandle {};
 
@@ -93,9 +91,9 @@ namespace HLF::GL {
 	}
 }
 
-#if HLFGL_SYSTEM_UNIX
+#if HLFGL_SYSTEM_LINUX
 
-namespace HLF::GL {
+namespace HLFGL {
 	inline bool GLLoadLibraries() {
 		s_glLibHandle = LoadLibrary("libGL.so.1");
 		if(!s_glLibHandle) return false;
@@ -110,14 +108,14 @@ namespace HLF::GL {
 	}
 }
 
-#endif // HLF_SYSTEM_UNIX
+#endif // HLFGL_SYSTEM_LINUX
 #endif // HLFGL_ENABLE_GL
 
 #if HLFGL_ENABLE_EGL
 
 #include <HLFGL/EGLDefinitions.h>
 
-namespace HLF::GL {
+namespace HLFGL {
 	inline void* s_eglLibHandle {};
 
 	/// @return true on success
@@ -147,9 +145,9 @@ namespace HLF::GL {
 }
 
 
-#if HLFGL_SYSTEM_UNIX
+#if HLFGL_SYSTEM_LINUX
 
-namespace HLF::GL {
+namespace HLFGL {
 	inline bool EGLLoadLibrary() {
 		s_eglLibHandle = LoadLibrary("libEGL.so.1");
 		if(!s_eglLibHandle) return false;
@@ -161,5 +159,5 @@ namespace HLF::GL {
 	}
 }
 
-#endif // HLFGL_SYSTEM_UNIX
+#endif // HLFGL_SYSTEM_LINUX
 #endif // HLFGL_ENABLE_EGL
