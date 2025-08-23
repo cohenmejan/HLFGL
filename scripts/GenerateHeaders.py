@@ -1,13 +1,24 @@
 # generates include/HLFGLDefinitions.h
 
-HEADER_PATH = "include/HLFGL/"
+HEADER_PATH = "../include/HLFGL/gen/"
+DEFAULT_CONFIG_PATH = "GenerateHeadersConfig.cfg"
 
-GL_XML_PATH = "registries/gl.xml"
-EGL_XML_PATH = "registries/egl.xml"
-
-import GeneratorConfig as config
+import argparse
+import configparser
 import xml.etree.ElementTree as etree
 from pathlib import Path
+
+config_path = ""
+
+argparser = argparse.ArgumentParser()
+argparser.add_argument("--config", help="path to config file")
+args = argparser.parse_args()
+
+if args.config is not None: config_path = args.config
+else: config_path = Path(__file__).parent / DEFAULT_CONFIG_PATH
+
+config = configparser.ConfigParser()
+config.read(config_path)
 
 class ConstantDefinition:
     def __init__(self):
@@ -32,7 +43,16 @@ class TypedefData:
         self.definition = ""
         self.requires = ""
 
-def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
+def generate_api(api_prefix, api_name):
+    api_enabled = config.getboolean(api_prefix, "Enabled")
+    if not api_enabled: return ""
+
+    api_version = tuple(int(x) for x in config.get(api_prefix, "CoreVersion").split("."))
+    api_extensions = config.get(api_prefix, "Extensions").replace('\n', ',').split(",")
+    for i in range(len(api_extensions)): api_extensions[i] = api_extensions[i].strip()
+
+    xml_path = Path(__file__).parent / f"../registries/{api_name}.xml"
+
     # all definition trees
     typedefs_table = {}
     constants_table = {}
@@ -154,18 +174,18 @@ def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
 
         # get defs
 
-        for typedef_entry in tree.findall("type"):
+        for typedef_entry in tree.findall("require/type"):
             create_typedef(typedef_entry.get("name"))
 
-        for constant_entry in tree.findall("enum"):
+        for constant_entry in tree.findall("require/enum"):
             create_constant(constant_entry.get("name"))
 
-        for function_entry in tree.findall("command"):
+        for function_entry in tree.findall("require/command"):
             create_function(function_entry.get("name"))
 
         # append to output
 
-        output = f"\n\n// {tree_name}\n"
+        output = f"\n// {tree_name}\n"
         output += f"#ifndef {tree_name}"
         output += f"\n#define {tree_name} 1"
 
@@ -203,16 +223,12 @@ def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
         version = (int(version_parts[0]), int(version_parts[1]))
         if api_version[0] < version[0] or (api_version[0] == version[0] and api_version[1] < version[1]): continue
 
-        requirements = feature.find("require")
-        if requirements is None: continue
-        output += generate_api_tree(feature.find("require"), name)
+        output += generate_api_tree(feature, name)
 
     for extension in root.findall("extensions/extension"):
         name = extension.get("name")
         if name not in api_extensions: continue
-        requirements = extension.find("require")
-        if requirements is None: continue
-        output += generate_api_tree(extension.find("require"), name)
+        output += generate_api_tree(extension, name)
 
     output += f"\nnamespace HLFGL {{\n\tinline void {api_prefix}InitFunctionPointers(Fn_GetProcAddress proc) {{\n"
     for function in api_functions:
@@ -221,14 +237,16 @@ def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
 
     return output
 
-def write(content, name):
-    path = Path(HEADER_PATH + name)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content)
-    print(f"{HEADER_PATH}{name} generated")
-
 header = "// generated\n\n#pragma once"
-if config.GL_ENABLED: write(header + generate_api("GL", "gl", config.GL_CORE_VERSION, config.GL_EXTENSIONS, GL_XML_PATH), "GLDefinitions.h")
-if config.EGL_ENABLED: write(header + generate_api("EGL", "egl", config.EGL_CORE_VERSION, config.EGL_EXTENSIONS, EGL_XML_PATH), "EGLDefinitions.h")
+
+def write(content, name):
+    if content is None or len(content) == 0: return
+    output_path = Path(__file__).parent / HEADER_PATH / name
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(header + content)
+    print(f"{output_path} generated")
+
+write(generate_api("GL", "gl"), "GLDefinitions.h")
+write(generate_api("EGL", "egl"), "EGLDefinitions.h")
 
 print(f"files generated")

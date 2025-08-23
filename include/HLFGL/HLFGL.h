@@ -38,7 +38,7 @@ namespace HLFGL {
 
 #if HLFGL_ENABLE_GL
 
-#include <HLFGL/GLDefinitions.h>
+#include <HLFGL/gen/GLDefinitions.h>
 
 namespace HLFGL {
 	inline void* s_glLibHandle {};
@@ -130,7 +130,7 @@ namespace HLFGL {
 
 #if HLFGL_ENABLE_EGL
 
-#include <HLFGL/EGLDefinitions.h>
+#include <HLFGL/gen/EGLDefinitions.h>
 
 namespace HLFGL {
 	inline void* s_eglLibHandle {};

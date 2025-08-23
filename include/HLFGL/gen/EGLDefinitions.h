@@ -2,7 +2,6 @@
 
 #pragma once
 extern "C" {
-
 // EGL_VERSION_1_0
 #ifndef EGL_VERSION_1_0
 #define EGL_VERSION_1_0 1
@@ -149,7 +148,6 @@ inline EGLBoolean eglWaitGL() { return HLFGL::s_fn_eglWaitGL(); }
 inline EGLBoolean eglWaitNative(EGLint engine) { return HLFGL::s_fn_eglWaitNative(engine); }
 #endif // EGL_VERSION_1_0
 
-
 // EGL_VERSION_1_1
 #ifndef EGL_VERSION_1_1
 #define EGL_VERSION_1_1 1
@@ -182,7 +180,6 @@ inline EGLBoolean eglReleaseTexImage(EGLDisplay dpy, EGLSurface surface, EGLint 
 inline EGLBoolean eglSurfaceAttrib(EGLDisplay dpy, EGLSurface surface, EGLint attribute, EGLint value) { return HLFGL::s_fn_eglSurfaceAttrib(dpy, surface, attribute, value); }
 inline EGLBoolean eglSwapInterval(EGLDisplay dpy, EGLint interval) { return HLFGL::s_fn_eglSwapInterval(dpy, interval); }
 #endif // EGL_VERSION_1_1
-
 
 // EGL_VERSION_1_2
 #ifndef EGL_VERSION_1_2
@@ -237,7 +234,6 @@ inline EGLBoolean eglReleaseThread() { return HLFGL::s_fn_eglReleaseThread(); }
 inline EGLBoolean eglWaitClient() { return HLFGL::s_fn_eglWaitClient(); }
 #endif // EGL_VERSION_1_2
 
-
 // EGL_VERSION_1_3
 #ifndef EGL_VERSION_1_3
 #define EGL_VERSION_1_3 1
@@ -254,25 +250,6 @@ inline EGLBoolean eglWaitClient() { return HLFGL::s_fn_eglWaitClient(); }
 #define EGL_VG_COLORSPACE_LINEAR 0x308A
 #define EGL_VG_COLORSPACE_LINEAR_BIT 0x0020
 #endif // EGL_VERSION_1_3
-
-
-// EGL_VERSION_1_4
-#ifndef EGL_VERSION_1_4
-#define EGL_VERSION_1_4 1
-#define EGL_DEFAULT_DISPLAY EGL_CAST(EGLNativeDisplayType,0)
-#define EGL_MULTISAMPLE_RESOLVE_BOX_BIT 0x0200
-#define EGL_MULTISAMPLE_RESOLVE 0x3099
-#define EGL_MULTISAMPLE_RESOLVE_DEFAULT 0x309A
-#define EGL_MULTISAMPLE_RESOLVE_BOX 0x309B
-#define EGL_OPENGL_API 0x30A2
-#define EGL_OPENGL_BIT 0x0008
-#define EGL_SWAP_BEHAVIOR_PRESERVED_BIT 0x0400
-namespace HLFGL {
-	typedef EGLContext(EGLAPIENTRY *Fn_eglGetCurrentContext)();
-	inline Fn_eglGetCurrentContext s_fn_eglGetCurrentContext {};
-}
-inline EGLContext eglGetCurrentContext() { return HLFGL::s_fn_eglGetCurrentContext(); }
-#endif // EGL_VERSION_1_4
 
 namespace HLFGL {
 	inline void EGLInitFunctionPointers(Fn_GetProcAddress proc) {
@@ -309,7 +286,6 @@ namespace HLFGL {
 		s_fn_eglCreatePbufferFromClientBuffer = (Fn_eglCreatePbufferFromClientBuffer)proc("eglCreatePbufferFromClientBuffer");
 		s_fn_eglReleaseThread = (Fn_eglReleaseThread)proc("eglReleaseThread");
 		s_fn_eglWaitClient = (Fn_eglWaitClient)proc("eglWaitClient");
-		s_fn_eglGetCurrentContext = (Fn_eglGetCurrentContext)proc("eglGetCurrentContext");
 	}
 }
 }

@@ -6,11 +6,14 @@
 
 ### Changes
 
-* Remove version and extension-specific HLFGL_ENABLE_* definitions
+* Remove version and extension-specific `HLFGL_ENABLE_*` definitions
+* Moved generator script and config files to `/scripts/` directory
+* Moved generated headers to `/include/HLFGL/gen/` directory
 
 ### Fixes
 
-* Fix locations of khrplatform.h and eglplatform.h
+* Fix instances of `GenerateHeaders.py` not generating all requirements for some versions / extensions
+* Fix locations of `khrplatform.h` and `eglplatform.h`
 
 ---
 
