@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # generates include/HLFGLDefinitions.h
 
 HEADER_PATH = "../include/HLFGL/gen/"

@@ -14,6 +14,7 @@
 
 * Fix instances of `GenerateHeaders.py` not generating all requirements for some versions / extensions
 * Fix locations of `khrplatform.h` and `eglplatform.h`
+* Fix missing shebang in `GenerateHeaders.py`
 
 ---
 
