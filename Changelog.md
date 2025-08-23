@@ -4,12 +4,18 @@
 
 ## 0.1.0
 
+### Features
+
+* Add `HLFGL::Init_{glFunctionName}` functions to initialize individual functions easily
+
 ### Changes
 
-* Remove version and extension-specific `HLFGL_ENABLE_*` definitions
+* Rename `GetProcAddress` functions to `GetFunctionAddress`
+* Rename `LoadLibrary` and `UnloadLibrary` (and similar API functions) to `InitLibrary` and `DeleteLibrary`
+* Set default EGL Core version to 1.4
 * Moved generator script and config files to `/scripts/` directory
 * Moved generated headers to `/include/HLFGL/gen/` directory
-* Set default EGL Core version to 1.4
+* Remove version and extension-specific `HLFGL_ENABLE_*` definitions
 
 ### Fixes
 

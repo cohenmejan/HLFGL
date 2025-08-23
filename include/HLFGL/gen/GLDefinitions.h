@@ -3532,731 +3532,1455 @@ inline void glSecondaryColorP3uiv(GLenum type, const GLuint * color) { return HL
 #endif // GL_VERSION_3_3
 
 namespace HLFGL {
-	inline void GLInitFunctionPointers(Fn_GetProcAddress proc) {
-		s_fn_glCullFace = (Fn_glCullFace)proc("glCullFace");
-		s_fn_glFrontFace = (Fn_glFrontFace)proc("glFrontFace");
-		s_fn_glHint = (Fn_glHint)proc("glHint");
-		s_fn_glLineWidth = (Fn_glLineWidth)proc("glLineWidth");
-		s_fn_glPointSize = (Fn_glPointSize)proc("glPointSize");
-		s_fn_glPolygonMode = (Fn_glPolygonMode)proc("glPolygonMode");
-		s_fn_glScissor = (Fn_glScissor)proc("glScissor");
-		s_fn_glTexParameterf = (Fn_glTexParameterf)proc("glTexParameterf");
-		s_fn_glTexParameterfv = (Fn_glTexParameterfv)proc("glTexParameterfv");
-		s_fn_glTexParameteri = (Fn_glTexParameteri)proc("glTexParameteri");
-		s_fn_glTexParameteriv = (Fn_glTexParameteriv)proc("glTexParameteriv");
-		s_fn_glTexImage1D = (Fn_glTexImage1D)proc("glTexImage1D");
-		s_fn_glTexImage2D = (Fn_glTexImage2D)proc("glTexImage2D");
-		s_fn_glDrawBuffer = (Fn_glDrawBuffer)proc("glDrawBuffer");
-		s_fn_glClear = (Fn_glClear)proc("glClear");
-		s_fn_glClearColor = (Fn_glClearColor)proc("glClearColor");
-		s_fn_glClearStencil = (Fn_glClearStencil)proc("glClearStencil");
-		s_fn_glClearDepth = (Fn_glClearDepth)proc("glClearDepth");
-		s_fn_glStencilMask = (Fn_glStencilMask)proc("glStencilMask");
-		s_fn_glColorMask = (Fn_glColorMask)proc("glColorMask");
-		s_fn_glDepthMask = (Fn_glDepthMask)proc("glDepthMask");
-		s_fn_glDisable = (Fn_glDisable)proc("glDisable");
-		s_fn_glEnable = (Fn_glEnable)proc("glEnable");
-		s_fn_glFinish = (Fn_glFinish)proc("glFinish");
-		s_fn_glFlush = (Fn_glFlush)proc("glFlush");
-		s_fn_glBlendFunc = (Fn_glBlendFunc)proc("glBlendFunc");
-		s_fn_glLogicOp = (Fn_glLogicOp)proc("glLogicOp");
-		s_fn_glStencilFunc = (Fn_glStencilFunc)proc("glStencilFunc");
-		s_fn_glStencilOp = (Fn_glStencilOp)proc("glStencilOp");
-		s_fn_glDepthFunc = (Fn_glDepthFunc)proc("glDepthFunc");
-		s_fn_glPixelStoref = (Fn_glPixelStoref)proc("glPixelStoref");
-		s_fn_glPixelStorei = (Fn_glPixelStorei)proc("glPixelStorei");
-		s_fn_glReadBuffer = (Fn_glReadBuffer)proc("glReadBuffer");
-		s_fn_glReadPixels = (Fn_glReadPixels)proc("glReadPixels");
-		s_fn_glGetBooleanv = (Fn_glGetBooleanv)proc("glGetBooleanv");
-		s_fn_glGetDoublev = (Fn_glGetDoublev)proc("glGetDoublev");
-		s_fn_glGetError = (Fn_glGetError)proc("glGetError");
-		s_fn_glGetFloatv = (Fn_glGetFloatv)proc("glGetFloatv");
-		s_fn_glGetIntegerv = (Fn_glGetIntegerv)proc("glGetIntegerv");
-		s_fn_glGetString = (Fn_glGetString)proc("glGetString");
-		s_fn_glGetTexImage = (Fn_glGetTexImage)proc("glGetTexImage");
-		s_fn_glGetTexParameterfv = (Fn_glGetTexParameterfv)proc("glGetTexParameterfv");
-		s_fn_glGetTexParameteriv = (Fn_glGetTexParameteriv)proc("glGetTexParameteriv");
-		s_fn_glGetTexLevelParameterfv = (Fn_glGetTexLevelParameterfv)proc("glGetTexLevelParameterfv");
-		s_fn_glGetTexLevelParameteriv = (Fn_glGetTexLevelParameteriv)proc("glGetTexLevelParameteriv");
-		s_fn_glIsEnabled = (Fn_glIsEnabled)proc("glIsEnabled");
-		s_fn_glDepthRange = (Fn_glDepthRange)proc("glDepthRange");
-		s_fn_glViewport = (Fn_glViewport)proc("glViewport");
-		s_fn_glNewList = (Fn_glNewList)proc("glNewList");
-		s_fn_glEndList = (Fn_glEndList)proc("glEndList");
-		s_fn_glCallList = (Fn_glCallList)proc("glCallList");
-		s_fn_glCallLists = (Fn_glCallLists)proc("glCallLists");
-		s_fn_glDeleteLists = (Fn_glDeleteLists)proc("glDeleteLists");
-		s_fn_glGenLists = (Fn_glGenLists)proc("glGenLists");
-		s_fn_glListBase = (Fn_glListBase)proc("glListBase");
-		s_fn_glBegin = (Fn_glBegin)proc("glBegin");
-		s_fn_glBitmap = (Fn_glBitmap)proc("glBitmap");
-		s_fn_glColor3b = (Fn_glColor3b)proc("glColor3b");
-		s_fn_glColor3bv = (Fn_glColor3bv)proc("glColor3bv");
-		s_fn_glColor3d = (Fn_glColor3d)proc("glColor3d");
-		s_fn_glColor3dv = (Fn_glColor3dv)proc("glColor3dv");
-		s_fn_glColor3f = (Fn_glColor3f)proc("glColor3f");
-		s_fn_glColor3fv = (Fn_glColor3fv)proc("glColor3fv");
-		s_fn_glColor3i = (Fn_glColor3i)proc("glColor3i");
-		s_fn_glColor3iv = (Fn_glColor3iv)proc("glColor3iv");
-		s_fn_glColor3s = (Fn_glColor3s)proc("glColor3s");
-		s_fn_glColor3sv = (Fn_glColor3sv)proc("glColor3sv");
-		s_fn_glColor3ub = (Fn_glColor3ub)proc("glColor3ub");
-		s_fn_glColor3ubv = (Fn_glColor3ubv)proc("glColor3ubv");
-		s_fn_glColor3ui = (Fn_glColor3ui)proc("glColor3ui");
-		s_fn_glColor3uiv = (Fn_glColor3uiv)proc("glColor3uiv");
-		s_fn_glColor3us = (Fn_glColor3us)proc("glColor3us");
-		s_fn_glColor3usv = (Fn_glColor3usv)proc("glColor3usv");
-		s_fn_glColor4b = (Fn_glColor4b)proc("glColor4b");
-		s_fn_glColor4bv = (Fn_glColor4bv)proc("glColor4bv");
-		s_fn_glColor4d = (Fn_glColor4d)proc("glColor4d");
-		s_fn_glColor4dv = (Fn_glColor4dv)proc("glColor4dv");
-		s_fn_glColor4f = (Fn_glColor4f)proc("glColor4f");
-		s_fn_glColor4fv = (Fn_glColor4fv)proc("glColor4fv");
-		s_fn_glColor4i = (Fn_glColor4i)proc("glColor4i");
-		s_fn_glColor4iv = (Fn_glColor4iv)proc("glColor4iv");
-		s_fn_glColor4s = (Fn_glColor4s)proc("glColor4s");
-		s_fn_glColor4sv = (Fn_glColor4sv)proc("glColor4sv");
-		s_fn_glColor4ub = (Fn_glColor4ub)proc("glColor4ub");
-		s_fn_glColor4ubv = (Fn_glColor4ubv)proc("glColor4ubv");
-		s_fn_glColor4ui = (Fn_glColor4ui)proc("glColor4ui");
-		s_fn_glColor4uiv = (Fn_glColor4uiv)proc("glColor4uiv");
-		s_fn_glColor4us = (Fn_glColor4us)proc("glColor4us");
-		s_fn_glColor4usv = (Fn_glColor4usv)proc("glColor4usv");
-		s_fn_glEdgeFlag = (Fn_glEdgeFlag)proc("glEdgeFlag");
-		s_fn_glEdgeFlagv = (Fn_glEdgeFlagv)proc("glEdgeFlagv");
-		s_fn_glEnd = (Fn_glEnd)proc("glEnd");
-		s_fn_glIndexd = (Fn_glIndexd)proc("glIndexd");
-		s_fn_glIndexdv = (Fn_glIndexdv)proc("glIndexdv");
-		s_fn_glIndexf = (Fn_glIndexf)proc("glIndexf");
-		s_fn_glIndexfv = (Fn_glIndexfv)proc("glIndexfv");
-		s_fn_glIndexi = (Fn_glIndexi)proc("glIndexi");
-		s_fn_glIndexiv = (Fn_glIndexiv)proc("glIndexiv");
-		s_fn_glIndexs = (Fn_glIndexs)proc("glIndexs");
-		s_fn_glIndexsv = (Fn_glIndexsv)proc("glIndexsv");
-		s_fn_glNormal3b = (Fn_glNormal3b)proc("glNormal3b");
-		s_fn_glNormal3bv = (Fn_glNormal3bv)proc("glNormal3bv");
-		s_fn_glNormal3d = (Fn_glNormal3d)proc("glNormal3d");
-		s_fn_glNormal3dv = (Fn_glNormal3dv)proc("glNormal3dv");
-		s_fn_glNormal3f = (Fn_glNormal3f)proc("glNormal3f");
-		s_fn_glNormal3fv = (Fn_glNormal3fv)proc("glNormal3fv");
-		s_fn_glNormal3i = (Fn_glNormal3i)proc("glNormal3i");
-		s_fn_glNormal3iv = (Fn_glNormal3iv)proc("glNormal3iv");
-		s_fn_glNormal3s = (Fn_glNormal3s)proc("glNormal3s");
-		s_fn_glNormal3sv = (Fn_glNormal3sv)proc("glNormal3sv");
-		s_fn_glRasterPos2d = (Fn_glRasterPos2d)proc("glRasterPos2d");
-		s_fn_glRasterPos2dv = (Fn_glRasterPos2dv)proc("glRasterPos2dv");
-		s_fn_glRasterPos2f = (Fn_glRasterPos2f)proc("glRasterPos2f");
-		s_fn_glRasterPos2fv = (Fn_glRasterPos2fv)proc("glRasterPos2fv");
-		s_fn_glRasterPos2i = (Fn_glRasterPos2i)proc("glRasterPos2i");
-		s_fn_glRasterPos2iv = (Fn_glRasterPos2iv)proc("glRasterPos2iv");
-		s_fn_glRasterPos2s = (Fn_glRasterPos2s)proc("glRasterPos2s");
-		s_fn_glRasterPos2sv = (Fn_glRasterPos2sv)proc("glRasterPos2sv");
-		s_fn_glRasterPos3d = (Fn_glRasterPos3d)proc("glRasterPos3d");
-		s_fn_glRasterPos3dv = (Fn_glRasterPos3dv)proc("glRasterPos3dv");
-		s_fn_glRasterPos3f = (Fn_glRasterPos3f)proc("glRasterPos3f");
-		s_fn_glRasterPos3fv = (Fn_glRasterPos3fv)proc("glRasterPos3fv");
-		s_fn_glRasterPos3i = (Fn_glRasterPos3i)proc("glRasterPos3i");
-		s_fn_glRasterPos3iv = (Fn_glRasterPos3iv)proc("glRasterPos3iv");
-		s_fn_glRasterPos3s = (Fn_glRasterPos3s)proc("glRasterPos3s");
-		s_fn_glRasterPos3sv = (Fn_glRasterPos3sv)proc("glRasterPos3sv");
-		s_fn_glRasterPos4d = (Fn_glRasterPos4d)proc("glRasterPos4d");
-		s_fn_glRasterPos4dv = (Fn_glRasterPos4dv)proc("glRasterPos4dv");
-		s_fn_glRasterPos4f = (Fn_glRasterPos4f)proc("glRasterPos4f");
-		s_fn_glRasterPos4fv = (Fn_glRasterPos4fv)proc("glRasterPos4fv");
-		s_fn_glRasterPos4i = (Fn_glRasterPos4i)proc("glRasterPos4i");
-		s_fn_glRasterPos4iv = (Fn_glRasterPos4iv)proc("glRasterPos4iv");
-		s_fn_glRasterPos4s = (Fn_glRasterPos4s)proc("glRasterPos4s");
-		s_fn_glRasterPos4sv = (Fn_glRasterPos4sv)proc("glRasterPos4sv");
-		s_fn_glRectd = (Fn_glRectd)proc("glRectd");
-		s_fn_glRectdv = (Fn_glRectdv)proc("glRectdv");
-		s_fn_glRectf = (Fn_glRectf)proc("glRectf");
-		s_fn_glRectfv = (Fn_glRectfv)proc("glRectfv");
-		s_fn_glRecti = (Fn_glRecti)proc("glRecti");
-		s_fn_glRectiv = (Fn_glRectiv)proc("glRectiv");
-		s_fn_glRects = (Fn_glRects)proc("glRects");
-		s_fn_glRectsv = (Fn_glRectsv)proc("glRectsv");
-		s_fn_glTexCoord1d = (Fn_glTexCoord1d)proc("glTexCoord1d");
-		s_fn_glTexCoord1dv = (Fn_glTexCoord1dv)proc("glTexCoord1dv");
-		s_fn_glTexCoord1f = (Fn_glTexCoord1f)proc("glTexCoord1f");
-		s_fn_glTexCoord1fv = (Fn_glTexCoord1fv)proc("glTexCoord1fv");
-		s_fn_glTexCoord1i = (Fn_glTexCoord1i)proc("glTexCoord1i");
-		s_fn_glTexCoord1iv = (Fn_glTexCoord1iv)proc("glTexCoord1iv");
-		s_fn_glTexCoord1s = (Fn_glTexCoord1s)proc("glTexCoord1s");
-		s_fn_glTexCoord1sv = (Fn_glTexCoord1sv)proc("glTexCoord1sv");
-		s_fn_glTexCoord2d = (Fn_glTexCoord2d)proc("glTexCoord2d");
-		s_fn_glTexCoord2dv = (Fn_glTexCoord2dv)proc("glTexCoord2dv");
-		s_fn_glTexCoord2f = (Fn_glTexCoord2f)proc("glTexCoord2f");
-		s_fn_glTexCoord2fv = (Fn_glTexCoord2fv)proc("glTexCoord2fv");
-		s_fn_glTexCoord2i = (Fn_glTexCoord2i)proc("glTexCoord2i");
-		s_fn_glTexCoord2iv = (Fn_glTexCoord2iv)proc("glTexCoord2iv");
-		s_fn_glTexCoord2s = (Fn_glTexCoord2s)proc("glTexCoord2s");
-		s_fn_glTexCoord2sv = (Fn_glTexCoord2sv)proc("glTexCoord2sv");
-		s_fn_glTexCoord3d = (Fn_glTexCoord3d)proc("glTexCoord3d");
-		s_fn_glTexCoord3dv = (Fn_glTexCoord3dv)proc("glTexCoord3dv");
-		s_fn_glTexCoord3f = (Fn_glTexCoord3f)proc("glTexCoord3f");
-		s_fn_glTexCoord3fv = (Fn_glTexCoord3fv)proc("glTexCoord3fv");
-		s_fn_glTexCoord3i = (Fn_glTexCoord3i)proc("glTexCoord3i");
-		s_fn_glTexCoord3iv = (Fn_glTexCoord3iv)proc("glTexCoord3iv");
-		s_fn_glTexCoord3s = (Fn_glTexCoord3s)proc("glTexCoord3s");
-		s_fn_glTexCoord3sv = (Fn_glTexCoord3sv)proc("glTexCoord3sv");
-		s_fn_glTexCoord4d = (Fn_glTexCoord4d)proc("glTexCoord4d");
-		s_fn_glTexCoord4dv = (Fn_glTexCoord4dv)proc("glTexCoord4dv");
-		s_fn_glTexCoord4f = (Fn_glTexCoord4f)proc("glTexCoord4f");
-		s_fn_glTexCoord4fv = (Fn_glTexCoord4fv)proc("glTexCoord4fv");
-		s_fn_glTexCoord4i = (Fn_glTexCoord4i)proc("glTexCoord4i");
-		s_fn_glTexCoord4iv = (Fn_glTexCoord4iv)proc("glTexCoord4iv");
-		s_fn_glTexCoord4s = (Fn_glTexCoord4s)proc("glTexCoord4s");
-		s_fn_glTexCoord4sv = (Fn_glTexCoord4sv)proc("glTexCoord4sv");
-		s_fn_glVertex2d = (Fn_glVertex2d)proc("glVertex2d");
-		s_fn_glVertex2dv = (Fn_glVertex2dv)proc("glVertex2dv");
-		s_fn_glVertex2f = (Fn_glVertex2f)proc("glVertex2f");
-		s_fn_glVertex2fv = (Fn_glVertex2fv)proc("glVertex2fv");
-		s_fn_glVertex2i = (Fn_glVertex2i)proc("glVertex2i");
-		s_fn_glVertex2iv = (Fn_glVertex2iv)proc("glVertex2iv");
-		s_fn_glVertex2s = (Fn_glVertex2s)proc("glVertex2s");
-		s_fn_glVertex2sv = (Fn_glVertex2sv)proc("glVertex2sv");
-		s_fn_glVertex3d = (Fn_glVertex3d)proc("glVertex3d");
-		s_fn_glVertex3dv = (Fn_glVertex3dv)proc("glVertex3dv");
-		s_fn_glVertex3f = (Fn_glVertex3f)proc("glVertex3f");
-		s_fn_glVertex3fv = (Fn_glVertex3fv)proc("glVertex3fv");
-		s_fn_glVertex3i = (Fn_glVertex3i)proc("glVertex3i");
-		s_fn_glVertex3iv = (Fn_glVertex3iv)proc("glVertex3iv");
-		s_fn_glVertex3s = (Fn_glVertex3s)proc("glVertex3s");
-		s_fn_glVertex3sv = (Fn_glVertex3sv)proc("glVertex3sv");
-		s_fn_glVertex4d = (Fn_glVertex4d)proc("glVertex4d");
-		s_fn_glVertex4dv = (Fn_glVertex4dv)proc("glVertex4dv");
-		s_fn_glVertex4f = (Fn_glVertex4f)proc("glVertex4f");
-		s_fn_glVertex4fv = (Fn_glVertex4fv)proc("glVertex4fv");
-		s_fn_glVertex4i = (Fn_glVertex4i)proc("glVertex4i");
-		s_fn_glVertex4iv = (Fn_glVertex4iv)proc("glVertex4iv");
-		s_fn_glVertex4s = (Fn_glVertex4s)proc("glVertex4s");
-		s_fn_glVertex4sv = (Fn_glVertex4sv)proc("glVertex4sv");
-		s_fn_glClipPlane = (Fn_glClipPlane)proc("glClipPlane");
-		s_fn_glColorMaterial = (Fn_glColorMaterial)proc("glColorMaterial");
-		s_fn_glFogf = (Fn_glFogf)proc("glFogf");
-		s_fn_glFogfv = (Fn_glFogfv)proc("glFogfv");
-		s_fn_glFogi = (Fn_glFogi)proc("glFogi");
-		s_fn_glFogiv = (Fn_glFogiv)proc("glFogiv");
-		s_fn_glLightf = (Fn_glLightf)proc("glLightf");
-		s_fn_glLightfv = (Fn_glLightfv)proc("glLightfv");
-		s_fn_glLighti = (Fn_glLighti)proc("glLighti");
-		s_fn_glLightiv = (Fn_glLightiv)proc("glLightiv");
-		s_fn_glLightModelf = (Fn_glLightModelf)proc("glLightModelf");
-		s_fn_glLightModelfv = (Fn_glLightModelfv)proc("glLightModelfv");
-		s_fn_glLightModeli = (Fn_glLightModeli)proc("glLightModeli");
-		s_fn_glLightModeliv = (Fn_glLightModeliv)proc("glLightModeliv");
-		s_fn_glLineStipple = (Fn_glLineStipple)proc("glLineStipple");
-		s_fn_glMaterialf = (Fn_glMaterialf)proc("glMaterialf");
-		s_fn_glMaterialfv = (Fn_glMaterialfv)proc("glMaterialfv");
-		s_fn_glMateriali = (Fn_glMateriali)proc("glMateriali");
-		s_fn_glMaterialiv = (Fn_glMaterialiv)proc("glMaterialiv");
-		s_fn_glPolygonStipple = (Fn_glPolygonStipple)proc("glPolygonStipple");
-		s_fn_glShadeModel = (Fn_glShadeModel)proc("glShadeModel");
-		s_fn_glTexEnvf = (Fn_glTexEnvf)proc("glTexEnvf");
-		s_fn_glTexEnvfv = (Fn_glTexEnvfv)proc("glTexEnvfv");
-		s_fn_glTexEnvi = (Fn_glTexEnvi)proc("glTexEnvi");
-		s_fn_glTexEnviv = (Fn_glTexEnviv)proc("glTexEnviv");
-		s_fn_glTexGend = (Fn_glTexGend)proc("glTexGend");
-		s_fn_glTexGendv = (Fn_glTexGendv)proc("glTexGendv");
-		s_fn_glTexGenf = (Fn_glTexGenf)proc("glTexGenf");
-		s_fn_glTexGenfv = (Fn_glTexGenfv)proc("glTexGenfv");
-		s_fn_glTexGeni = (Fn_glTexGeni)proc("glTexGeni");
-		s_fn_glTexGeniv = (Fn_glTexGeniv)proc("glTexGeniv");
-		s_fn_glFeedbackBuffer = (Fn_glFeedbackBuffer)proc("glFeedbackBuffer");
-		s_fn_glSelectBuffer = (Fn_glSelectBuffer)proc("glSelectBuffer");
-		s_fn_glRenderMode = (Fn_glRenderMode)proc("glRenderMode");
-		s_fn_glInitNames = (Fn_glInitNames)proc("glInitNames");
-		s_fn_glLoadName = (Fn_glLoadName)proc("glLoadName");
-		s_fn_glPassThrough = (Fn_glPassThrough)proc("glPassThrough");
-		s_fn_glPopName = (Fn_glPopName)proc("glPopName");
-		s_fn_glPushName = (Fn_glPushName)proc("glPushName");
-		s_fn_glClearAccum = (Fn_glClearAccum)proc("glClearAccum");
-		s_fn_glClearIndex = (Fn_glClearIndex)proc("glClearIndex");
-		s_fn_glIndexMask = (Fn_glIndexMask)proc("glIndexMask");
-		s_fn_glAccum = (Fn_glAccum)proc("glAccum");
-		s_fn_glPopAttrib = (Fn_glPopAttrib)proc("glPopAttrib");
-		s_fn_glPushAttrib = (Fn_glPushAttrib)proc("glPushAttrib");
-		s_fn_glMap1d = (Fn_glMap1d)proc("glMap1d");
-		s_fn_glMap1f = (Fn_glMap1f)proc("glMap1f");
-		s_fn_glMap2d = (Fn_glMap2d)proc("glMap2d");
-		s_fn_glMap2f = (Fn_glMap2f)proc("glMap2f");
-		s_fn_glMapGrid1d = (Fn_glMapGrid1d)proc("glMapGrid1d");
-		s_fn_glMapGrid1f = (Fn_glMapGrid1f)proc("glMapGrid1f");
-		s_fn_glMapGrid2d = (Fn_glMapGrid2d)proc("glMapGrid2d");
-		s_fn_glMapGrid2f = (Fn_glMapGrid2f)proc("glMapGrid2f");
-		s_fn_glEvalCoord1d = (Fn_glEvalCoord1d)proc("glEvalCoord1d");
-		s_fn_glEvalCoord1dv = (Fn_glEvalCoord1dv)proc("glEvalCoord1dv");
-		s_fn_glEvalCoord1f = (Fn_glEvalCoord1f)proc("glEvalCoord1f");
-		s_fn_glEvalCoord1fv = (Fn_glEvalCoord1fv)proc("glEvalCoord1fv");
-		s_fn_glEvalCoord2d = (Fn_glEvalCoord2d)proc("glEvalCoord2d");
-		s_fn_glEvalCoord2dv = (Fn_glEvalCoord2dv)proc("glEvalCoord2dv");
-		s_fn_glEvalCoord2f = (Fn_glEvalCoord2f)proc("glEvalCoord2f");
-		s_fn_glEvalCoord2fv = (Fn_glEvalCoord2fv)proc("glEvalCoord2fv");
-		s_fn_glEvalMesh1 = (Fn_glEvalMesh1)proc("glEvalMesh1");
-		s_fn_glEvalPoint1 = (Fn_glEvalPoint1)proc("glEvalPoint1");
-		s_fn_glEvalMesh2 = (Fn_glEvalMesh2)proc("glEvalMesh2");
-		s_fn_glEvalPoint2 = (Fn_glEvalPoint2)proc("glEvalPoint2");
-		s_fn_glAlphaFunc = (Fn_glAlphaFunc)proc("glAlphaFunc");
-		s_fn_glPixelZoom = (Fn_glPixelZoom)proc("glPixelZoom");
-		s_fn_glPixelTransferf = (Fn_glPixelTransferf)proc("glPixelTransferf");
-		s_fn_glPixelTransferi = (Fn_glPixelTransferi)proc("glPixelTransferi");
-		s_fn_glPixelMapfv = (Fn_glPixelMapfv)proc("glPixelMapfv");
-		s_fn_glPixelMapuiv = (Fn_glPixelMapuiv)proc("glPixelMapuiv");
-		s_fn_glPixelMapusv = (Fn_glPixelMapusv)proc("glPixelMapusv");
-		s_fn_glCopyPixels = (Fn_glCopyPixels)proc("glCopyPixels");
-		s_fn_glDrawPixels = (Fn_glDrawPixels)proc("glDrawPixels");
-		s_fn_glGetClipPlane = (Fn_glGetClipPlane)proc("glGetClipPlane");
-		s_fn_glGetLightfv = (Fn_glGetLightfv)proc("glGetLightfv");
-		s_fn_glGetLightiv = (Fn_glGetLightiv)proc("glGetLightiv");
-		s_fn_glGetMapdv = (Fn_glGetMapdv)proc("glGetMapdv");
-		s_fn_glGetMapfv = (Fn_glGetMapfv)proc("glGetMapfv");
-		s_fn_glGetMapiv = (Fn_glGetMapiv)proc("glGetMapiv");
-		s_fn_glGetMaterialfv = (Fn_glGetMaterialfv)proc("glGetMaterialfv");
-		s_fn_glGetMaterialiv = (Fn_glGetMaterialiv)proc("glGetMaterialiv");
-		s_fn_glGetPixelMapfv = (Fn_glGetPixelMapfv)proc("glGetPixelMapfv");
-		s_fn_glGetPixelMapuiv = (Fn_glGetPixelMapuiv)proc("glGetPixelMapuiv");
-		s_fn_glGetPixelMapusv = (Fn_glGetPixelMapusv)proc("glGetPixelMapusv");
-		s_fn_glGetPolygonStipple = (Fn_glGetPolygonStipple)proc("glGetPolygonStipple");
-		s_fn_glGetTexEnvfv = (Fn_glGetTexEnvfv)proc("glGetTexEnvfv");
-		s_fn_glGetTexEnviv = (Fn_glGetTexEnviv)proc("glGetTexEnviv");
-		s_fn_glGetTexGendv = (Fn_glGetTexGendv)proc("glGetTexGendv");
-		s_fn_glGetTexGenfv = (Fn_glGetTexGenfv)proc("glGetTexGenfv");
-		s_fn_glGetTexGeniv = (Fn_glGetTexGeniv)proc("glGetTexGeniv");
-		s_fn_glIsList = (Fn_glIsList)proc("glIsList");
-		s_fn_glFrustum = (Fn_glFrustum)proc("glFrustum");
-		s_fn_glLoadIdentity = (Fn_glLoadIdentity)proc("glLoadIdentity");
-		s_fn_glLoadMatrixf = (Fn_glLoadMatrixf)proc("glLoadMatrixf");
-		s_fn_glLoadMatrixd = (Fn_glLoadMatrixd)proc("glLoadMatrixd");
-		s_fn_glMatrixMode = (Fn_glMatrixMode)proc("glMatrixMode");
-		s_fn_glMultMatrixf = (Fn_glMultMatrixf)proc("glMultMatrixf");
-		s_fn_glMultMatrixd = (Fn_glMultMatrixd)proc("glMultMatrixd");
-		s_fn_glOrtho = (Fn_glOrtho)proc("glOrtho");
-		s_fn_glPopMatrix = (Fn_glPopMatrix)proc("glPopMatrix");
-		s_fn_glPushMatrix = (Fn_glPushMatrix)proc("glPushMatrix");
-		s_fn_glRotated = (Fn_glRotated)proc("glRotated");
-		s_fn_glRotatef = (Fn_glRotatef)proc("glRotatef");
-		s_fn_glScaled = (Fn_glScaled)proc("glScaled");
-		s_fn_glScalef = (Fn_glScalef)proc("glScalef");
-		s_fn_glTranslated = (Fn_glTranslated)proc("glTranslated");
-		s_fn_glTranslatef = (Fn_glTranslatef)proc("glTranslatef");
-		s_fn_glDrawArrays = (Fn_glDrawArrays)proc("glDrawArrays");
-		s_fn_glDrawElements = (Fn_glDrawElements)proc("glDrawElements");
-		s_fn_glGetPointerv = (Fn_glGetPointerv)proc("glGetPointerv");
-		s_fn_glPolygonOffset = (Fn_glPolygonOffset)proc("glPolygonOffset");
-		s_fn_glCopyTexImage1D = (Fn_glCopyTexImage1D)proc("glCopyTexImage1D");
-		s_fn_glCopyTexImage2D = (Fn_glCopyTexImage2D)proc("glCopyTexImage2D");
-		s_fn_glCopyTexSubImage1D = (Fn_glCopyTexSubImage1D)proc("glCopyTexSubImage1D");
-		s_fn_glCopyTexSubImage2D = (Fn_glCopyTexSubImage2D)proc("glCopyTexSubImage2D");
-		s_fn_glTexSubImage1D = (Fn_glTexSubImage1D)proc("glTexSubImage1D");
-		s_fn_glTexSubImage2D = (Fn_glTexSubImage2D)proc("glTexSubImage2D");
-		s_fn_glBindTexture = (Fn_glBindTexture)proc("glBindTexture");
-		s_fn_glDeleteTextures = (Fn_glDeleteTextures)proc("glDeleteTextures");
-		s_fn_glGenTextures = (Fn_glGenTextures)proc("glGenTextures");
-		s_fn_glIsTexture = (Fn_glIsTexture)proc("glIsTexture");
-		s_fn_glArrayElement = (Fn_glArrayElement)proc("glArrayElement");
-		s_fn_glColorPointer = (Fn_glColorPointer)proc("glColorPointer");
-		s_fn_glDisableClientState = (Fn_glDisableClientState)proc("glDisableClientState");
-		s_fn_glEdgeFlagPointer = (Fn_glEdgeFlagPointer)proc("glEdgeFlagPointer");
-		s_fn_glEnableClientState = (Fn_glEnableClientState)proc("glEnableClientState");
-		s_fn_glIndexPointer = (Fn_glIndexPointer)proc("glIndexPointer");
-		s_fn_glInterleavedArrays = (Fn_glInterleavedArrays)proc("glInterleavedArrays");
-		s_fn_glNormalPointer = (Fn_glNormalPointer)proc("glNormalPointer");
-		s_fn_glTexCoordPointer = (Fn_glTexCoordPointer)proc("glTexCoordPointer");
-		s_fn_glVertexPointer = (Fn_glVertexPointer)proc("glVertexPointer");
-		s_fn_glAreTexturesResident = (Fn_glAreTexturesResident)proc("glAreTexturesResident");
-		s_fn_glPrioritizeTextures = (Fn_glPrioritizeTextures)proc("glPrioritizeTextures");
-		s_fn_glIndexub = (Fn_glIndexub)proc("glIndexub");
-		s_fn_glIndexubv = (Fn_glIndexubv)proc("glIndexubv");
-		s_fn_glPopClientAttrib = (Fn_glPopClientAttrib)proc("glPopClientAttrib");
-		s_fn_glPushClientAttrib = (Fn_glPushClientAttrib)proc("glPushClientAttrib");
-		s_fn_glDrawRangeElements = (Fn_glDrawRangeElements)proc("glDrawRangeElements");
-		s_fn_glTexImage3D = (Fn_glTexImage3D)proc("glTexImage3D");
-		s_fn_glTexSubImage3D = (Fn_glTexSubImage3D)proc("glTexSubImage3D");
-		s_fn_glCopyTexSubImage3D = (Fn_glCopyTexSubImage3D)proc("glCopyTexSubImage3D");
-		s_fn_glActiveTexture = (Fn_glActiveTexture)proc("glActiveTexture");
-		s_fn_glSampleCoverage = (Fn_glSampleCoverage)proc("glSampleCoverage");
-		s_fn_glCompressedTexImage3D = (Fn_glCompressedTexImage3D)proc("glCompressedTexImage3D");
-		s_fn_glCompressedTexImage2D = (Fn_glCompressedTexImage2D)proc("glCompressedTexImage2D");
-		s_fn_glCompressedTexImage1D = (Fn_glCompressedTexImage1D)proc("glCompressedTexImage1D");
-		s_fn_glCompressedTexSubImage3D = (Fn_glCompressedTexSubImage3D)proc("glCompressedTexSubImage3D");
-		s_fn_glCompressedTexSubImage2D = (Fn_glCompressedTexSubImage2D)proc("glCompressedTexSubImage2D");
-		s_fn_glCompressedTexSubImage1D = (Fn_glCompressedTexSubImage1D)proc("glCompressedTexSubImage1D");
-		s_fn_glGetCompressedTexImage = (Fn_glGetCompressedTexImage)proc("glGetCompressedTexImage");
-		s_fn_glClientActiveTexture = (Fn_glClientActiveTexture)proc("glClientActiveTexture");
-		s_fn_glMultiTexCoord1d = (Fn_glMultiTexCoord1d)proc("glMultiTexCoord1d");
-		s_fn_glMultiTexCoord1dv = (Fn_glMultiTexCoord1dv)proc("glMultiTexCoord1dv");
-		s_fn_glMultiTexCoord1f = (Fn_glMultiTexCoord1f)proc("glMultiTexCoord1f");
-		s_fn_glMultiTexCoord1fv = (Fn_glMultiTexCoord1fv)proc("glMultiTexCoord1fv");
-		s_fn_glMultiTexCoord1i = (Fn_glMultiTexCoord1i)proc("glMultiTexCoord1i");
-		s_fn_glMultiTexCoord1iv = (Fn_glMultiTexCoord1iv)proc("glMultiTexCoord1iv");
-		s_fn_glMultiTexCoord1s = (Fn_glMultiTexCoord1s)proc("glMultiTexCoord1s");
-		s_fn_glMultiTexCoord1sv = (Fn_glMultiTexCoord1sv)proc("glMultiTexCoord1sv");
-		s_fn_glMultiTexCoord2d = (Fn_glMultiTexCoord2d)proc("glMultiTexCoord2d");
-		s_fn_glMultiTexCoord2dv = (Fn_glMultiTexCoord2dv)proc("glMultiTexCoord2dv");
-		s_fn_glMultiTexCoord2f = (Fn_glMultiTexCoord2f)proc("glMultiTexCoord2f");
-		s_fn_glMultiTexCoord2fv = (Fn_glMultiTexCoord2fv)proc("glMultiTexCoord2fv");
-		s_fn_glMultiTexCoord2i = (Fn_glMultiTexCoord2i)proc("glMultiTexCoord2i");
-		s_fn_glMultiTexCoord2iv = (Fn_glMultiTexCoord2iv)proc("glMultiTexCoord2iv");
-		s_fn_glMultiTexCoord2s = (Fn_glMultiTexCoord2s)proc("glMultiTexCoord2s");
-		s_fn_glMultiTexCoord2sv = (Fn_glMultiTexCoord2sv)proc("glMultiTexCoord2sv");
-		s_fn_glMultiTexCoord3d = (Fn_glMultiTexCoord3d)proc("glMultiTexCoord3d");
-		s_fn_glMultiTexCoord3dv = (Fn_glMultiTexCoord3dv)proc("glMultiTexCoord3dv");
-		s_fn_glMultiTexCoord3f = (Fn_glMultiTexCoord3f)proc("glMultiTexCoord3f");
-		s_fn_glMultiTexCoord3fv = (Fn_glMultiTexCoord3fv)proc("glMultiTexCoord3fv");
-		s_fn_glMultiTexCoord3i = (Fn_glMultiTexCoord3i)proc("glMultiTexCoord3i");
-		s_fn_glMultiTexCoord3iv = (Fn_glMultiTexCoord3iv)proc("glMultiTexCoord3iv");
-		s_fn_glMultiTexCoord3s = (Fn_glMultiTexCoord3s)proc("glMultiTexCoord3s");
-		s_fn_glMultiTexCoord3sv = (Fn_glMultiTexCoord3sv)proc("glMultiTexCoord3sv");
-		s_fn_glMultiTexCoord4d = (Fn_glMultiTexCoord4d)proc("glMultiTexCoord4d");
-		s_fn_glMultiTexCoord4dv = (Fn_glMultiTexCoord4dv)proc("glMultiTexCoord4dv");
-		s_fn_glMultiTexCoord4f = (Fn_glMultiTexCoord4f)proc("glMultiTexCoord4f");
-		s_fn_glMultiTexCoord4fv = (Fn_glMultiTexCoord4fv)proc("glMultiTexCoord4fv");
-		s_fn_glMultiTexCoord4i = (Fn_glMultiTexCoord4i)proc("glMultiTexCoord4i");
-		s_fn_glMultiTexCoord4iv = (Fn_glMultiTexCoord4iv)proc("glMultiTexCoord4iv");
-		s_fn_glMultiTexCoord4s = (Fn_glMultiTexCoord4s)proc("glMultiTexCoord4s");
-		s_fn_glMultiTexCoord4sv = (Fn_glMultiTexCoord4sv)proc("glMultiTexCoord4sv");
-		s_fn_glLoadTransposeMatrixf = (Fn_glLoadTransposeMatrixf)proc("glLoadTransposeMatrixf");
-		s_fn_glLoadTransposeMatrixd = (Fn_glLoadTransposeMatrixd)proc("glLoadTransposeMatrixd");
-		s_fn_glMultTransposeMatrixf = (Fn_glMultTransposeMatrixf)proc("glMultTransposeMatrixf");
-		s_fn_glMultTransposeMatrixd = (Fn_glMultTransposeMatrixd)proc("glMultTransposeMatrixd");
-		s_fn_glBlendFuncSeparate = (Fn_glBlendFuncSeparate)proc("glBlendFuncSeparate");
-		s_fn_glMultiDrawArrays = (Fn_glMultiDrawArrays)proc("glMultiDrawArrays");
-		s_fn_glMultiDrawElements = (Fn_glMultiDrawElements)proc("glMultiDrawElements");
-		s_fn_glPointParameterf = (Fn_glPointParameterf)proc("glPointParameterf");
-		s_fn_glPointParameterfv = (Fn_glPointParameterfv)proc("glPointParameterfv");
-		s_fn_glPointParameteri = (Fn_glPointParameteri)proc("glPointParameteri");
-		s_fn_glPointParameteriv = (Fn_glPointParameteriv)proc("glPointParameteriv");
-		s_fn_glFogCoordf = (Fn_glFogCoordf)proc("glFogCoordf");
-		s_fn_glFogCoordfv = (Fn_glFogCoordfv)proc("glFogCoordfv");
-		s_fn_glFogCoordd = (Fn_glFogCoordd)proc("glFogCoordd");
-		s_fn_glFogCoorddv = (Fn_glFogCoorddv)proc("glFogCoorddv");
-		s_fn_glFogCoordPointer = (Fn_glFogCoordPointer)proc("glFogCoordPointer");
-		s_fn_glSecondaryColor3b = (Fn_glSecondaryColor3b)proc("glSecondaryColor3b");
-		s_fn_glSecondaryColor3bv = (Fn_glSecondaryColor3bv)proc("glSecondaryColor3bv");
-		s_fn_glSecondaryColor3d = (Fn_glSecondaryColor3d)proc("glSecondaryColor3d");
-		s_fn_glSecondaryColor3dv = (Fn_glSecondaryColor3dv)proc("glSecondaryColor3dv");
-		s_fn_glSecondaryColor3f = (Fn_glSecondaryColor3f)proc("glSecondaryColor3f");
-		s_fn_glSecondaryColor3fv = (Fn_glSecondaryColor3fv)proc("glSecondaryColor3fv");
-		s_fn_glSecondaryColor3i = (Fn_glSecondaryColor3i)proc("glSecondaryColor3i");
-		s_fn_glSecondaryColor3iv = (Fn_glSecondaryColor3iv)proc("glSecondaryColor3iv");
-		s_fn_glSecondaryColor3s = (Fn_glSecondaryColor3s)proc("glSecondaryColor3s");
-		s_fn_glSecondaryColor3sv = (Fn_glSecondaryColor3sv)proc("glSecondaryColor3sv");
-		s_fn_glSecondaryColor3ub = (Fn_glSecondaryColor3ub)proc("glSecondaryColor3ub");
-		s_fn_glSecondaryColor3ubv = (Fn_glSecondaryColor3ubv)proc("glSecondaryColor3ubv");
-		s_fn_glSecondaryColor3ui = (Fn_glSecondaryColor3ui)proc("glSecondaryColor3ui");
-		s_fn_glSecondaryColor3uiv = (Fn_glSecondaryColor3uiv)proc("glSecondaryColor3uiv");
-		s_fn_glSecondaryColor3us = (Fn_glSecondaryColor3us)proc("glSecondaryColor3us");
-		s_fn_glSecondaryColor3usv = (Fn_glSecondaryColor3usv)proc("glSecondaryColor3usv");
-		s_fn_glSecondaryColorPointer = (Fn_glSecondaryColorPointer)proc("glSecondaryColorPointer");
-		s_fn_glWindowPos2d = (Fn_glWindowPos2d)proc("glWindowPos2d");
-		s_fn_glWindowPos2dv = (Fn_glWindowPos2dv)proc("glWindowPos2dv");
-		s_fn_glWindowPos2f = (Fn_glWindowPos2f)proc("glWindowPos2f");
-		s_fn_glWindowPos2fv = (Fn_glWindowPos2fv)proc("glWindowPos2fv");
-		s_fn_glWindowPos2i = (Fn_glWindowPos2i)proc("glWindowPos2i");
-		s_fn_glWindowPos2iv = (Fn_glWindowPos2iv)proc("glWindowPos2iv");
-		s_fn_glWindowPos2s = (Fn_glWindowPos2s)proc("glWindowPos2s");
-		s_fn_glWindowPos2sv = (Fn_glWindowPos2sv)proc("glWindowPos2sv");
-		s_fn_glWindowPos3d = (Fn_glWindowPos3d)proc("glWindowPos3d");
-		s_fn_glWindowPos3dv = (Fn_glWindowPos3dv)proc("glWindowPos3dv");
-		s_fn_glWindowPos3f = (Fn_glWindowPos3f)proc("glWindowPos3f");
-		s_fn_glWindowPos3fv = (Fn_glWindowPos3fv)proc("glWindowPos3fv");
-		s_fn_glWindowPos3i = (Fn_glWindowPos3i)proc("glWindowPos3i");
-		s_fn_glWindowPos3iv = (Fn_glWindowPos3iv)proc("glWindowPos3iv");
-		s_fn_glWindowPos3s = (Fn_glWindowPos3s)proc("glWindowPos3s");
-		s_fn_glWindowPos3sv = (Fn_glWindowPos3sv)proc("glWindowPos3sv");
-		s_fn_glBlendColor = (Fn_glBlendColor)proc("glBlendColor");
-		s_fn_glBlendEquation = (Fn_glBlendEquation)proc("glBlendEquation");
-		s_fn_glGenQueries = (Fn_glGenQueries)proc("glGenQueries");
-		s_fn_glDeleteQueries = (Fn_glDeleteQueries)proc("glDeleteQueries");
-		s_fn_glIsQuery = (Fn_glIsQuery)proc("glIsQuery");
-		s_fn_glBeginQuery = (Fn_glBeginQuery)proc("glBeginQuery");
-		s_fn_glEndQuery = (Fn_glEndQuery)proc("glEndQuery");
-		s_fn_glGetQueryiv = (Fn_glGetQueryiv)proc("glGetQueryiv");
-		s_fn_glGetQueryObjectiv = (Fn_glGetQueryObjectiv)proc("glGetQueryObjectiv");
-		s_fn_glGetQueryObjectuiv = (Fn_glGetQueryObjectuiv)proc("glGetQueryObjectuiv");
-		s_fn_glBindBuffer = (Fn_glBindBuffer)proc("glBindBuffer");
-		s_fn_glDeleteBuffers = (Fn_glDeleteBuffers)proc("glDeleteBuffers");
-		s_fn_glGenBuffers = (Fn_glGenBuffers)proc("glGenBuffers");
-		s_fn_glIsBuffer = (Fn_glIsBuffer)proc("glIsBuffer");
-		s_fn_glBufferData = (Fn_glBufferData)proc("glBufferData");
-		s_fn_glBufferSubData = (Fn_glBufferSubData)proc("glBufferSubData");
-		s_fn_glGetBufferSubData = (Fn_glGetBufferSubData)proc("glGetBufferSubData");
-		s_fn_glMapBuffer = (Fn_glMapBuffer)proc("glMapBuffer");
-		s_fn_glUnmapBuffer = (Fn_glUnmapBuffer)proc("glUnmapBuffer");
-		s_fn_glGetBufferParameteriv = (Fn_glGetBufferParameteriv)proc("glGetBufferParameteriv");
-		s_fn_glGetBufferPointerv = (Fn_glGetBufferPointerv)proc("glGetBufferPointerv");
-		s_fn_glBlendEquationSeparate = (Fn_glBlendEquationSeparate)proc("glBlendEquationSeparate");
-		s_fn_glDrawBuffers = (Fn_glDrawBuffers)proc("glDrawBuffers");
-		s_fn_glStencilOpSeparate = (Fn_glStencilOpSeparate)proc("glStencilOpSeparate");
-		s_fn_glStencilFuncSeparate = (Fn_glStencilFuncSeparate)proc("glStencilFuncSeparate");
-		s_fn_glStencilMaskSeparate = (Fn_glStencilMaskSeparate)proc("glStencilMaskSeparate");
-		s_fn_glAttachShader = (Fn_glAttachShader)proc("glAttachShader");
-		s_fn_glBindAttribLocation = (Fn_glBindAttribLocation)proc("glBindAttribLocation");
-		s_fn_glCompileShader = (Fn_glCompileShader)proc("glCompileShader");
-		s_fn_glCreateProgram = (Fn_glCreateProgram)proc("glCreateProgram");
-		s_fn_glCreateShader = (Fn_glCreateShader)proc("glCreateShader");
-		s_fn_glDeleteProgram = (Fn_glDeleteProgram)proc("glDeleteProgram");
-		s_fn_glDeleteShader = (Fn_glDeleteShader)proc("glDeleteShader");
-		s_fn_glDetachShader = (Fn_glDetachShader)proc("glDetachShader");
-		s_fn_glDisableVertexAttribArray = (Fn_glDisableVertexAttribArray)proc("glDisableVertexAttribArray");
-		s_fn_glEnableVertexAttribArray = (Fn_glEnableVertexAttribArray)proc("glEnableVertexAttribArray");
-		s_fn_glGetActiveAttrib = (Fn_glGetActiveAttrib)proc("glGetActiveAttrib");
-		s_fn_glGetActiveUniform = (Fn_glGetActiveUniform)proc("glGetActiveUniform");
-		s_fn_glGetAttachedShaders = (Fn_glGetAttachedShaders)proc("glGetAttachedShaders");
-		s_fn_glGetAttribLocation = (Fn_glGetAttribLocation)proc("glGetAttribLocation");
-		s_fn_glGetProgramiv = (Fn_glGetProgramiv)proc("glGetProgramiv");
-		s_fn_glGetProgramInfoLog = (Fn_glGetProgramInfoLog)proc("glGetProgramInfoLog");
-		s_fn_glGetShaderiv = (Fn_glGetShaderiv)proc("glGetShaderiv");
-		s_fn_glGetShaderInfoLog = (Fn_glGetShaderInfoLog)proc("glGetShaderInfoLog");
-		s_fn_glGetShaderSource = (Fn_glGetShaderSource)proc("glGetShaderSource");
-		s_fn_glGetUniformLocation = (Fn_glGetUniformLocation)proc("glGetUniformLocation");
-		s_fn_glGetUniformfv = (Fn_glGetUniformfv)proc("glGetUniformfv");
-		s_fn_glGetUniformiv = (Fn_glGetUniformiv)proc("glGetUniformiv");
-		s_fn_glGetVertexAttribdv = (Fn_glGetVertexAttribdv)proc("glGetVertexAttribdv");
-		s_fn_glGetVertexAttribfv = (Fn_glGetVertexAttribfv)proc("glGetVertexAttribfv");
-		s_fn_glGetVertexAttribiv = (Fn_glGetVertexAttribiv)proc("glGetVertexAttribiv");
-		s_fn_glGetVertexAttribPointerv = (Fn_glGetVertexAttribPointerv)proc("glGetVertexAttribPointerv");
-		s_fn_glIsProgram = (Fn_glIsProgram)proc("glIsProgram");
-		s_fn_glIsShader = (Fn_glIsShader)proc("glIsShader");
-		s_fn_glLinkProgram = (Fn_glLinkProgram)proc("glLinkProgram");
-		s_fn_glShaderSource = (Fn_glShaderSource)proc("glShaderSource");
-		s_fn_glUseProgram = (Fn_glUseProgram)proc("glUseProgram");
-		s_fn_glUniform1f = (Fn_glUniform1f)proc("glUniform1f");
-		s_fn_glUniform2f = (Fn_glUniform2f)proc("glUniform2f");
-		s_fn_glUniform3f = (Fn_glUniform3f)proc("glUniform3f");
-		s_fn_glUniform4f = (Fn_glUniform4f)proc("glUniform4f");
-		s_fn_glUniform1i = (Fn_glUniform1i)proc("glUniform1i");
-		s_fn_glUniform2i = (Fn_glUniform2i)proc("glUniform2i");
-		s_fn_glUniform3i = (Fn_glUniform3i)proc("glUniform3i");
-		s_fn_glUniform4i = (Fn_glUniform4i)proc("glUniform4i");
-		s_fn_glUniform1fv = (Fn_glUniform1fv)proc("glUniform1fv");
-		s_fn_glUniform2fv = (Fn_glUniform2fv)proc("glUniform2fv");
-		s_fn_glUniform3fv = (Fn_glUniform3fv)proc("glUniform3fv");
-		s_fn_glUniform4fv = (Fn_glUniform4fv)proc("glUniform4fv");
-		s_fn_glUniform1iv = (Fn_glUniform1iv)proc("glUniform1iv");
-		s_fn_glUniform2iv = (Fn_glUniform2iv)proc("glUniform2iv");
-		s_fn_glUniform3iv = (Fn_glUniform3iv)proc("glUniform3iv");
-		s_fn_glUniform4iv = (Fn_glUniform4iv)proc("glUniform4iv");
-		s_fn_glUniformMatrix2fv = (Fn_glUniformMatrix2fv)proc("glUniformMatrix2fv");
-		s_fn_glUniformMatrix3fv = (Fn_glUniformMatrix3fv)proc("glUniformMatrix3fv");
-		s_fn_glUniformMatrix4fv = (Fn_glUniformMatrix4fv)proc("glUniformMatrix4fv");
-		s_fn_glValidateProgram = (Fn_glValidateProgram)proc("glValidateProgram");
-		s_fn_glVertexAttrib1d = (Fn_glVertexAttrib1d)proc("glVertexAttrib1d");
-		s_fn_glVertexAttrib1dv = (Fn_glVertexAttrib1dv)proc("glVertexAttrib1dv");
-		s_fn_glVertexAttrib1f = (Fn_glVertexAttrib1f)proc("glVertexAttrib1f");
-		s_fn_glVertexAttrib1fv = (Fn_glVertexAttrib1fv)proc("glVertexAttrib1fv");
-		s_fn_glVertexAttrib1s = (Fn_glVertexAttrib1s)proc("glVertexAttrib1s");
-		s_fn_glVertexAttrib1sv = (Fn_glVertexAttrib1sv)proc("glVertexAttrib1sv");
-		s_fn_glVertexAttrib2d = (Fn_glVertexAttrib2d)proc("glVertexAttrib2d");
-		s_fn_glVertexAttrib2dv = (Fn_glVertexAttrib2dv)proc("glVertexAttrib2dv");
-		s_fn_glVertexAttrib2f = (Fn_glVertexAttrib2f)proc("glVertexAttrib2f");
-		s_fn_glVertexAttrib2fv = (Fn_glVertexAttrib2fv)proc("glVertexAttrib2fv");
-		s_fn_glVertexAttrib2s = (Fn_glVertexAttrib2s)proc("glVertexAttrib2s");
-		s_fn_glVertexAttrib2sv = (Fn_glVertexAttrib2sv)proc("glVertexAttrib2sv");
-		s_fn_glVertexAttrib3d = (Fn_glVertexAttrib3d)proc("glVertexAttrib3d");
-		s_fn_glVertexAttrib3dv = (Fn_glVertexAttrib3dv)proc("glVertexAttrib3dv");
-		s_fn_glVertexAttrib3f = (Fn_glVertexAttrib3f)proc("glVertexAttrib3f");
-		s_fn_glVertexAttrib3fv = (Fn_glVertexAttrib3fv)proc("glVertexAttrib3fv");
-		s_fn_glVertexAttrib3s = (Fn_glVertexAttrib3s)proc("glVertexAttrib3s");
-		s_fn_glVertexAttrib3sv = (Fn_glVertexAttrib3sv)proc("glVertexAttrib3sv");
-		s_fn_glVertexAttrib4Nbv = (Fn_glVertexAttrib4Nbv)proc("glVertexAttrib4Nbv");
-		s_fn_glVertexAttrib4Niv = (Fn_glVertexAttrib4Niv)proc("glVertexAttrib4Niv");
-		s_fn_glVertexAttrib4Nsv = (Fn_glVertexAttrib4Nsv)proc("glVertexAttrib4Nsv");
-		s_fn_glVertexAttrib4Nub = (Fn_glVertexAttrib4Nub)proc("glVertexAttrib4Nub");
-		s_fn_glVertexAttrib4Nubv = (Fn_glVertexAttrib4Nubv)proc("glVertexAttrib4Nubv");
-		s_fn_glVertexAttrib4Nuiv = (Fn_glVertexAttrib4Nuiv)proc("glVertexAttrib4Nuiv");
-		s_fn_glVertexAttrib4Nusv = (Fn_glVertexAttrib4Nusv)proc("glVertexAttrib4Nusv");
-		s_fn_glVertexAttrib4bv = (Fn_glVertexAttrib4bv)proc("glVertexAttrib4bv");
-		s_fn_glVertexAttrib4d = (Fn_glVertexAttrib4d)proc("glVertexAttrib4d");
-		s_fn_glVertexAttrib4dv = (Fn_glVertexAttrib4dv)proc("glVertexAttrib4dv");
-		s_fn_glVertexAttrib4f = (Fn_glVertexAttrib4f)proc("glVertexAttrib4f");
-		s_fn_glVertexAttrib4fv = (Fn_glVertexAttrib4fv)proc("glVertexAttrib4fv");
-		s_fn_glVertexAttrib4iv = (Fn_glVertexAttrib4iv)proc("glVertexAttrib4iv");
-		s_fn_glVertexAttrib4s = (Fn_glVertexAttrib4s)proc("glVertexAttrib4s");
-		s_fn_glVertexAttrib4sv = (Fn_glVertexAttrib4sv)proc("glVertexAttrib4sv");
-		s_fn_glVertexAttrib4ubv = (Fn_glVertexAttrib4ubv)proc("glVertexAttrib4ubv");
-		s_fn_glVertexAttrib4uiv = (Fn_glVertexAttrib4uiv)proc("glVertexAttrib4uiv");
-		s_fn_glVertexAttrib4usv = (Fn_glVertexAttrib4usv)proc("glVertexAttrib4usv");
-		s_fn_glVertexAttribPointer = (Fn_glVertexAttribPointer)proc("glVertexAttribPointer");
-		s_fn_glUniformMatrix2x3fv = (Fn_glUniformMatrix2x3fv)proc("glUniformMatrix2x3fv");
-		s_fn_glUniformMatrix3x2fv = (Fn_glUniformMatrix3x2fv)proc("glUniformMatrix3x2fv");
-		s_fn_glUniformMatrix2x4fv = (Fn_glUniformMatrix2x4fv)proc("glUniformMatrix2x4fv");
-		s_fn_glUniformMatrix4x2fv = (Fn_glUniformMatrix4x2fv)proc("glUniformMatrix4x2fv");
-		s_fn_glUniformMatrix3x4fv = (Fn_glUniformMatrix3x4fv)proc("glUniformMatrix3x4fv");
-		s_fn_glUniformMatrix4x3fv = (Fn_glUniformMatrix4x3fv)proc("glUniformMatrix4x3fv");
-		s_fn_glColorMaski = (Fn_glColorMaski)proc("glColorMaski");
-		s_fn_glGetBooleani_v = (Fn_glGetBooleani_v)proc("glGetBooleani_v");
-		s_fn_glGetIntegeri_v = (Fn_glGetIntegeri_v)proc("glGetIntegeri_v");
-		s_fn_glEnablei = (Fn_glEnablei)proc("glEnablei");
-		s_fn_glDisablei = (Fn_glDisablei)proc("glDisablei");
-		s_fn_glIsEnabledi = (Fn_glIsEnabledi)proc("glIsEnabledi");
-		s_fn_glBeginTransformFeedback = (Fn_glBeginTransformFeedback)proc("glBeginTransformFeedback");
-		s_fn_glEndTransformFeedback = (Fn_glEndTransformFeedback)proc("glEndTransformFeedback");
-		s_fn_glBindBufferRange = (Fn_glBindBufferRange)proc("glBindBufferRange");
-		s_fn_glBindBufferBase = (Fn_glBindBufferBase)proc("glBindBufferBase");
-		s_fn_glTransformFeedbackVaryings = (Fn_glTransformFeedbackVaryings)proc("glTransformFeedbackVaryings");
-		s_fn_glGetTransformFeedbackVarying = (Fn_glGetTransformFeedbackVarying)proc("glGetTransformFeedbackVarying");
-		s_fn_glClampColor = (Fn_glClampColor)proc("glClampColor");
-		s_fn_glBeginConditionalRender = (Fn_glBeginConditionalRender)proc("glBeginConditionalRender");
-		s_fn_glEndConditionalRender = (Fn_glEndConditionalRender)proc("glEndConditionalRender");
-		s_fn_glVertexAttribIPointer = (Fn_glVertexAttribIPointer)proc("glVertexAttribIPointer");
-		s_fn_glGetVertexAttribIiv = (Fn_glGetVertexAttribIiv)proc("glGetVertexAttribIiv");
-		s_fn_glGetVertexAttribIuiv = (Fn_glGetVertexAttribIuiv)proc("glGetVertexAttribIuiv");
-		s_fn_glVertexAttribI1i = (Fn_glVertexAttribI1i)proc("glVertexAttribI1i");
-		s_fn_glVertexAttribI2i = (Fn_glVertexAttribI2i)proc("glVertexAttribI2i");
-		s_fn_glVertexAttribI3i = (Fn_glVertexAttribI3i)proc("glVertexAttribI3i");
-		s_fn_glVertexAttribI4i = (Fn_glVertexAttribI4i)proc("glVertexAttribI4i");
-		s_fn_glVertexAttribI1ui = (Fn_glVertexAttribI1ui)proc("glVertexAttribI1ui");
-		s_fn_glVertexAttribI2ui = (Fn_glVertexAttribI2ui)proc("glVertexAttribI2ui");
-		s_fn_glVertexAttribI3ui = (Fn_glVertexAttribI3ui)proc("glVertexAttribI3ui");
-		s_fn_glVertexAttribI4ui = (Fn_glVertexAttribI4ui)proc("glVertexAttribI4ui");
-		s_fn_glVertexAttribI1iv = (Fn_glVertexAttribI1iv)proc("glVertexAttribI1iv");
-		s_fn_glVertexAttribI2iv = (Fn_glVertexAttribI2iv)proc("glVertexAttribI2iv");
-		s_fn_glVertexAttribI3iv = (Fn_glVertexAttribI3iv)proc("glVertexAttribI3iv");
-		s_fn_glVertexAttribI4iv = (Fn_glVertexAttribI4iv)proc("glVertexAttribI4iv");
-		s_fn_glVertexAttribI1uiv = (Fn_glVertexAttribI1uiv)proc("glVertexAttribI1uiv");
-		s_fn_glVertexAttribI2uiv = (Fn_glVertexAttribI2uiv)proc("glVertexAttribI2uiv");
-		s_fn_glVertexAttribI3uiv = (Fn_glVertexAttribI3uiv)proc("glVertexAttribI3uiv");
-		s_fn_glVertexAttribI4uiv = (Fn_glVertexAttribI4uiv)proc("glVertexAttribI4uiv");
-		s_fn_glVertexAttribI4bv = (Fn_glVertexAttribI4bv)proc("glVertexAttribI4bv");
-		s_fn_glVertexAttribI4sv = (Fn_glVertexAttribI4sv)proc("glVertexAttribI4sv");
-		s_fn_glVertexAttribI4ubv = (Fn_glVertexAttribI4ubv)proc("glVertexAttribI4ubv");
-		s_fn_glVertexAttribI4usv = (Fn_glVertexAttribI4usv)proc("glVertexAttribI4usv");
-		s_fn_glGetUniformuiv = (Fn_glGetUniformuiv)proc("glGetUniformuiv");
-		s_fn_glBindFragDataLocation = (Fn_glBindFragDataLocation)proc("glBindFragDataLocation");
-		s_fn_glGetFragDataLocation = (Fn_glGetFragDataLocation)proc("glGetFragDataLocation");
-		s_fn_glUniform1ui = (Fn_glUniform1ui)proc("glUniform1ui");
-		s_fn_glUniform2ui = (Fn_glUniform2ui)proc("glUniform2ui");
-		s_fn_glUniform3ui = (Fn_glUniform3ui)proc("glUniform3ui");
-		s_fn_glUniform4ui = (Fn_glUniform4ui)proc("glUniform4ui");
-		s_fn_glUniform1uiv = (Fn_glUniform1uiv)proc("glUniform1uiv");
-		s_fn_glUniform2uiv = (Fn_glUniform2uiv)proc("glUniform2uiv");
-		s_fn_glUniform3uiv = (Fn_glUniform3uiv)proc("glUniform3uiv");
-		s_fn_glUniform4uiv = (Fn_glUniform4uiv)proc("glUniform4uiv");
-		s_fn_glTexParameterIiv = (Fn_glTexParameterIiv)proc("glTexParameterIiv");
-		s_fn_glTexParameterIuiv = (Fn_glTexParameterIuiv)proc("glTexParameterIuiv");
-		s_fn_glGetTexParameterIiv = (Fn_glGetTexParameterIiv)proc("glGetTexParameterIiv");
-		s_fn_glGetTexParameterIuiv = (Fn_glGetTexParameterIuiv)proc("glGetTexParameterIuiv");
-		s_fn_glClearBufferiv = (Fn_glClearBufferiv)proc("glClearBufferiv");
-		s_fn_glClearBufferuiv = (Fn_glClearBufferuiv)proc("glClearBufferuiv");
-		s_fn_glClearBufferfv = (Fn_glClearBufferfv)proc("glClearBufferfv");
-		s_fn_glClearBufferfi = (Fn_glClearBufferfi)proc("glClearBufferfi");
-		s_fn_glGetStringi = (Fn_glGetStringi)proc("glGetStringi");
-		s_fn_glIsRenderbuffer = (Fn_glIsRenderbuffer)proc("glIsRenderbuffer");
-		s_fn_glBindRenderbuffer = (Fn_glBindRenderbuffer)proc("glBindRenderbuffer");
-		s_fn_glDeleteRenderbuffers = (Fn_glDeleteRenderbuffers)proc("glDeleteRenderbuffers");
-		s_fn_glGenRenderbuffers = (Fn_glGenRenderbuffers)proc("glGenRenderbuffers");
-		s_fn_glRenderbufferStorage = (Fn_glRenderbufferStorage)proc("glRenderbufferStorage");
-		s_fn_glGetRenderbufferParameteriv = (Fn_glGetRenderbufferParameteriv)proc("glGetRenderbufferParameteriv");
-		s_fn_glIsFramebuffer = (Fn_glIsFramebuffer)proc("glIsFramebuffer");
-		s_fn_glBindFramebuffer = (Fn_glBindFramebuffer)proc("glBindFramebuffer");
-		s_fn_glDeleteFramebuffers = (Fn_glDeleteFramebuffers)proc("glDeleteFramebuffers");
-		s_fn_glGenFramebuffers = (Fn_glGenFramebuffers)proc("glGenFramebuffers");
-		s_fn_glCheckFramebufferStatus = (Fn_glCheckFramebufferStatus)proc("glCheckFramebufferStatus");
-		s_fn_glFramebufferTexture1D = (Fn_glFramebufferTexture1D)proc("glFramebufferTexture1D");
-		s_fn_glFramebufferTexture2D = (Fn_glFramebufferTexture2D)proc("glFramebufferTexture2D");
-		s_fn_glFramebufferTexture3D = (Fn_glFramebufferTexture3D)proc("glFramebufferTexture3D");
-		s_fn_glFramebufferRenderbuffer = (Fn_glFramebufferRenderbuffer)proc("glFramebufferRenderbuffer");
-		s_fn_glGetFramebufferAttachmentParameteriv = (Fn_glGetFramebufferAttachmentParameteriv)proc("glGetFramebufferAttachmentParameteriv");
-		s_fn_glGenerateMipmap = (Fn_glGenerateMipmap)proc("glGenerateMipmap");
-		s_fn_glBlitFramebuffer = (Fn_glBlitFramebuffer)proc("glBlitFramebuffer");
-		s_fn_glRenderbufferStorageMultisample = (Fn_glRenderbufferStorageMultisample)proc("glRenderbufferStorageMultisample");
-		s_fn_glFramebufferTextureLayer = (Fn_glFramebufferTextureLayer)proc("glFramebufferTextureLayer");
-		s_fn_glMapBufferRange = (Fn_glMapBufferRange)proc("glMapBufferRange");
-		s_fn_glFlushMappedBufferRange = (Fn_glFlushMappedBufferRange)proc("glFlushMappedBufferRange");
-		s_fn_glBindVertexArray = (Fn_glBindVertexArray)proc("glBindVertexArray");
-		s_fn_glDeleteVertexArrays = (Fn_glDeleteVertexArrays)proc("glDeleteVertexArrays");
-		s_fn_glGenVertexArrays = (Fn_glGenVertexArrays)proc("glGenVertexArrays");
-		s_fn_glIsVertexArray = (Fn_glIsVertexArray)proc("glIsVertexArray");
-		s_fn_glDrawArraysInstanced = (Fn_glDrawArraysInstanced)proc("glDrawArraysInstanced");
-		s_fn_glDrawElementsInstanced = (Fn_glDrawElementsInstanced)proc("glDrawElementsInstanced");
-		s_fn_glTexBuffer = (Fn_glTexBuffer)proc("glTexBuffer");
-		s_fn_glPrimitiveRestartIndex = (Fn_glPrimitiveRestartIndex)proc("glPrimitiveRestartIndex");
-		s_fn_glCopyBufferSubData = (Fn_glCopyBufferSubData)proc("glCopyBufferSubData");
-		s_fn_glGetUniformIndices = (Fn_glGetUniformIndices)proc("glGetUniformIndices");
-		s_fn_glGetActiveUniformsiv = (Fn_glGetActiveUniformsiv)proc("glGetActiveUniformsiv");
-		s_fn_glGetActiveUniformName = (Fn_glGetActiveUniformName)proc("glGetActiveUniformName");
-		s_fn_glGetUniformBlockIndex = (Fn_glGetUniformBlockIndex)proc("glGetUniformBlockIndex");
-		s_fn_glGetActiveUniformBlockiv = (Fn_glGetActiveUniformBlockiv)proc("glGetActiveUniformBlockiv");
-		s_fn_glGetActiveUniformBlockName = (Fn_glGetActiveUniformBlockName)proc("glGetActiveUniformBlockName");
-		s_fn_glUniformBlockBinding = (Fn_glUniformBlockBinding)proc("glUniformBlockBinding");
-		s_fn_glDrawElementsBaseVertex = (Fn_glDrawElementsBaseVertex)proc("glDrawElementsBaseVertex");
-		s_fn_glDrawRangeElementsBaseVertex = (Fn_glDrawRangeElementsBaseVertex)proc("glDrawRangeElementsBaseVertex");
-		s_fn_glDrawElementsInstancedBaseVertex = (Fn_glDrawElementsInstancedBaseVertex)proc("glDrawElementsInstancedBaseVertex");
-		s_fn_glMultiDrawElementsBaseVertex = (Fn_glMultiDrawElementsBaseVertex)proc("glMultiDrawElementsBaseVertex");
-		s_fn_glProvokingVertex = (Fn_glProvokingVertex)proc("glProvokingVertex");
-		s_fn_glFenceSync = (Fn_glFenceSync)proc("glFenceSync");
-		s_fn_glIsSync = (Fn_glIsSync)proc("glIsSync");
-		s_fn_glDeleteSync = (Fn_glDeleteSync)proc("glDeleteSync");
-		s_fn_glClientWaitSync = (Fn_glClientWaitSync)proc("glClientWaitSync");
-		s_fn_glWaitSync = (Fn_glWaitSync)proc("glWaitSync");
-		s_fn_glGetInteger64v = (Fn_glGetInteger64v)proc("glGetInteger64v");
-		s_fn_glGetSynciv = (Fn_glGetSynciv)proc("glGetSynciv");
-		s_fn_glGetInteger64i_v = (Fn_glGetInteger64i_v)proc("glGetInteger64i_v");
-		s_fn_glGetBufferParameteri64v = (Fn_glGetBufferParameteri64v)proc("glGetBufferParameteri64v");
-		s_fn_glFramebufferTexture = (Fn_glFramebufferTexture)proc("glFramebufferTexture");
-		s_fn_glTexImage2DMultisample = (Fn_glTexImage2DMultisample)proc("glTexImage2DMultisample");
-		s_fn_glTexImage3DMultisample = (Fn_glTexImage3DMultisample)proc("glTexImage3DMultisample");
-		s_fn_glGetMultisamplefv = (Fn_glGetMultisamplefv)proc("glGetMultisamplefv");
-		s_fn_glSampleMaski = (Fn_glSampleMaski)proc("glSampleMaski");
-		s_fn_glBindFragDataLocationIndexed = (Fn_glBindFragDataLocationIndexed)proc("glBindFragDataLocationIndexed");
-		s_fn_glGetFragDataIndex = (Fn_glGetFragDataIndex)proc("glGetFragDataIndex");
-		s_fn_glGenSamplers = (Fn_glGenSamplers)proc("glGenSamplers");
-		s_fn_glDeleteSamplers = (Fn_glDeleteSamplers)proc("glDeleteSamplers");
-		s_fn_glIsSampler = (Fn_glIsSampler)proc("glIsSampler");
-		s_fn_glBindSampler = (Fn_glBindSampler)proc("glBindSampler");
-		s_fn_glSamplerParameteri = (Fn_glSamplerParameteri)proc("glSamplerParameteri");
-		s_fn_glSamplerParameteriv = (Fn_glSamplerParameteriv)proc("glSamplerParameteriv");
-		s_fn_glSamplerParameterf = (Fn_glSamplerParameterf)proc("glSamplerParameterf");
-		s_fn_glSamplerParameterfv = (Fn_glSamplerParameterfv)proc("glSamplerParameterfv");
-		s_fn_glSamplerParameterIiv = (Fn_glSamplerParameterIiv)proc("glSamplerParameterIiv");
-		s_fn_glSamplerParameterIuiv = (Fn_glSamplerParameterIuiv)proc("glSamplerParameterIuiv");
-		s_fn_glGetSamplerParameteriv = (Fn_glGetSamplerParameteriv)proc("glGetSamplerParameteriv");
-		s_fn_glGetSamplerParameterIiv = (Fn_glGetSamplerParameterIiv)proc("glGetSamplerParameterIiv");
-		s_fn_glGetSamplerParameterfv = (Fn_glGetSamplerParameterfv)proc("glGetSamplerParameterfv");
-		s_fn_glGetSamplerParameterIuiv = (Fn_glGetSamplerParameterIuiv)proc("glGetSamplerParameterIuiv");
-		s_fn_glQueryCounter = (Fn_glQueryCounter)proc("glQueryCounter");
-		s_fn_glGetQueryObjecti64v = (Fn_glGetQueryObjecti64v)proc("glGetQueryObjecti64v");
-		s_fn_glGetQueryObjectui64v = (Fn_glGetQueryObjectui64v)proc("glGetQueryObjectui64v");
-		s_fn_glVertexAttribDivisor = (Fn_glVertexAttribDivisor)proc("glVertexAttribDivisor");
-		s_fn_glVertexAttribP1ui = (Fn_glVertexAttribP1ui)proc("glVertexAttribP1ui");
-		s_fn_glVertexAttribP1uiv = (Fn_glVertexAttribP1uiv)proc("glVertexAttribP1uiv");
-		s_fn_glVertexAttribP2ui = (Fn_glVertexAttribP2ui)proc("glVertexAttribP2ui");
-		s_fn_glVertexAttribP2uiv = (Fn_glVertexAttribP2uiv)proc("glVertexAttribP2uiv");
-		s_fn_glVertexAttribP3ui = (Fn_glVertexAttribP3ui)proc("glVertexAttribP3ui");
-		s_fn_glVertexAttribP3uiv = (Fn_glVertexAttribP3uiv)proc("glVertexAttribP3uiv");
-		s_fn_glVertexAttribP4ui = (Fn_glVertexAttribP4ui)proc("glVertexAttribP4ui");
-		s_fn_glVertexAttribP4uiv = (Fn_glVertexAttribP4uiv)proc("glVertexAttribP4uiv");
-		s_fn_glVertexP2ui = (Fn_glVertexP2ui)proc("glVertexP2ui");
-		s_fn_glVertexP2uiv = (Fn_glVertexP2uiv)proc("glVertexP2uiv");
-		s_fn_glVertexP3ui = (Fn_glVertexP3ui)proc("glVertexP3ui");
-		s_fn_glVertexP3uiv = (Fn_glVertexP3uiv)proc("glVertexP3uiv");
-		s_fn_glVertexP4ui = (Fn_glVertexP4ui)proc("glVertexP4ui");
-		s_fn_glVertexP4uiv = (Fn_glVertexP4uiv)proc("glVertexP4uiv");
-		s_fn_glTexCoordP1ui = (Fn_glTexCoordP1ui)proc("glTexCoordP1ui");
-		s_fn_glTexCoordP1uiv = (Fn_glTexCoordP1uiv)proc("glTexCoordP1uiv");
-		s_fn_glTexCoordP2ui = (Fn_glTexCoordP2ui)proc("glTexCoordP2ui");
-		s_fn_glTexCoordP2uiv = (Fn_glTexCoordP2uiv)proc("glTexCoordP2uiv");
-		s_fn_glTexCoordP3ui = (Fn_glTexCoordP3ui)proc("glTexCoordP3ui");
-		s_fn_glTexCoordP3uiv = (Fn_glTexCoordP3uiv)proc("glTexCoordP3uiv");
-		s_fn_glTexCoordP4ui = (Fn_glTexCoordP4ui)proc("glTexCoordP4ui");
-		s_fn_glTexCoordP4uiv = (Fn_glTexCoordP4uiv)proc("glTexCoordP4uiv");
-		s_fn_glMultiTexCoordP1ui = (Fn_glMultiTexCoordP1ui)proc("glMultiTexCoordP1ui");
-		s_fn_glMultiTexCoordP1uiv = (Fn_glMultiTexCoordP1uiv)proc("glMultiTexCoordP1uiv");
-		s_fn_glMultiTexCoordP2ui = (Fn_glMultiTexCoordP2ui)proc("glMultiTexCoordP2ui");
-		s_fn_glMultiTexCoordP2uiv = (Fn_glMultiTexCoordP2uiv)proc("glMultiTexCoordP2uiv");
-		s_fn_glMultiTexCoordP3ui = (Fn_glMultiTexCoordP3ui)proc("glMultiTexCoordP3ui");
-		s_fn_glMultiTexCoordP3uiv = (Fn_glMultiTexCoordP3uiv)proc("glMultiTexCoordP3uiv");
-		s_fn_glMultiTexCoordP4ui = (Fn_glMultiTexCoordP4ui)proc("glMultiTexCoordP4ui");
-		s_fn_glMultiTexCoordP4uiv = (Fn_glMultiTexCoordP4uiv)proc("glMultiTexCoordP4uiv");
-		s_fn_glNormalP3ui = (Fn_glNormalP3ui)proc("glNormalP3ui");
-		s_fn_glNormalP3uiv = (Fn_glNormalP3uiv)proc("glNormalP3uiv");
-		s_fn_glColorP3ui = (Fn_glColorP3ui)proc("glColorP3ui");
-		s_fn_glColorP3uiv = (Fn_glColorP3uiv)proc("glColorP3uiv");
-		s_fn_glColorP4ui = (Fn_glColorP4ui)proc("glColorP4ui");
-		s_fn_glColorP4uiv = (Fn_glColorP4uiv)proc("glColorP4uiv");
-		s_fn_glSecondaryColorP3ui = (Fn_glSecondaryColorP3ui)proc("glSecondaryColorP3ui");
-		s_fn_glSecondaryColorP3uiv = (Fn_glSecondaryColorP3uiv)proc("glSecondaryColorP3uiv");
+	inline void Init_glCullFace(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCullFace = (Fn_glCullFace)fn_GetFunctionAddress("glCullFace"); }
+	inline void Init_glFrontFace(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFrontFace = (Fn_glFrontFace)fn_GetFunctionAddress("glFrontFace"); }
+	inline void Init_glHint(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glHint = (Fn_glHint)fn_GetFunctionAddress("glHint"); }
+	inline void Init_glLineWidth(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLineWidth = (Fn_glLineWidth)fn_GetFunctionAddress("glLineWidth"); }
+	inline void Init_glPointSize(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPointSize = (Fn_glPointSize)fn_GetFunctionAddress("glPointSize"); }
+	inline void Init_glPolygonMode(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPolygonMode = (Fn_glPolygonMode)fn_GetFunctionAddress("glPolygonMode"); }
+	inline void Init_glScissor(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glScissor = (Fn_glScissor)fn_GetFunctionAddress("glScissor"); }
+	inline void Init_glTexParameterf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexParameterf = (Fn_glTexParameterf)fn_GetFunctionAddress("glTexParameterf"); }
+	inline void Init_glTexParameterfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexParameterfv = (Fn_glTexParameterfv)fn_GetFunctionAddress("glTexParameterfv"); }
+	inline void Init_glTexParameteri(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexParameteri = (Fn_glTexParameteri)fn_GetFunctionAddress("glTexParameteri"); }
+	inline void Init_glTexParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexParameteriv = (Fn_glTexParameteriv)fn_GetFunctionAddress("glTexParameteriv"); }
+	inline void Init_glTexImage1D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexImage1D = (Fn_glTexImage1D)fn_GetFunctionAddress("glTexImage1D"); }
+	inline void Init_glTexImage2D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexImage2D = (Fn_glTexImage2D)fn_GetFunctionAddress("glTexImage2D"); }
+	inline void Init_glDrawBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawBuffer = (Fn_glDrawBuffer)fn_GetFunctionAddress("glDrawBuffer"); }
+	inline void Init_glClear(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClear = (Fn_glClear)fn_GetFunctionAddress("glClear"); }
+	inline void Init_glClearColor(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearColor = (Fn_glClearColor)fn_GetFunctionAddress("glClearColor"); }
+	inline void Init_glClearStencil(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearStencil = (Fn_glClearStencil)fn_GetFunctionAddress("glClearStencil"); }
+	inline void Init_glClearDepth(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearDepth = (Fn_glClearDepth)fn_GetFunctionAddress("glClearDepth"); }
+	inline void Init_glStencilMask(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glStencilMask = (Fn_glStencilMask)fn_GetFunctionAddress("glStencilMask"); }
+	inline void Init_glColorMask(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorMask = (Fn_glColorMask)fn_GetFunctionAddress("glColorMask"); }
+	inline void Init_glDepthMask(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDepthMask = (Fn_glDepthMask)fn_GetFunctionAddress("glDepthMask"); }
+	inline void Init_glDisable(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDisable = (Fn_glDisable)fn_GetFunctionAddress("glDisable"); }
+	inline void Init_glEnable(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEnable = (Fn_glEnable)fn_GetFunctionAddress("glEnable"); }
+	inline void Init_glFinish(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFinish = (Fn_glFinish)fn_GetFunctionAddress("glFinish"); }
+	inline void Init_glFlush(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFlush = (Fn_glFlush)fn_GetFunctionAddress("glFlush"); }
+	inline void Init_glBlendFunc(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBlendFunc = (Fn_glBlendFunc)fn_GetFunctionAddress("glBlendFunc"); }
+	inline void Init_glLogicOp(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLogicOp = (Fn_glLogicOp)fn_GetFunctionAddress("glLogicOp"); }
+	inline void Init_glStencilFunc(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glStencilFunc = (Fn_glStencilFunc)fn_GetFunctionAddress("glStencilFunc"); }
+	inline void Init_glStencilOp(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glStencilOp = (Fn_glStencilOp)fn_GetFunctionAddress("glStencilOp"); }
+	inline void Init_glDepthFunc(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDepthFunc = (Fn_glDepthFunc)fn_GetFunctionAddress("glDepthFunc"); }
+	inline void Init_glPixelStoref(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelStoref = (Fn_glPixelStoref)fn_GetFunctionAddress("glPixelStoref"); }
+	inline void Init_glPixelStorei(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelStorei = (Fn_glPixelStorei)fn_GetFunctionAddress("glPixelStorei"); }
+	inline void Init_glReadBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glReadBuffer = (Fn_glReadBuffer)fn_GetFunctionAddress("glReadBuffer"); }
+	inline void Init_glReadPixels(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glReadPixels = (Fn_glReadPixels)fn_GetFunctionAddress("glReadPixels"); }
+	inline void Init_glGetBooleanv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetBooleanv = (Fn_glGetBooleanv)fn_GetFunctionAddress("glGetBooleanv"); }
+	inline void Init_glGetDoublev(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetDoublev = (Fn_glGetDoublev)fn_GetFunctionAddress("glGetDoublev"); }
+	inline void Init_glGetError(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetError = (Fn_glGetError)fn_GetFunctionAddress("glGetError"); }
+	inline void Init_glGetFloatv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetFloatv = (Fn_glGetFloatv)fn_GetFunctionAddress("glGetFloatv"); }
+	inline void Init_glGetIntegerv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetIntegerv = (Fn_glGetIntegerv)fn_GetFunctionAddress("glGetIntegerv"); }
+	inline void Init_glGetString(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetString = (Fn_glGetString)fn_GetFunctionAddress("glGetString"); }
+	inline void Init_glGetTexImage(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexImage = (Fn_glGetTexImage)fn_GetFunctionAddress("glGetTexImage"); }
+	inline void Init_glGetTexParameterfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexParameterfv = (Fn_glGetTexParameterfv)fn_GetFunctionAddress("glGetTexParameterfv"); }
+	inline void Init_glGetTexParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexParameteriv = (Fn_glGetTexParameteriv)fn_GetFunctionAddress("glGetTexParameteriv"); }
+	inline void Init_glGetTexLevelParameterfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexLevelParameterfv = (Fn_glGetTexLevelParameterfv)fn_GetFunctionAddress("glGetTexLevelParameterfv"); }
+	inline void Init_glGetTexLevelParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexLevelParameteriv = (Fn_glGetTexLevelParameteriv)fn_GetFunctionAddress("glGetTexLevelParameteriv"); }
+	inline void Init_glIsEnabled(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsEnabled = (Fn_glIsEnabled)fn_GetFunctionAddress("glIsEnabled"); }
+	inline void Init_glDepthRange(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDepthRange = (Fn_glDepthRange)fn_GetFunctionAddress("glDepthRange"); }
+	inline void Init_glViewport(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glViewport = (Fn_glViewport)fn_GetFunctionAddress("glViewport"); }
+	inline void Init_glNewList(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNewList = (Fn_glNewList)fn_GetFunctionAddress("glNewList"); }
+	inline void Init_glEndList(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEndList = (Fn_glEndList)fn_GetFunctionAddress("glEndList"); }
+	inline void Init_glCallList(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCallList = (Fn_glCallList)fn_GetFunctionAddress("glCallList"); }
+	inline void Init_glCallLists(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCallLists = (Fn_glCallLists)fn_GetFunctionAddress("glCallLists"); }
+	inline void Init_glDeleteLists(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteLists = (Fn_glDeleteLists)fn_GetFunctionAddress("glDeleteLists"); }
+	inline void Init_glGenLists(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenLists = (Fn_glGenLists)fn_GetFunctionAddress("glGenLists"); }
+	inline void Init_glListBase(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glListBase = (Fn_glListBase)fn_GetFunctionAddress("glListBase"); }
+	inline void Init_glBegin(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBegin = (Fn_glBegin)fn_GetFunctionAddress("glBegin"); }
+	inline void Init_glBitmap(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBitmap = (Fn_glBitmap)fn_GetFunctionAddress("glBitmap"); }
+	inline void Init_glColor3b(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3b = (Fn_glColor3b)fn_GetFunctionAddress("glColor3b"); }
+	inline void Init_glColor3bv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3bv = (Fn_glColor3bv)fn_GetFunctionAddress("glColor3bv"); }
+	inline void Init_glColor3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3d = (Fn_glColor3d)fn_GetFunctionAddress("glColor3d"); }
+	inline void Init_glColor3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3dv = (Fn_glColor3dv)fn_GetFunctionAddress("glColor3dv"); }
+	inline void Init_glColor3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3f = (Fn_glColor3f)fn_GetFunctionAddress("glColor3f"); }
+	inline void Init_glColor3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3fv = (Fn_glColor3fv)fn_GetFunctionAddress("glColor3fv"); }
+	inline void Init_glColor3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3i = (Fn_glColor3i)fn_GetFunctionAddress("glColor3i"); }
+	inline void Init_glColor3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3iv = (Fn_glColor3iv)fn_GetFunctionAddress("glColor3iv"); }
+	inline void Init_glColor3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3s = (Fn_glColor3s)fn_GetFunctionAddress("glColor3s"); }
+	inline void Init_glColor3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3sv = (Fn_glColor3sv)fn_GetFunctionAddress("glColor3sv"); }
+	inline void Init_glColor3ub(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3ub = (Fn_glColor3ub)fn_GetFunctionAddress("glColor3ub"); }
+	inline void Init_glColor3ubv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3ubv = (Fn_glColor3ubv)fn_GetFunctionAddress("glColor3ubv"); }
+	inline void Init_glColor3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3ui = (Fn_glColor3ui)fn_GetFunctionAddress("glColor3ui"); }
+	inline void Init_glColor3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3uiv = (Fn_glColor3uiv)fn_GetFunctionAddress("glColor3uiv"); }
+	inline void Init_glColor3us(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3us = (Fn_glColor3us)fn_GetFunctionAddress("glColor3us"); }
+	inline void Init_glColor3usv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor3usv = (Fn_glColor3usv)fn_GetFunctionAddress("glColor3usv"); }
+	inline void Init_glColor4b(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4b = (Fn_glColor4b)fn_GetFunctionAddress("glColor4b"); }
+	inline void Init_glColor4bv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4bv = (Fn_glColor4bv)fn_GetFunctionAddress("glColor4bv"); }
+	inline void Init_glColor4d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4d = (Fn_glColor4d)fn_GetFunctionAddress("glColor4d"); }
+	inline void Init_glColor4dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4dv = (Fn_glColor4dv)fn_GetFunctionAddress("glColor4dv"); }
+	inline void Init_glColor4f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4f = (Fn_glColor4f)fn_GetFunctionAddress("glColor4f"); }
+	inline void Init_glColor4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4fv = (Fn_glColor4fv)fn_GetFunctionAddress("glColor4fv"); }
+	inline void Init_glColor4i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4i = (Fn_glColor4i)fn_GetFunctionAddress("glColor4i"); }
+	inline void Init_glColor4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4iv = (Fn_glColor4iv)fn_GetFunctionAddress("glColor4iv"); }
+	inline void Init_glColor4s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4s = (Fn_glColor4s)fn_GetFunctionAddress("glColor4s"); }
+	inline void Init_glColor4sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4sv = (Fn_glColor4sv)fn_GetFunctionAddress("glColor4sv"); }
+	inline void Init_glColor4ub(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4ub = (Fn_glColor4ub)fn_GetFunctionAddress("glColor4ub"); }
+	inline void Init_glColor4ubv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4ubv = (Fn_glColor4ubv)fn_GetFunctionAddress("glColor4ubv"); }
+	inline void Init_glColor4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4ui = (Fn_glColor4ui)fn_GetFunctionAddress("glColor4ui"); }
+	inline void Init_glColor4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4uiv = (Fn_glColor4uiv)fn_GetFunctionAddress("glColor4uiv"); }
+	inline void Init_glColor4us(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4us = (Fn_glColor4us)fn_GetFunctionAddress("glColor4us"); }
+	inline void Init_glColor4usv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColor4usv = (Fn_glColor4usv)fn_GetFunctionAddress("glColor4usv"); }
+	inline void Init_glEdgeFlag(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEdgeFlag = (Fn_glEdgeFlag)fn_GetFunctionAddress("glEdgeFlag"); }
+	inline void Init_glEdgeFlagv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEdgeFlagv = (Fn_glEdgeFlagv)fn_GetFunctionAddress("glEdgeFlagv"); }
+	inline void Init_glEnd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEnd = (Fn_glEnd)fn_GetFunctionAddress("glEnd"); }
+	inline void Init_glIndexd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexd = (Fn_glIndexd)fn_GetFunctionAddress("glIndexd"); }
+	inline void Init_glIndexdv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexdv = (Fn_glIndexdv)fn_GetFunctionAddress("glIndexdv"); }
+	inline void Init_glIndexf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexf = (Fn_glIndexf)fn_GetFunctionAddress("glIndexf"); }
+	inline void Init_glIndexfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexfv = (Fn_glIndexfv)fn_GetFunctionAddress("glIndexfv"); }
+	inline void Init_glIndexi(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexi = (Fn_glIndexi)fn_GetFunctionAddress("glIndexi"); }
+	inline void Init_glIndexiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexiv = (Fn_glIndexiv)fn_GetFunctionAddress("glIndexiv"); }
+	inline void Init_glIndexs(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexs = (Fn_glIndexs)fn_GetFunctionAddress("glIndexs"); }
+	inline void Init_glIndexsv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexsv = (Fn_glIndexsv)fn_GetFunctionAddress("glIndexsv"); }
+	inline void Init_glNormal3b(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3b = (Fn_glNormal3b)fn_GetFunctionAddress("glNormal3b"); }
+	inline void Init_glNormal3bv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3bv = (Fn_glNormal3bv)fn_GetFunctionAddress("glNormal3bv"); }
+	inline void Init_glNormal3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3d = (Fn_glNormal3d)fn_GetFunctionAddress("glNormal3d"); }
+	inline void Init_glNormal3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3dv = (Fn_glNormal3dv)fn_GetFunctionAddress("glNormal3dv"); }
+	inline void Init_glNormal3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3f = (Fn_glNormal3f)fn_GetFunctionAddress("glNormal3f"); }
+	inline void Init_glNormal3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3fv = (Fn_glNormal3fv)fn_GetFunctionAddress("glNormal3fv"); }
+	inline void Init_glNormal3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3i = (Fn_glNormal3i)fn_GetFunctionAddress("glNormal3i"); }
+	inline void Init_glNormal3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3iv = (Fn_glNormal3iv)fn_GetFunctionAddress("glNormal3iv"); }
+	inline void Init_glNormal3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3s = (Fn_glNormal3s)fn_GetFunctionAddress("glNormal3s"); }
+	inline void Init_glNormal3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormal3sv = (Fn_glNormal3sv)fn_GetFunctionAddress("glNormal3sv"); }
+	inline void Init_glRasterPos2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2d = (Fn_glRasterPos2d)fn_GetFunctionAddress("glRasterPos2d"); }
+	inline void Init_glRasterPos2dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2dv = (Fn_glRasterPos2dv)fn_GetFunctionAddress("glRasterPos2dv"); }
+	inline void Init_glRasterPos2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2f = (Fn_glRasterPos2f)fn_GetFunctionAddress("glRasterPos2f"); }
+	inline void Init_glRasterPos2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2fv = (Fn_glRasterPos2fv)fn_GetFunctionAddress("glRasterPos2fv"); }
+	inline void Init_glRasterPos2i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2i = (Fn_glRasterPos2i)fn_GetFunctionAddress("glRasterPos2i"); }
+	inline void Init_glRasterPos2iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2iv = (Fn_glRasterPos2iv)fn_GetFunctionAddress("glRasterPos2iv"); }
+	inline void Init_glRasterPos2s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2s = (Fn_glRasterPos2s)fn_GetFunctionAddress("glRasterPos2s"); }
+	inline void Init_glRasterPos2sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos2sv = (Fn_glRasterPos2sv)fn_GetFunctionAddress("glRasterPos2sv"); }
+	inline void Init_glRasterPos3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3d = (Fn_glRasterPos3d)fn_GetFunctionAddress("glRasterPos3d"); }
+	inline void Init_glRasterPos3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3dv = (Fn_glRasterPos3dv)fn_GetFunctionAddress("glRasterPos3dv"); }
+	inline void Init_glRasterPos3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3f = (Fn_glRasterPos3f)fn_GetFunctionAddress("glRasterPos3f"); }
+	inline void Init_glRasterPos3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3fv = (Fn_glRasterPos3fv)fn_GetFunctionAddress("glRasterPos3fv"); }
+	inline void Init_glRasterPos3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3i = (Fn_glRasterPos3i)fn_GetFunctionAddress("glRasterPos3i"); }
+	inline void Init_glRasterPos3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3iv = (Fn_glRasterPos3iv)fn_GetFunctionAddress("glRasterPos3iv"); }
+	inline void Init_glRasterPos3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3s = (Fn_glRasterPos3s)fn_GetFunctionAddress("glRasterPos3s"); }
+	inline void Init_glRasterPos3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos3sv = (Fn_glRasterPos3sv)fn_GetFunctionAddress("glRasterPos3sv"); }
+	inline void Init_glRasterPos4d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4d = (Fn_glRasterPos4d)fn_GetFunctionAddress("glRasterPos4d"); }
+	inline void Init_glRasterPos4dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4dv = (Fn_glRasterPos4dv)fn_GetFunctionAddress("glRasterPos4dv"); }
+	inline void Init_glRasterPos4f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4f = (Fn_glRasterPos4f)fn_GetFunctionAddress("glRasterPos4f"); }
+	inline void Init_glRasterPos4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4fv = (Fn_glRasterPos4fv)fn_GetFunctionAddress("glRasterPos4fv"); }
+	inline void Init_glRasterPos4i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4i = (Fn_glRasterPos4i)fn_GetFunctionAddress("glRasterPos4i"); }
+	inline void Init_glRasterPos4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4iv = (Fn_glRasterPos4iv)fn_GetFunctionAddress("glRasterPos4iv"); }
+	inline void Init_glRasterPos4s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4s = (Fn_glRasterPos4s)fn_GetFunctionAddress("glRasterPos4s"); }
+	inline void Init_glRasterPos4sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRasterPos4sv = (Fn_glRasterPos4sv)fn_GetFunctionAddress("glRasterPos4sv"); }
+	inline void Init_glRectd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRectd = (Fn_glRectd)fn_GetFunctionAddress("glRectd"); }
+	inline void Init_glRectdv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRectdv = (Fn_glRectdv)fn_GetFunctionAddress("glRectdv"); }
+	inline void Init_glRectf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRectf = (Fn_glRectf)fn_GetFunctionAddress("glRectf"); }
+	inline void Init_glRectfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRectfv = (Fn_glRectfv)fn_GetFunctionAddress("glRectfv"); }
+	inline void Init_glRecti(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRecti = (Fn_glRecti)fn_GetFunctionAddress("glRecti"); }
+	inline void Init_glRectiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRectiv = (Fn_glRectiv)fn_GetFunctionAddress("glRectiv"); }
+	inline void Init_glRects(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRects = (Fn_glRects)fn_GetFunctionAddress("glRects"); }
+	inline void Init_glRectsv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRectsv = (Fn_glRectsv)fn_GetFunctionAddress("glRectsv"); }
+	inline void Init_glTexCoord1d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1d = (Fn_glTexCoord1d)fn_GetFunctionAddress("glTexCoord1d"); }
+	inline void Init_glTexCoord1dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1dv = (Fn_glTexCoord1dv)fn_GetFunctionAddress("glTexCoord1dv"); }
+	inline void Init_glTexCoord1f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1f = (Fn_glTexCoord1f)fn_GetFunctionAddress("glTexCoord1f"); }
+	inline void Init_glTexCoord1fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1fv = (Fn_glTexCoord1fv)fn_GetFunctionAddress("glTexCoord1fv"); }
+	inline void Init_glTexCoord1i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1i = (Fn_glTexCoord1i)fn_GetFunctionAddress("glTexCoord1i"); }
+	inline void Init_glTexCoord1iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1iv = (Fn_glTexCoord1iv)fn_GetFunctionAddress("glTexCoord1iv"); }
+	inline void Init_glTexCoord1s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1s = (Fn_glTexCoord1s)fn_GetFunctionAddress("glTexCoord1s"); }
+	inline void Init_glTexCoord1sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord1sv = (Fn_glTexCoord1sv)fn_GetFunctionAddress("glTexCoord1sv"); }
+	inline void Init_glTexCoord2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2d = (Fn_glTexCoord2d)fn_GetFunctionAddress("glTexCoord2d"); }
+	inline void Init_glTexCoord2dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2dv = (Fn_glTexCoord2dv)fn_GetFunctionAddress("glTexCoord2dv"); }
+	inline void Init_glTexCoord2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2f = (Fn_glTexCoord2f)fn_GetFunctionAddress("glTexCoord2f"); }
+	inline void Init_glTexCoord2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2fv = (Fn_glTexCoord2fv)fn_GetFunctionAddress("glTexCoord2fv"); }
+	inline void Init_glTexCoord2i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2i = (Fn_glTexCoord2i)fn_GetFunctionAddress("glTexCoord2i"); }
+	inline void Init_glTexCoord2iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2iv = (Fn_glTexCoord2iv)fn_GetFunctionAddress("glTexCoord2iv"); }
+	inline void Init_glTexCoord2s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2s = (Fn_glTexCoord2s)fn_GetFunctionAddress("glTexCoord2s"); }
+	inline void Init_glTexCoord2sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord2sv = (Fn_glTexCoord2sv)fn_GetFunctionAddress("glTexCoord2sv"); }
+	inline void Init_glTexCoord3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3d = (Fn_glTexCoord3d)fn_GetFunctionAddress("glTexCoord3d"); }
+	inline void Init_glTexCoord3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3dv = (Fn_glTexCoord3dv)fn_GetFunctionAddress("glTexCoord3dv"); }
+	inline void Init_glTexCoord3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3f = (Fn_glTexCoord3f)fn_GetFunctionAddress("glTexCoord3f"); }
+	inline void Init_glTexCoord3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3fv = (Fn_glTexCoord3fv)fn_GetFunctionAddress("glTexCoord3fv"); }
+	inline void Init_glTexCoord3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3i = (Fn_glTexCoord3i)fn_GetFunctionAddress("glTexCoord3i"); }
+	inline void Init_glTexCoord3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3iv = (Fn_glTexCoord3iv)fn_GetFunctionAddress("glTexCoord3iv"); }
+	inline void Init_glTexCoord3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3s = (Fn_glTexCoord3s)fn_GetFunctionAddress("glTexCoord3s"); }
+	inline void Init_glTexCoord3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord3sv = (Fn_glTexCoord3sv)fn_GetFunctionAddress("glTexCoord3sv"); }
+	inline void Init_glTexCoord4d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4d = (Fn_glTexCoord4d)fn_GetFunctionAddress("glTexCoord4d"); }
+	inline void Init_glTexCoord4dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4dv = (Fn_glTexCoord4dv)fn_GetFunctionAddress("glTexCoord4dv"); }
+	inline void Init_glTexCoord4f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4f = (Fn_glTexCoord4f)fn_GetFunctionAddress("glTexCoord4f"); }
+	inline void Init_glTexCoord4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4fv = (Fn_glTexCoord4fv)fn_GetFunctionAddress("glTexCoord4fv"); }
+	inline void Init_glTexCoord4i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4i = (Fn_glTexCoord4i)fn_GetFunctionAddress("glTexCoord4i"); }
+	inline void Init_glTexCoord4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4iv = (Fn_glTexCoord4iv)fn_GetFunctionAddress("glTexCoord4iv"); }
+	inline void Init_glTexCoord4s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4s = (Fn_glTexCoord4s)fn_GetFunctionAddress("glTexCoord4s"); }
+	inline void Init_glTexCoord4sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoord4sv = (Fn_glTexCoord4sv)fn_GetFunctionAddress("glTexCoord4sv"); }
+	inline void Init_glVertex2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2d = (Fn_glVertex2d)fn_GetFunctionAddress("glVertex2d"); }
+	inline void Init_glVertex2dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2dv = (Fn_glVertex2dv)fn_GetFunctionAddress("glVertex2dv"); }
+	inline void Init_glVertex2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2f = (Fn_glVertex2f)fn_GetFunctionAddress("glVertex2f"); }
+	inline void Init_glVertex2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2fv = (Fn_glVertex2fv)fn_GetFunctionAddress("glVertex2fv"); }
+	inline void Init_glVertex2i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2i = (Fn_glVertex2i)fn_GetFunctionAddress("glVertex2i"); }
+	inline void Init_glVertex2iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2iv = (Fn_glVertex2iv)fn_GetFunctionAddress("glVertex2iv"); }
+	inline void Init_glVertex2s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2s = (Fn_glVertex2s)fn_GetFunctionAddress("glVertex2s"); }
+	inline void Init_glVertex2sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex2sv = (Fn_glVertex2sv)fn_GetFunctionAddress("glVertex2sv"); }
+	inline void Init_glVertex3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3d = (Fn_glVertex3d)fn_GetFunctionAddress("glVertex3d"); }
+	inline void Init_glVertex3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3dv = (Fn_glVertex3dv)fn_GetFunctionAddress("glVertex3dv"); }
+	inline void Init_glVertex3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3f = (Fn_glVertex3f)fn_GetFunctionAddress("glVertex3f"); }
+	inline void Init_glVertex3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3fv = (Fn_glVertex3fv)fn_GetFunctionAddress("glVertex3fv"); }
+	inline void Init_glVertex3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3i = (Fn_glVertex3i)fn_GetFunctionAddress("glVertex3i"); }
+	inline void Init_glVertex3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3iv = (Fn_glVertex3iv)fn_GetFunctionAddress("glVertex3iv"); }
+	inline void Init_glVertex3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3s = (Fn_glVertex3s)fn_GetFunctionAddress("glVertex3s"); }
+	inline void Init_glVertex3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex3sv = (Fn_glVertex3sv)fn_GetFunctionAddress("glVertex3sv"); }
+	inline void Init_glVertex4d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4d = (Fn_glVertex4d)fn_GetFunctionAddress("glVertex4d"); }
+	inline void Init_glVertex4dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4dv = (Fn_glVertex4dv)fn_GetFunctionAddress("glVertex4dv"); }
+	inline void Init_glVertex4f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4f = (Fn_glVertex4f)fn_GetFunctionAddress("glVertex4f"); }
+	inline void Init_glVertex4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4fv = (Fn_glVertex4fv)fn_GetFunctionAddress("glVertex4fv"); }
+	inline void Init_glVertex4i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4i = (Fn_glVertex4i)fn_GetFunctionAddress("glVertex4i"); }
+	inline void Init_glVertex4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4iv = (Fn_glVertex4iv)fn_GetFunctionAddress("glVertex4iv"); }
+	inline void Init_glVertex4s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4s = (Fn_glVertex4s)fn_GetFunctionAddress("glVertex4s"); }
+	inline void Init_glVertex4sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertex4sv = (Fn_glVertex4sv)fn_GetFunctionAddress("glVertex4sv"); }
+	inline void Init_glClipPlane(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClipPlane = (Fn_glClipPlane)fn_GetFunctionAddress("glClipPlane"); }
+	inline void Init_glColorMaterial(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorMaterial = (Fn_glColorMaterial)fn_GetFunctionAddress("glColorMaterial"); }
+	inline void Init_glFogf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogf = (Fn_glFogf)fn_GetFunctionAddress("glFogf"); }
+	inline void Init_glFogfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogfv = (Fn_glFogfv)fn_GetFunctionAddress("glFogfv"); }
+	inline void Init_glFogi(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogi = (Fn_glFogi)fn_GetFunctionAddress("glFogi"); }
+	inline void Init_glFogiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogiv = (Fn_glFogiv)fn_GetFunctionAddress("glFogiv"); }
+	inline void Init_glLightf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLightf = (Fn_glLightf)fn_GetFunctionAddress("glLightf"); }
+	inline void Init_glLightfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLightfv = (Fn_glLightfv)fn_GetFunctionAddress("glLightfv"); }
+	inline void Init_glLighti(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLighti = (Fn_glLighti)fn_GetFunctionAddress("glLighti"); }
+	inline void Init_glLightiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLightiv = (Fn_glLightiv)fn_GetFunctionAddress("glLightiv"); }
+	inline void Init_glLightModelf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLightModelf = (Fn_glLightModelf)fn_GetFunctionAddress("glLightModelf"); }
+	inline void Init_glLightModelfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLightModelfv = (Fn_glLightModelfv)fn_GetFunctionAddress("glLightModelfv"); }
+	inline void Init_glLightModeli(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLightModeli = (Fn_glLightModeli)fn_GetFunctionAddress("glLightModeli"); }
+	inline void Init_glLightModeliv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLightModeliv = (Fn_glLightModeliv)fn_GetFunctionAddress("glLightModeliv"); }
+	inline void Init_glLineStipple(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLineStipple = (Fn_glLineStipple)fn_GetFunctionAddress("glLineStipple"); }
+	inline void Init_glMaterialf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMaterialf = (Fn_glMaterialf)fn_GetFunctionAddress("glMaterialf"); }
+	inline void Init_glMaterialfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMaterialfv = (Fn_glMaterialfv)fn_GetFunctionAddress("glMaterialfv"); }
+	inline void Init_glMateriali(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMateriali = (Fn_glMateriali)fn_GetFunctionAddress("glMateriali"); }
+	inline void Init_glMaterialiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMaterialiv = (Fn_glMaterialiv)fn_GetFunctionAddress("glMaterialiv"); }
+	inline void Init_glPolygonStipple(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPolygonStipple = (Fn_glPolygonStipple)fn_GetFunctionAddress("glPolygonStipple"); }
+	inline void Init_glShadeModel(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glShadeModel = (Fn_glShadeModel)fn_GetFunctionAddress("glShadeModel"); }
+	inline void Init_glTexEnvf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexEnvf = (Fn_glTexEnvf)fn_GetFunctionAddress("glTexEnvf"); }
+	inline void Init_glTexEnvfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexEnvfv = (Fn_glTexEnvfv)fn_GetFunctionAddress("glTexEnvfv"); }
+	inline void Init_glTexEnvi(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexEnvi = (Fn_glTexEnvi)fn_GetFunctionAddress("glTexEnvi"); }
+	inline void Init_glTexEnviv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexEnviv = (Fn_glTexEnviv)fn_GetFunctionAddress("glTexEnviv"); }
+	inline void Init_glTexGend(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexGend = (Fn_glTexGend)fn_GetFunctionAddress("glTexGend"); }
+	inline void Init_glTexGendv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexGendv = (Fn_glTexGendv)fn_GetFunctionAddress("glTexGendv"); }
+	inline void Init_glTexGenf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexGenf = (Fn_glTexGenf)fn_GetFunctionAddress("glTexGenf"); }
+	inline void Init_glTexGenfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexGenfv = (Fn_glTexGenfv)fn_GetFunctionAddress("glTexGenfv"); }
+	inline void Init_glTexGeni(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexGeni = (Fn_glTexGeni)fn_GetFunctionAddress("glTexGeni"); }
+	inline void Init_glTexGeniv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexGeniv = (Fn_glTexGeniv)fn_GetFunctionAddress("glTexGeniv"); }
+	inline void Init_glFeedbackBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFeedbackBuffer = (Fn_glFeedbackBuffer)fn_GetFunctionAddress("glFeedbackBuffer"); }
+	inline void Init_glSelectBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSelectBuffer = (Fn_glSelectBuffer)fn_GetFunctionAddress("glSelectBuffer"); }
+	inline void Init_glRenderMode(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRenderMode = (Fn_glRenderMode)fn_GetFunctionAddress("glRenderMode"); }
+	inline void Init_glInitNames(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glInitNames = (Fn_glInitNames)fn_GetFunctionAddress("glInitNames"); }
+	inline void Init_glLoadName(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLoadName = (Fn_glLoadName)fn_GetFunctionAddress("glLoadName"); }
+	inline void Init_glPassThrough(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPassThrough = (Fn_glPassThrough)fn_GetFunctionAddress("glPassThrough"); }
+	inline void Init_glPopName(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPopName = (Fn_glPopName)fn_GetFunctionAddress("glPopName"); }
+	inline void Init_glPushName(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPushName = (Fn_glPushName)fn_GetFunctionAddress("glPushName"); }
+	inline void Init_glClearAccum(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearAccum = (Fn_glClearAccum)fn_GetFunctionAddress("glClearAccum"); }
+	inline void Init_glClearIndex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearIndex = (Fn_glClearIndex)fn_GetFunctionAddress("glClearIndex"); }
+	inline void Init_glIndexMask(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexMask = (Fn_glIndexMask)fn_GetFunctionAddress("glIndexMask"); }
+	inline void Init_glAccum(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glAccum = (Fn_glAccum)fn_GetFunctionAddress("glAccum"); }
+	inline void Init_glPopAttrib(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPopAttrib = (Fn_glPopAttrib)fn_GetFunctionAddress("glPopAttrib"); }
+	inline void Init_glPushAttrib(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPushAttrib = (Fn_glPushAttrib)fn_GetFunctionAddress("glPushAttrib"); }
+	inline void Init_glMap1d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMap1d = (Fn_glMap1d)fn_GetFunctionAddress("glMap1d"); }
+	inline void Init_glMap1f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMap1f = (Fn_glMap1f)fn_GetFunctionAddress("glMap1f"); }
+	inline void Init_glMap2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMap2d = (Fn_glMap2d)fn_GetFunctionAddress("glMap2d"); }
+	inline void Init_glMap2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMap2f = (Fn_glMap2f)fn_GetFunctionAddress("glMap2f"); }
+	inline void Init_glMapGrid1d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMapGrid1d = (Fn_glMapGrid1d)fn_GetFunctionAddress("glMapGrid1d"); }
+	inline void Init_glMapGrid1f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMapGrid1f = (Fn_glMapGrid1f)fn_GetFunctionAddress("glMapGrid1f"); }
+	inline void Init_glMapGrid2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMapGrid2d = (Fn_glMapGrid2d)fn_GetFunctionAddress("glMapGrid2d"); }
+	inline void Init_glMapGrid2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMapGrid2f = (Fn_glMapGrid2f)fn_GetFunctionAddress("glMapGrid2f"); }
+	inline void Init_glEvalCoord1d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord1d = (Fn_glEvalCoord1d)fn_GetFunctionAddress("glEvalCoord1d"); }
+	inline void Init_glEvalCoord1dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord1dv = (Fn_glEvalCoord1dv)fn_GetFunctionAddress("glEvalCoord1dv"); }
+	inline void Init_glEvalCoord1f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord1f = (Fn_glEvalCoord1f)fn_GetFunctionAddress("glEvalCoord1f"); }
+	inline void Init_glEvalCoord1fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord1fv = (Fn_glEvalCoord1fv)fn_GetFunctionAddress("glEvalCoord1fv"); }
+	inline void Init_glEvalCoord2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord2d = (Fn_glEvalCoord2d)fn_GetFunctionAddress("glEvalCoord2d"); }
+	inline void Init_glEvalCoord2dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord2dv = (Fn_glEvalCoord2dv)fn_GetFunctionAddress("glEvalCoord2dv"); }
+	inline void Init_glEvalCoord2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord2f = (Fn_glEvalCoord2f)fn_GetFunctionAddress("glEvalCoord2f"); }
+	inline void Init_glEvalCoord2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalCoord2fv = (Fn_glEvalCoord2fv)fn_GetFunctionAddress("glEvalCoord2fv"); }
+	inline void Init_glEvalMesh1(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalMesh1 = (Fn_glEvalMesh1)fn_GetFunctionAddress("glEvalMesh1"); }
+	inline void Init_glEvalPoint1(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalPoint1 = (Fn_glEvalPoint1)fn_GetFunctionAddress("glEvalPoint1"); }
+	inline void Init_glEvalMesh2(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalMesh2 = (Fn_glEvalMesh2)fn_GetFunctionAddress("glEvalMesh2"); }
+	inline void Init_glEvalPoint2(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEvalPoint2 = (Fn_glEvalPoint2)fn_GetFunctionAddress("glEvalPoint2"); }
+	inline void Init_glAlphaFunc(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glAlphaFunc = (Fn_glAlphaFunc)fn_GetFunctionAddress("glAlphaFunc"); }
+	inline void Init_glPixelZoom(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelZoom = (Fn_glPixelZoom)fn_GetFunctionAddress("glPixelZoom"); }
+	inline void Init_glPixelTransferf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelTransferf = (Fn_glPixelTransferf)fn_GetFunctionAddress("glPixelTransferf"); }
+	inline void Init_glPixelTransferi(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelTransferi = (Fn_glPixelTransferi)fn_GetFunctionAddress("glPixelTransferi"); }
+	inline void Init_glPixelMapfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelMapfv = (Fn_glPixelMapfv)fn_GetFunctionAddress("glPixelMapfv"); }
+	inline void Init_glPixelMapuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelMapuiv = (Fn_glPixelMapuiv)fn_GetFunctionAddress("glPixelMapuiv"); }
+	inline void Init_glPixelMapusv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPixelMapusv = (Fn_glPixelMapusv)fn_GetFunctionAddress("glPixelMapusv"); }
+	inline void Init_glCopyPixels(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCopyPixels = (Fn_glCopyPixels)fn_GetFunctionAddress("glCopyPixels"); }
+	inline void Init_glDrawPixels(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawPixels = (Fn_glDrawPixels)fn_GetFunctionAddress("glDrawPixels"); }
+	inline void Init_glGetClipPlane(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetClipPlane = (Fn_glGetClipPlane)fn_GetFunctionAddress("glGetClipPlane"); }
+	inline void Init_glGetLightfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetLightfv = (Fn_glGetLightfv)fn_GetFunctionAddress("glGetLightfv"); }
+	inline void Init_glGetLightiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetLightiv = (Fn_glGetLightiv)fn_GetFunctionAddress("glGetLightiv"); }
+	inline void Init_glGetMapdv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetMapdv = (Fn_glGetMapdv)fn_GetFunctionAddress("glGetMapdv"); }
+	inline void Init_glGetMapfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetMapfv = (Fn_glGetMapfv)fn_GetFunctionAddress("glGetMapfv"); }
+	inline void Init_glGetMapiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetMapiv = (Fn_glGetMapiv)fn_GetFunctionAddress("glGetMapiv"); }
+	inline void Init_glGetMaterialfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetMaterialfv = (Fn_glGetMaterialfv)fn_GetFunctionAddress("glGetMaterialfv"); }
+	inline void Init_glGetMaterialiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetMaterialiv = (Fn_glGetMaterialiv)fn_GetFunctionAddress("glGetMaterialiv"); }
+	inline void Init_glGetPixelMapfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetPixelMapfv = (Fn_glGetPixelMapfv)fn_GetFunctionAddress("glGetPixelMapfv"); }
+	inline void Init_glGetPixelMapuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetPixelMapuiv = (Fn_glGetPixelMapuiv)fn_GetFunctionAddress("glGetPixelMapuiv"); }
+	inline void Init_glGetPixelMapusv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetPixelMapusv = (Fn_glGetPixelMapusv)fn_GetFunctionAddress("glGetPixelMapusv"); }
+	inline void Init_glGetPolygonStipple(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetPolygonStipple = (Fn_glGetPolygonStipple)fn_GetFunctionAddress("glGetPolygonStipple"); }
+	inline void Init_glGetTexEnvfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexEnvfv = (Fn_glGetTexEnvfv)fn_GetFunctionAddress("glGetTexEnvfv"); }
+	inline void Init_glGetTexEnviv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexEnviv = (Fn_glGetTexEnviv)fn_GetFunctionAddress("glGetTexEnviv"); }
+	inline void Init_glGetTexGendv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexGendv = (Fn_glGetTexGendv)fn_GetFunctionAddress("glGetTexGendv"); }
+	inline void Init_glGetTexGenfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexGenfv = (Fn_glGetTexGenfv)fn_GetFunctionAddress("glGetTexGenfv"); }
+	inline void Init_glGetTexGeniv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexGeniv = (Fn_glGetTexGeniv)fn_GetFunctionAddress("glGetTexGeniv"); }
+	inline void Init_glIsList(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsList = (Fn_glIsList)fn_GetFunctionAddress("glIsList"); }
+	inline void Init_glFrustum(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFrustum = (Fn_glFrustum)fn_GetFunctionAddress("glFrustum"); }
+	inline void Init_glLoadIdentity(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLoadIdentity = (Fn_glLoadIdentity)fn_GetFunctionAddress("glLoadIdentity"); }
+	inline void Init_glLoadMatrixf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLoadMatrixf = (Fn_glLoadMatrixf)fn_GetFunctionAddress("glLoadMatrixf"); }
+	inline void Init_glLoadMatrixd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLoadMatrixd = (Fn_glLoadMatrixd)fn_GetFunctionAddress("glLoadMatrixd"); }
+	inline void Init_glMatrixMode(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMatrixMode = (Fn_glMatrixMode)fn_GetFunctionAddress("glMatrixMode"); }
+	inline void Init_glMultMatrixf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultMatrixf = (Fn_glMultMatrixf)fn_GetFunctionAddress("glMultMatrixf"); }
+	inline void Init_glMultMatrixd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultMatrixd = (Fn_glMultMatrixd)fn_GetFunctionAddress("glMultMatrixd"); }
+	inline void Init_glOrtho(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glOrtho = (Fn_glOrtho)fn_GetFunctionAddress("glOrtho"); }
+	inline void Init_glPopMatrix(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPopMatrix = (Fn_glPopMatrix)fn_GetFunctionAddress("glPopMatrix"); }
+	inline void Init_glPushMatrix(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPushMatrix = (Fn_glPushMatrix)fn_GetFunctionAddress("glPushMatrix"); }
+	inline void Init_glRotated(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRotated = (Fn_glRotated)fn_GetFunctionAddress("glRotated"); }
+	inline void Init_glRotatef(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRotatef = (Fn_glRotatef)fn_GetFunctionAddress("glRotatef"); }
+	inline void Init_glScaled(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glScaled = (Fn_glScaled)fn_GetFunctionAddress("glScaled"); }
+	inline void Init_glScalef(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glScalef = (Fn_glScalef)fn_GetFunctionAddress("glScalef"); }
+	inline void Init_glTranslated(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTranslated = (Fn_glTranslated)fn_GetFunctionAddress("glTranslated"); }
+	inline void Init_glTranslatef(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTranslatef = (Fn_glTranslatef)fn_GetFunctionAddress("glTranslatef"); }
+	inline void Init_glDrawArrays(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawArrays = (Fn_glDrawArrays)fn_GetFunctionAddress("glDrawArrays"); }
+	inline void Init_glDrawElements(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawElements = (Fn_glDrawElements)fn_GetFunctionAddress("glDrawElements"); }
+	inline void Init_glGetPointerv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetPointerv = (Fn_glGetPointerv)fn_GetFunctionAddress("glGetPointerv"); }
+	inline void Init_glPolygonOffset(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPolygonOffset = (Fn_glPolygonOffset)fn_GetFunctionAddress("glPolygonOffset"); }
+	inline void Init_glCopyTexImage1D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCopyTexImage1D = (Fn_glCopyTexImage1D)fn_GetFunctionAddress("glCopyTexImage1D"); }
+	inline void Init_glCopyTexImage2D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCopyTexImage2D = (Fn_glCopyTexImage2D)fn_GetFunctionAddress("glCopyTexImage2D"); }
+	inline void Init_glCopyTexSubImage1D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCopyTexSubImage1D = (Fn_glCopyTexSubImage1D)fn_GetFunctionAddress("glCopyTexSubImage1D"); }
+	inline void Init_glCopyTexSubImage2D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCopyTexSubImage2D = (Fn_glCopyTexSubImage2D)fn_GetFunctionAddress("glCopyTexSubImage2D"); }
+	inline void Init_glTexSubImage1D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexSubImage1D = (Fn_glTexSubImage1D)fn_GetFunctionAddress("glTexSubImage1D"); }
+	inline void Init_glTexSubImage2D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexSubImage2D = (Fn_glTexSubImage2D)fn_GetFunctionAddress("glTexSubImage2D"); }
+	inline void Init_glBindTexture(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindTexture = (Fn_glBindTexture)fn_GetFunctionAddress("glBindTexture"); }
+	inline void Init_glDeleteTextures(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteTextures = (Fn_glDeleteTextures)fn_GetFunctionAddress("glDeleteTextures"); }
+	inline void Init_glGenTextures(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenTextures = (Fn_glGenTextures)fn_GetFunctionAddress("glGenTextures"); }
+	inline void Init_glIsTexture(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsTexture = (Fn_glIsTexture)fn_GetFunctionAddress("glIsTexture"); }
+	inline void Init_glArrayElement(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glArrayElement = (Fn_glArrayElement)fn_GetFunctionAddress("glArrayElement"); }
+	inline void Init_glColorPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorPointer = (Fn_glColorPointer)fn_GetFunctionAddress("glColorPointer"); }
+	inline void Init_glDisableClientState(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDisableClientState = (Fn_glDisableClientState)fn_GetFunctionAddress("glDisableClientState"); }
+	inline void Init_glEdgeFlagPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEdgeFlagPointer = (Fn_glEdgeFlagPointer)fn_GetFunctionAddress("glEdgeFlagPointer"); }
+	inline void Init_glEnableClientState(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEnableClientState = (Fn_glEnableClientState)fn_GetFunctionAddress("glEnableClientState"); }
+	inline void Init_glIndexPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexPointer = (Fn_glIndexPointer)fn_GetFunctionAddress("glIndexPointer"); }
+	inline void Init_glInterleavedArrays(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glInterleavedArrays = (Fn_glInterleavedArrays)fn_GetFunctionAddress("glInterleavedArrays"); }
+	inline void Init_glNormalPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormalPointer = (Fn_glNormalPointer)fn_GetFunctionAddress("glNormalPointer"); }
+	inline void Init_glTexCoordPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordPointer = (Fn_glTexCoordPointer)fn_GetFunctionAddress("glTexCoordPointer"); }
+	inline void Init_glVertexPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexPointer = (Fn_glVertexPointer)fn_GetFunctionAddress("glVertexPointer"); }
+	inline void Init_glAreTexturesResident(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glAreTexturesResident = (Fn_glAreTexturesResident)fn_GetFunctionAddress("glAreTexturesResident"); }
+	inline void Init_glPrioritizeTextures(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPrioritizeTextures = (Fn_glPrioritizeTextures)fn_GetFunctionAddress("glPrioritizeTextures"); }
+	inline void Init_glIndexub(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexub = (Fn_glIndexub)fn_GetFunctionAddress("glIndexub"); }
+	inline void Init_glIndexubv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIndexubv = (Fn_glIndexubv)fn_GetFunctionAddress("glIndexubv"); }
+	inline void Init_glPopClientAttrib(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPopClientAttrib = (Fn_glPopClientAttrib)fn_GetFunctionAddress("glPopClientAttrib"); }
+	inline void Init_glPushClientAttrib(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPushClientAttrib = (Fn_glPushClientAttrib)fn_GetFunctionAddress("glPushClientAttrib"); }
+	inline void Init_glDrawRangeElements(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawRangeElements = (Fn_glDrawRangeElements)fn_GetFunctionAddress("glDrawRangeElements"); }
+	inline void Init_glTexImage3D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexImage3D = (Fn_glTexImage3D)fn_GetFunctionAddress("glTexImage3D"); }
+	inline void Init_glTexSubImage3D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexSubImage3D = (Fn_glTexSubImage3D)fn_GetFunctionAddress("glTexSubImage3D"); }
+	inline void Init_glCopyTexSubImage3D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCopyTexSubImage3D = (Fn_glCopyTexSubImage3D)fn_GetFunctionAddress("glCopyTexSubImage3D"); }
+	inline void Init_glActiveTexture(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glActiveTexture = (Fn_glActiveTexture)fn_GetFunctionAddress("glActiveTexture"); }
+	inline void Init_glSampleCoverage(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSampleCoverage = (Fn_glSampleCoverage)fn_GetFunctionAddress("glSampleCoverage"); }
+	inline void Init_glCompressedTexImage3D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCompressedTexImage3D = (Fn_glCompressedTexImage3D)fn_GetFunctionAddress("glCompressedTexImage3D"); }
+	inline void Init_glCompressedTexImage2D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCompressedTexImage2D = (Fn_glCompressedTexImage2D)fn_GetFunctionAddress("glCompressedTexImage2D"); }
+	inline void Init_glCompressedTexImage1D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCompressedTexImage1D = (Fn_glCompressedTexImage1D)fn_GetFunctionAddress("glCompressedTexImage1D"); }
+	inline void Init_glCompressedTexSubImage3D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCompressedTexSubImage3D = (Fn_glCompressedTexSubImage3D)fn_GetFunctionAddress("glCompressedTexSubImage3D"); }
+	inline void Init_glCompressedTexSubImage2D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCompressedTexSubImage2D = (Fn_glCompressedTexSubImage2D)fn_GetFunctionAddress("glCompressedTexSubImage2D"); }
+	inline void Init_glCompressedTexSubImage1D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCompressedTexSubImage1D = (Fn_glCompressedTexSubImage1D)fn_GetFunctionAddress("glCompressedTexSubImage1D"); }
+	inline void Init_glGetCompressedTexImage(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetCompressedTexImage = (Fn_glGetCompressedTexImage)fn_GetFunctionAddress("glGetCompressedTexImage"); }
+	inline void Init_glClientActiveTexture(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClientActiveTexture = (Fn_glClientActiveTexture)fn_GetFunctionAddress("glClientActiveTexture"); }
+	inline void Init_glMultiTexCoord1d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1d = (Fn_glMultiTexCoord1d)fn_GetFunctionAddress("glMultiTexCoord1d"); }
+	inline void Init_glMultiTexCoord1dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1dv = (Fn_glMultiTexCoord1dv)fn_GetFunctionAddress("glMultiTexCoord1dv"); }
+	inline void Init_glMultiTexCoord1f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1f = (Fn_glMultiTexCoord1f)fn_GetFunctionAddress("glMultiTexCoord1f"); }
+	inline void Init_glMultiTexCoord1fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1fv = (Fn_glMultiTexCoord1fv)fn_GetFunctionAddress("glMultiTexCoord1fv"); }
+	inline void Init_glMultiTexCoord1i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1i = (Fn_glMultiTexCoord1i)fn_GetFunctionAddress("glMultiTexCoord1i"); }
+	inline void Init_glMultiTexCoord1iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1iv = (Fn_glMultiTexCoord1iv)fn_GetFunctionAddress("glMultiTexCoord1iv"); }
+	inline void Init_glMultiTexCoord1s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1s = (Fn_glMultiTexCoord1s)fn_GetFunctionAddress("glMultiTexCoord1s"); }
+	inline void Init_glMultiTexCoord1sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord1sv = (Fn_glMultiTexCoord1sv)fn_GetFunctionAddress("glMultiTexCoord1sv"); }
+	inline void Init_glMultiTexCoord2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2d = (Fn_glMultiTexCoord2d)fn_GetFunctionAddress("glMultiTexCoord2d"); }
+	inline void Init_glMultiTexCoord2dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2dv = (Fn_glMultiTexCoord2dv)fn_GetFunctionAddress("glMultiTexCoord2dv"); }
+	inline void Init_glMultiTexCoord2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2f = (Fn_glMultiTexCoord2f)fn_GetFunctionAddress("glMultiTexCoord2f"); }
+	inline void Init_glMultiTexCoord2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2fv = (Fn_glMultiTexCoord2fv)fn_GetFunctionAddress("glMultiTexCoord2fv"); }
+	inline void Init_glMultiTexCoord2i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2i = (Fn_glMultiTexCoord2i)fn_GetFunctionAddress("glMultiTexCoord2i"); }
+	inline void Init_glMultiTexCoord2iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2iv = (Fn_glMultiTexCoord2iv)fn_GetFunctionAddress("glMultiTexCoord2iv"); }
+	inline void Init_glMultiTexCoord2s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2s = (Fn_glMultiTexCoord2s)fn_GetFunctionAddress("glMultiTexCoord2s"); }
+	inline void Init_glMultiTexCoord2sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord2sv = (Fn_glMultiTexCoord2sv)fn_GetFunctionAddress("glMultiTexCoord2sv"); }
+	inline void Init_glMultiTexCoord3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3d = (Fn_glMultiTexCoord3d)fn_GetFunctionAddress("glMultiTexCoord3d"); }
+	inline void Init_glMultiTexCoord3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3dv = (Fn_glMultiTexCoord3dv)fn_GetFunctionAddress("glMultiTexCoord3dv"); }
+	inline void Init_glMultiTexCoord3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3f = (Fn_glMultiTexCoord3f)fn_GetFunctionAddress("glMultiTexCoord3f"); }
+	inline void Init_glMultiTexCoord3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3fv = (Fn_glMultiTexCoord3fv)fn_GetFunctionAddress("glMultiTexCoord3fv"); }
+	inline void Init_glMultiTexCoord3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3i = (Fn_glMultiTexCoord3i)fn_GetFunctionAddress("glMultiTexCoord3i"); }
+	inline void Init_glMultiTexCoord3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3iv = (Fn_glMultiTexCoord3iv)fn_GetFunctionAddress("glMultiTexCoord3iv"); }
+	inline void Init_glMultiTexCoord3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3s = (Fn_glMultiTexCoord3s)fn_GetFunctionAddress("glMultiTexCoord3s"); }
+	inline void Init_glMultiTexCoord3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord3sv = (Fn_glMultiTexCoord3sv)fn_GetFunctionAddress("glMultiTexCoord3sv"); }
+	inline void Init_glMultiTexCoord4d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4d = (Fn_glMultiTexCoord4d)fn_GetFunctionAddress("glMultiTexCoord4d"); }
+	inline void Init_glMultiTexCoord4dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4dv = (Fn_glMultiTexCoord4dv)fn_GetFunctionAddress("glMultiTexCoord4dv"); }
+	inline void Init_glMultiTexCoord4f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4f = (Fn_glMultiTexCoord4f)fn_GetFunctionAddress("glMultiTexCoord4f"); }
+	inline void Init_glMultiTexCoord4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4fv = (Fn_glMultiTexCoord4fv)fn_GetFunctionAddress("glMultiTexCoord4fv"); }
+	inline void Init_glMultiTexCoord4i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4i = (Fn_glMultiTexCoord4i)fn_GetFunctionAddress("glMultiTexCoord4i"); }
+	inline void Init_glMultiTexCoord4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4iv = (Fn_glMultiTexCoord4iv)fn_GetFunctionAddress("glMultiTexCoord4iv"); }
+	inline void Init_glMultiTexCoord4s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4s = (Fn_glMultiTexCoord4s)fn_GetFunctionAddress("glMultiTexCoord4s"); }
+	inline void Init_glMultiTexCoord4sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoord4sv = (Fn_glMultiTexCoord4sv)fn_GetFunctionAddress("glMultiTexCoord4sv"); }
+	inline void Init_glLoadTransposeMatrixf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLoadTransposeMatrixf = (Fn_glLoadTransposeMatrixf)fn_GetFunctionAddress("glLoadTransposeMatrixf"); }
+	inline void Init_glLoadTransposeMatrixd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLoadTransposeMatrixd = (Fn_glLoadTransposeMatrixd)fn_GetFunctionAddress("glLoadTransposeMatrixd"); }
+	inline void Init_glMultTransposeMatrixf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultTransposeMatrixf = (Fn_glMultTransposeMatrixf)fn_GetFunctionAddress("glMultTransposeMatrixf"); }
+	inline void Init_glMultTransposeMatrixd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultTransposeMatrixd = (Fn_glMultTransposeMatrixd)fn_GetFunctionAddress("glMultTransposeMatrixd"); }
+	inline void Init_glBlendFuncSeparate(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBlendFuncSeparate = (Fn_glBlendFuncSeparate)fn_GetFunctionAddress("glBlendFuncSeparate"); }
+	inline void Init_glMultiDrawArrays(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiDrawArrays = (Fn_glMultiDrawArrays)fn_GetFunctionAddress("glMultiDrawArrays"); }
+	inline void Init_glMultiDrawElements(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiDrawElements = (Fn_glMultiDrawElements)fn_GetFunctionAddress("glMultiDrawElements"); }
+	inline void Init_glPointParameterf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPointParameterf = (Fn_glPointParameterf)fn_GetFunctionAddress("glPointParameterf"); }
+	inline void Init_glPointParameterfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPointParameterfv = (Fn_glPointParameterfv)fn_GetFunctionAddress("glPointParameterfv"); }
+	inline void Init_glPointParameteri(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPointParameteri = (Fn_glPointParameteri)fn_GetFunctionAddress("glPointParameteri"); }
+	inline void Init_glPointParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPointParameteriv = (Fn_glPointParameteriv)fn_GetFunctionAddress("glPointParameteriv"); }
+	inline void Init_glFogCoordf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogCoordf = (Fn_glFogCoordf)fn_GetFunctionAddress("glFogCoordf"); }
+	inline void Init_glFogCoordfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogCoordfv = (Fn_glFogCoordfv)fn_GetFunctionAddress("glFogCoordfv"); }
+	inline void Init_glFogCoordd(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogCoordd = (Fn_glFogCoordd)fn_GetFunctionAddress("glFogCoordd"); }
+	inline void Init_glFogCoorddv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogCoorddv = (Fn_glFogCoorddv)fn_GetFunctionAddress("glFogCoorddv"); }
+	inline void Init_glFogCoordPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFogCoordPointer = (Fn_glFogCoordPointer)fn_GetFunctionAddress("glFogCoordPointer"); }
+	inline void Init_glSecondaryColor3b(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3b = (Fn_glSecondaryColor3b)fn_GetFunctionAddress("glSecondaryColor3b"); }
+	inline void Init_glSecondaryColor3bv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3bv = (Fn_glSecondaryColor3bv)fn_GetFunctionAddress("glSecondaryColor3bv"); }
+	inline void Init_glSecondaryColor3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3d = (Fn_glSecondaryColor3d)fn_GetFunctionAddress("glSecondaryColor3d"); }
+	inline void Init_glSecondaryColor3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3dv = (Fn_glSecondaryColor3dv)fn_GetFunctionAddress("glSecondaryColor3dv"); }
+	inline void Init_glSecondaryColor3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3f = (Fn_glSecondaryColor3f)fn_GetFunctionAddress("glSecondaryColor3f"); }
+	inline void Init_glSecondaryColor3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3fv = (Fn_glSecondaryColor3fv)fn_GetFunctionAddress("glSecondaryColor3fv"); }
+	inline void Init_glSecondaryColor3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3i = (Fn_glSecondaryColor3i)fn_GetFunctionAddress("glSecondaryColor3i"); }
+	inline void Init_glSecondaryColor3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3iv = (Fn_glSecondaryColor3iv)fn_GetFunctionAddress("glSecondaryColor3iv"); }
+	inline void Init_glSecondaryColor3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3s = (Fn_glSecondaryColor3s)fn_GetFunctionAddress("glSecondaryColor3s"); }
+	inline void Init_glSecondaryColor3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3sv = (Fn_glSecondaryColor3sv)fn_GetFunctionAddress("glSecondaryColor3sv"); }
+	inline void Init_glSecondaryColor3ub(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3ub = (Fn_glSecondaryColor3ub)fn_GetFunctionAddress("glSecondaryColor3ub"); }
+	inline void Init_glSecondaryColor3ubv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3ubv = (Fn_glSecondaryColor3ubv)fn_GetFunctionAddress("glSecondaryColor3ubv"); }
+	inline void Init_glSecondaryColor3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3ui = (Fn_glSecondaryColor3ui)fn_GetFunctionAddress("glSecondaryColor3ui"); }
+	inline void Init_glSecondaryColor3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3uiv = (Fn_glSecondaryColor3uiv)fn_GetFunctionAddress("glSecondaryColor3uiv"); }
+	inline void Init_glSecondaryColor3us(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3us = (Fn_glSecondaryColor3us)fn_GetFunctionAddress("glSecondaryColor3us"); }
+	inline void Init_glSecondaryColor3usv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColor3usv = (Fn_glSecondaryColor3usv)fn_GetFunctionAddress("glSecondaryColor3usv"); }
+	inline void Init_glSecondaryColorPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColorPointer = (Fn_glSecondaryColorPointer)fn_GetFunctionAddress("glSecondaryColorPointer"); }
+	inline void Init_glWindowPos2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2d = (Fn_glWindowPos2d)fn_GetFunctionAddress("glWindowPos2d"); }
+	inline void Init_glWindowPos2dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2dv = (Fn_glWindowPos2dv)fn_GetFunctionAddress("glWindowPos2dv"); }
+	inline void Init_glWindowPos2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2f = (Fn_glWindowPos2f)fn_GetFunctionAddress("glWindowPos2f"); }
+	inline void Init_glWindowPos2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2fv = (Fn_glWindowPos2fv)fn_GetFunctionAddress("glWindowPos2fv"); }
+	inline void Init_glWindowPos2i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2i = (Fn_glWindowPos2i)fn_GetFunctionAddress("glWindowPos2i"); }
+	inline void Init_glWindowPos2iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2iv = (Fn_glWindowPos2iv)fn_GetFunctionAddress("glWindowPos2iv"); }
+	inline void Init_glWindowPos2s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2s = (Fn_glWindowPos2s)fn_GetFunctionAddress("glWindowPos2s"); }
+	inline void Init_glWindowPos2sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos2sv = (Fn_glWindowPos2sv)fn_GetFunctionAddress("glWindowPos2sv"); }
+	inline void Init_glWindowPos3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3d = (Fn_glWindowPos3d)fn_GetFunctionAddress("glWindowPos3d"); }
+	inline void Init_glWindowPos3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3dv = (Fn_glWindowPos3dv)fn_GetFunctionAddress("glWindowPos3dv"); }
+	inline void Init_glWindowPos3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3f = (Fn_glWindowPos3f)fn_GetFunctionAddress("glWindowPos3f"); }
+	inline void Init_glWindowPos3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3fv = (Fn_glWindowPos3fv)fn_GetFunctionAddress("glWindowPos3fv"); }
+	inline void Init_glWindowPos3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3i = (Fn_glWindowPos3i)fn_GetFunctionAddress("glWindowPos3i"); }
+	inline void Init_glWindowPos3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3iv = (Fn_glWindowPos3iv)fn_GetFunctionAddress("glWindowPos3iv"); }
+	inline void Init_glWindowPos3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3s = (Fn_glWindowPos3s)fn_GetFunctionAddress("glWindowPos3s"); }
+	inline void Init_glWindowPos3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWindowPos3sv = (Fn_glWindowPos3sv)fn_GetFunctionAddress("glWindowPos3sv"); }
+	inline void Init_glBlendColor(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBlendColor = (Fn_glBlendColor)fn_GetFunctionAddress("glBlendColor"); }
+	inline void Init_glBlendEquation(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBlendEquation = (Fn_glBlendEquation)fn_GetFunctionAddress("glBlendEquation"); }
+	inline void Init_glGenQueries(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenQueries = (Fn_glGenQueries)fn_GetFunctionAddress("glGenQueries"); }
+	inline void Init_glDeleteQueries(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteQueries = (Fn_glDeleteQueries)fn_GetFunctionAddress("glDeleteQueries"); }
+	inline void Init_glIsQuery(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsQuery = (Fn_glIsQuery)fn_GetFunctionAddress("glIsQuery"); }
+	inline void Init_glBeginQuery(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBeginQuery = (Fn_glBeginQuery)fn_GetFunctionAddress("glBeginQuery"); }
+	inline void Init_glEndQuery(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEndQuery = (Fn_glEndQuery)fn_GetFunctionAddress("glEndQuery"); }
+	inline void Init_glGetQueryiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetQueryiv = (Fn_glGetQueryiv)fn_GetFunctionAddress("glGetQueryiv"); }
+	inline void Init_glGetQueryObjectiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetQueryObjectiv = (Fn_glGetQueryObjectiv)fn_GetFunctionAddress("glGetQueryObjectiv"); }
+	inline void Init_glGetQueryObjectuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetQueryObjectuiv = (Fn_glGetQueryObjectuiv)fn_GetFunctionAddress("glGetQueryObjectuiv"); }
+	inline void Init_glBindBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindBuffer = (Fn_glBindBuffer)fn_GetFunctionAddress("glBindBuffer"); }
+	inline void Init_glDeleteBuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteBuffers = (Fn_glDeleteBuffers)fn_GetFunctionAddress("glDeleteBuffers"); }
+	inline void Init_glGenBuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenBuffers = (Fn_glGenBuffers)fn_GetFunctionAddress("glGenBuffers"); }
+	inline void Init_glIsBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsBuffer = (Fn_glIsBuffer)fn_GetFunctionAddress("glIsBuffer"); }
+	inline void Init_glBufferData(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBufferData = (Fn_glBufferData)fn_GetFunctionAddress("glBufferData"); }
+	inline void Init_glBufferSubData(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBufferSubData = (Fn_glBufferSubData)fn_GetFunctionAddress("glBufferSubData"); }
+	inline void Init_glGetBufferSubData(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetBufferSubData = (Fn_glGetBufferSubData)fn_GetFunctionAddress("glGetBufferSubData"); }
+	inline void Init_glMapBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMapBuffer = (Fn_glMapBuffer)fn_GetFunctionAddress("glMapBuffer"); }
+	inline void Init_glUnmapBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUnmapBuffer = (Fn_glUnmapBuffer)fn_GetFunctionAddress("glUnmapBuffer"); }
+	inline void Init_glGetBufferParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetBufferParameteriv = (Fn_glGetBufferParameteriv)fn_GetFunctionAddress("glGetBufferParameteriv"); }
+	inline void Init_glGetBufferPointerv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetBufferPointerv = (Fn_glGetBufferPointerv)fn_GetFunctionAddress("glGetBufferPointerv"); }
+	inline void Init_glBlendEquationSeparate(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBlendEquationSeparate = (Fn_glBlendEquationSeparate)fn_GetFunctionAddress("glBlendEquationSeparate"); }
+	inline void Init_glDrawBuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawBuffers = (Fn_glDrawBuffers)fn_GetFunctionAddress("glDrawBuffers"); }
+	inline void Init_glStencilOpSeparate(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glStencilOpSeparate = (Fn_glStencilOpSeparate)fn_GetFunctionAddress("glStencilOpSeparate"); }
+	inline void Init_glStencilFuncSeparate(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glStencilFuncSeparate = (Fn_glStencilFuncSeparate)fn_GetFunctionAddress("glStencilFuncSeparate"); }
+	inline void Init_glStencilMaskSeparate(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glStencilMaskSeparate = (Fn_glStencilMaskSeparate)fn_GetFunctionAddress("glStencilMaskSeparate"); }
+	inline void Init_glAttachShader(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glAttachShader = (Fn_glAttachShader)fn_GetFunctionAddress("glAttachShader"); }
+	inline void Init_glBindAttribLocation(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindAttribLocation = (Fn_glBindAttribLocation)fn_GetFunctionAddress("glBindAttribLocation"); }
+	inline void Init_glCompileShader(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCompileShader = (Fn_glCompileShader)fn_GetFunctionAddress("glCompileShader"); }
+	inline void Init_glCreateProgram(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCreateProgram = (Fn_glCreateProgram)fn_GetFunctionAddress("glCreateProgram"); }
+	inline void Init_glCreateShader(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCreateShader = (Fn_glCreateShader)fn_GetFunctionAddress("glCreateShader"); }
+	inline void Init_glDeleteProgram(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteProgram = (Fn_glDeleteProgram)fn_GetFunctionAddress("glDeleteProgram"); }
+	inline void Init_glDeleteShader(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteShader = (Fn_glDeleteShader)fn_GetFunctionAddress("glDeleteShader"); }
+	inline void Init_glDetachShader(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDetachShader = (Fn_glDetachShader)fn_GetFunctionAddress("glDetachShader"); }
+	inline void Init_glDisableVertexAttribArray(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDisableVertexAttribArray = (Fn_glDisableVertexAttribArray)fn_GetFunctionAddress("glDisableVertexAttribArray"); }
+	inline void Init_glEnableVertexAttribArray(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEnableVertexAttribArray = (Fn_glEnableVertexAttribArray)fn_GetFunctionAddress("glEnableVertexAttribArray"); }
+	inline void Init_glGetActiveAttrib(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetActiveAttrib = (Fn_glGetActiveAttrib)fn_GetFunctionAddress("glGetActiveAttrib"); }
+	inline void Init_glGetActiveUniform(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetActiveUniform = (Fn_glGetActiveUniform)fn_GetFunctionAddress("glGetActiveUniform"); }
+	inline void Init_glGetAttachedShaders(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetAttachedShaders = (Fn_glGetAttachedShaders)fn_GetFunctionAddress("glGetAttachedShaders"); }
+	inline void Init_glGetAttribLocation(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetAttribLocation = (Fn_glGetAttribLocation)fn_GetFunctionAddress("glGetAttribLocation"); }
+	inline void Init_glGetProgramiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetProgramiv = (Fn_glGetProgramiv)fn_GetFunctionAddress("glGetProgramiv"); }
+	inline void Init_glGetProgramInfoLog(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetProgramInfoLog = (Fn_glGetProgramInfoLog)fn_GetFunctionAddress("glGetProgramInfoLog"); }
+	inline void Init_glGetShaderiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetShaderiv = (Fn_glGetShaderiv)fn_GetFunctionAddress("glGetShaderiv"); }
+	inline void Init_glGetShaderInfoLog(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetShaderInfoLog = (Fn_glGetShaderInfoLog)fn_GetFunctionAddress("glGetShaderInfoLog"); }
+	inline void Init_glGetShaderSource(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetShaderSource = (Fn_glGetShaderSource)fn_GetFunctionAddress("glGetShaderSource"); }
+	inline void Init_glGetUniformLocation(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetUniformLocation = (Fn_glGetUniformLocation)fn_GetFunctionAddress("glGetUniformLocation"); }
+	inline void Init_glGetUniformfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetUniformfv = (Fn_glGetUniformfv)fn_GetFunctionAddress("glGetUniformfv"); }
+	inline void Init_glGetUniformiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetUniformiv = (Fn_glGetUniformiv)fn_GetFunctionAddress("glGetUniformiv"); }
+	inline void Init_glGetVertexAttribdv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetVertexAttribdv = (Fn_glGetVertexAttribdv)fn_GetFunctionAddress("glGetVertexAttribdv"); }
+	inline void Init_glGetVertexAttribfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetVertexAttribfv = (Fn_glGetVertexAttribfv)fn_GetFunctionAddress("glGetVertexAttribfv"); }
+	inline void Init_glGetVertexAttribiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetVertexAttribiv = (Fn_glGetVertexAttribiv)fn_GetFunctionAddress("glGetVertexAttribiv"); }
+	inline void Init_glGetVertexAttribPointerv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetVertexAttribPointerv = (Fn_glGetVertexAttribPointerv)fn_GetFunctionAddress("glGetVertexAttribPointerv"); }
+	inline void Init_glIsProgram(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsProgram = (Fn_glIsProgram)fn_GetFunctionAddress("glIsProgram"); }
+	inline void Init_glIsShader(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsShader = (Fn_glIsShader)fn_GetFunctionAddress("glIsShader"); }
+	inline void Init_glLinkProgram(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glLinkProgram = (Fn_glLinkProgram)fn_GetFunctionAddress("glLinkProgram"); }
+	inline void Init_glShaderSource(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glShaderSource = (Fn_glShaderSource)fn_GetFunctionAddress("glShaderSource"); }
+	inline void Init_glUseProgram(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUseProgram = (Fn_glUseProgram)fn_GetFunctionAddress("glUseProgram"); }
+	inline void Init_glUniform1f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform1f = (Fn_glUniform1f)fn_GetFunctionAddress("glUniform1f"); }
+	inline void Init_glUniform2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform2f = (Fn_glUniform2f)fn_GetFunctionAddress("glUniform2f"); }
+	inline void Init_glUniform3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform3f = (Fn_glUniform3f)fn_GetFunctionAddress("glUniform3f"); }
+	inline void Init_glUniform4f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform4f = (Fn_glUniform4f)fn_GetFunctionAddress("glUniform4f"); }
+	inline void Init_glUniform1i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform1i = (Fn_glUniform1i)fn_GetFunctionAddress("glUniform1i"); }
+	inline void Init_glUniform2i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform2i = (Fn_glUniform2i)fn_GetFunctionAddress("glUniform2i"); }
+	inline void Init_glUniform3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform3i = (Fn_glUniform3i)fn_GetFunctionAddress("glUniform3i"); }
+	inline void Init_glUniform4i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform4i = (Fn_glUniform4i)fn_GetFunctionAddress("glUniform4i"); }
+	inline void Init_glUniform1fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform1fv = (Fn_glUniform1fv)fn_GetFunctionAddress("glUniform1fv"); }
+	inline void Init_glUniform2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform2fv = (Fn_glUniform2fv)fn_GetFunctionAddress("glUniform2fv"); }
+	inline void Init_glUniform3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform3fv = (Fn_glUniform3fv)fn_GetFunctionAddress("glUniform3fv"); }
+	inline void Init_glUniform4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform4fv = (Fn_glUniform4fv)fn_GetFunctionAddress("glUniform4fv"); }
+	inline void Init_glUniform1iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform1iv = (Fn_glUniform1iv)fn_GetFunctionAddress("glUniform1iv"); }
+	inline void Init_glUniform2iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform2iv = (Fn_glUniform2iv)fn_GetFunctionAddress("glUniform2iv"); }
+	inline void Init_glUniform3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform3iv = (Fn_glUniform3iv)fn_GetFunctionAddress("glUniform3iv"); }
+	inline void Init_glUniform4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform4iv = (Fn_glUniform4iv)fn_GetFunctionAddress("glUniform4iv"); }
+	inline void Init_glUniformMatrix2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix2fv = (Fn_glUniformMatrix2fv)fn_GetFunctionAddress("glUniformMatrix2fv"); }
+	inline void Init_glUniformMatrix3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix3fv = (Fn_glUniformMatrix3fv)fn_GetFunctionAddress("glUniformMatrix3fv"); }
+	inline void Init_glUniformMatrix4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix4fv = (Fn_glUniformMatrix4fv)fn_GetFunctionAddress("glUniformMatrix4fv"); }
+	inline void Init_glValidateProgram(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glValidateProgram = (Fn_glValidateProgram)fn_GetFunctionAddress("glValidateProgram"); }
+	inline void Init_glVertexAttrib1d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib1d = (Fn_glVertexAttrib1d)fn_GetFunctionAddress("glVertexAttrib1d"); }
+	inline void Init_glVertexAttrib1dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib1dv = (Fn_glVertexAttrib1dv)fn_GetFunctionAddress("glVertexAttrib1dv"); }
+	inline void Init_glVertexAttrib1f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib1f = (Fn_glVertexAttrib1f)fn_GetFunctionAddress("glVertexAttrib1f"); }
+	inline void Init_glVertexAttrib1fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib1fv = (Fn_glVertexAttrib1fv)fn_GetFunctionAddress("glVertexAttrib1fv"); }
+	inline void Init_glVertexAttrib1s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib1s = (Fn_glVertexAttrib1s)fn_GetFunctionAddress("glVertexAttrib1s"); }
+	inline void Init_glVertexAttrib1sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib1sv = (Fn_glVertexAttrib1sv)fn_GetFunctionAddress("glVertexAttrib1sv"); }
+	inline void Init_glVertexAttrib2d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib2d = (Fn_glVertexAttrib2d)fn_GetFunctionAddress("glVertexAttrib2d"); }
+	inline void Init_glVertexAttrib2dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib2dv = (Fn_glVertexAttrib2dv)fn_GetFunctionAddress("glVertexAttrib2dv"); }
+	inline void Init_glVertexAttrib2f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib2f = (Fn_glVertexAttrib2f)fn_GetFunctionAddress("glVertexAttrib2f"); }
+	inline void Init_glVertexAttrib2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib2fv = (Fn_glVertexAttrib2fv)fn_GetFunctionAddress("glVertexAttrib2fv"); }
+	inline void Init_glVertexAttrib2s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib2s = (Fn_glVertexAttrib2s)fn_GetFunctionAddress("glVertexAttrib2s"); }
+	inline void Init_glVertexAttrib2sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib2sv = (Fn_glVertexAttrib2sv)fn_GetFunctionAddress("glVertexAttrib2sv"); }
+	inline void Init_glVertexAttrib3d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib3d = (Fn_glVertexAttrib3d)fn_GetFunctionAddress("glVertexAttrib3d"); }
+	inline void Init_glVertexAttrib3dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib3dv = (Fn_glVertexAttrib3dv)fn_GetFunctionAddress("glVertexAttrib3dv"); }
+	inline void Init_glVertexAttrib3f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib3f = (Fn_glVertexAttrib3f)fn_GetFunctionAddress("glVertexAttrib3f"); }
+	inline void Init_glVertexAttrib3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib3fv = (Fn_glVertexAttrib3fv)fn_GetFunctionAddress("glVertexAttrib3fv"); }
+	inline void Init_glVertexAttrib3s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib3s = (Fn_glVertexAttrib3s)fn_GetFunctionAddress("glVertexAttrib3s"); }
+	inline void Init_glVertexAttrib3sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib3sv = (Fn_glVertexAttrib3sv)fn_GetFunctionAddress("glVertexAttrib3sv"); }
+	inline void Init_glVertexAttrib4Nbv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4Nbv = (Fn_glVertexAttrib4Nbv)fn_GetFunctionAddress("glVertexAttrib4Nbv"); }
+	inline void Init_glVertexAttrib4Niv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4Niv = (Fn_glVertexAttrib4Niv)fn_GetFunctionAddress("glVertexAttrib4Niv"); }
+	inline void Init_glVertexAttrib4Nsv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4Nsv = (Fn_glVertexAttrib4Nsv)fn_GetFunctionAddress("glVertexAttrib4Nsv"); }
+	inline void Init_glVertexAttrib4Nub(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4Nub = (Fn_glVertexAttrib4Nub)fn_GetFunctionAddress("glVertexAttrib4Nub"); }
+	inline void Init_glVertexAttrib4Nubv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4Nubv = (Fn_glVertexAttrib4Nubv)fn_GetFunctionAddress("glVertexAttrib4Nubv"); }
+	inline void Init_glVertexAttrib4Nuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4Nuiv = (Fn_glVertexAttrib4Nuiv)fn_GetFunctionAddress("glVertexAttrib4Nuiv"); }
+	inline void Init_glVertexAttrib4Nusv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4Nusv = (Fn_glVertexAttrib4Nusv)fn_GetFunctionAddress("glVertexAttrib4Nusv"); }
+	inline void Init_glVertexAttrib4bv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4bv = (Fn_glVertexAttrib4bv)fn_GetFunctionAddress("glVertexAttrib4bv"); }
+	inline void Init_glVertexAttrib4d(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4d = (Fn_glVertexAttrib4d)fn_GetFunctionAddress("glVertexAttrib4d"); }
+	inline void Init_glVertexAttrib4dv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4dv = (Fn_glVertexAttrib4dv)fn_GetFunctionAddress("glVertexAttrib4dv"); }
+	inline void Init_glVertexAttrib4f(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4f = (Fn_glVertexAttrib4f)fn_GetFunctionAddress("glVertexAttrib4f"); }
+	inline void Init_glVertexAttrib4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4fv = (Fn_glVertexAttrib4fv)fn_GetFunctionAddress("glVertexAttrib4fv"); }
+	inline void Init_glVertexAttrib4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4iv = (Fn_glVertexAttrib4iv)fn_GetFunctionAddress("glVertexAttrib4iv"); }
+	inline void Init_glVertexAttrib4s(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4s = (Fn_glVertexAttrib4s)fn_GetFunctionAddress("glVertexAttrib4s"); }
+	inline void Init_glVertexAttrib4sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4sv = (Fn_glVertexAttrib4sv)fn_GetFunctionAddress("glVertexAttrib4sv"); }
+	inline void Init_glVertexAttrib4ubv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4ubv = (Fn_glVertexAttrib4ubv)fn_GetFunctionAddress("glVertexAttrib4ubv"); }
+	inline void Init_glVertexAttrib4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4uiv = (Fn_glVertexAttrib4uiv)fn_GetFunctionAddress("glVertexAttrib4uiv"); }
+	inline void Init_glVertexAttrib4usv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttrib4usv = (Fn_glVertexAttrib4usv)fn_GetFunctionAddress("glVertexAttrib4usv"); }
+	inline void Init_glVertexAttribPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribPointer = (Fn_glVertexAttribPointer)fn_GetFunctionAddress("glVertexAttribPointer"); }
+	inline void Init_glUniformMatrix2x3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix2x3fv = (Fn_glUniformMatrix2x3fv)fn_GetFunctionAddress("glUniformMatrix2x3fv"); }
+	inline void Init_glUniformMatrix3x2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix3x2fv = (Fn_glUniformMatrix3x2fv)fn_GetFunctionAddress("glUniformMatrix3x2fv"); }
+	inline void Init_glUniformMatrix2x4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix2x4fv = (Fn_glUniformMatrix2x4fv)fn_GetFunctionAddress("glUniformMatrix2x4fv"); }
+	inline void Init_glUniformMatrix4x2fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix4x2fv = (Fn_glUniformMatrix4x2fv)fn_GetFunctionAddress("glUniformMatrix4x2fv"); }
+	inline void Init_glUniformMatrix3x4fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix3x4fv = (Fn_glUniformMatrix3x4fv)fn_GetFunctionAddress("glUniformMatrix3x4fv"); }
+	inline void Init_glUniformMatrix4x3fv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformMatrix4x3fv = (Fn_glUniformMatrix4x3fv)fn_GetFunctionAddress("glUniformMatrix4x3fv"); }
+	inline void Init_glColorMaski(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorMaski = (Fn_glColorMaski)fn_GetFunctionAddress("glColorMaski"); }
+	inline void Init_glGetBooleani_v(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetBooleani_v = (Fn_glGetBooleani_v)fn_GetFunctionAddress("glGetBooleani_v"); }
+	inline void Init_glGetIntegeri_v(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetIntegeri_v = (Fn_glGetIntegeri_v)fn_GetFunctionAddress("glGetIntegeri_v"); }
+	inline void Init_glEnablei(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEnablei = (Fn_glEnablei)fn_GetFunctionAddress("glEnablei"); }
+	inline void Init_glDisablei(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDisablei = (Fn_glDisablei)fn_GetFunctionAddress("glDisablei"); }
+	inline void Init_glIsEnabledi(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsEnabledi = (Fn_glIsEnabledi)fn_GetFunctionAddress("glIsEnabledi"); }
+	inline void Init_glBeginTransformFeedback(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBeginTransformFeedback = (Fn_glBeginTransformFeedback)fn_GetFunctionAddress("glBeginTransformFeedback"); }
+	inline void Init_glEndTransformFeedback(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEndTransformFeedback = (Fn_glEndTransformFeedback)fn_GetFunctionAddress("glEndTransformFeedback"); }
+	inline void Init_glBindBufferRange(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindBufferRange = (Fn_glBindBufferRange)fn_GetFunctionAddress("glBindBufferRange"); }
+	inline void Init_glBindBufferBase(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindBufferBase = (Fn_glBindBufferBase)fn_GetFunctionAddress("glBindBufferBase"); }
+	inline void Init_glTransformFeedbackVaryings(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTransformFeedbackVaryings = (Fn_glTransformFeedbackVaryings)fn_GetFunctionAddress("glTransformFeedbackVaryings"); }
+	inline void Init_glGetTransformFeedbackVarying(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTransformFeedbackVarying = (Fn_glGetTransformFeedbackVarying)fn_GetFunctionAddress("glGetTransformFeedbackVarying"); }
+	inline void Init_glClampColor(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClampColor = (Fn_glClampColor)fn_GetFunctionAddress("glClampColor"); }
+	inline void Init_glBeginConditionalRender(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBeginConditionalRender = (Fn_glBeginConditionalRender)fn_GetFunctionAddress("glBeginConditionalRender"); }
+	inline void Init_glEndConditionalRender(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glEndConditionalRender = (Fn_glEndConditionalRender)fn_GetFunctionAddress("glEndConditionalRender"); }
+	inline void Init_glVertexAttribIPointer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribIPointer = (Fn_glVertexAttribIPointer)fn_GetFunctionAddress("glVertexAttribIPointer"); }
+	inline void Init_glGetVertexAttribIiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetVertexAttribIiv = (Fn_glGetVertexAttribIiv)fn_GetFunctionAddress("glGetVertexAttribIiv"); }
+	inline void Init_glGetVertexAttribIuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetVertexAttribIuiv = (Fn_glGetVertexAttribIuiv)fn_GetFunctionAddress("glGetVertexAttribIuiv"); }
+	inline void Init_glVertexAttribI1i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI1i = (Fn_glVertexAttribI1i)fn_GetFunctionAddress("glVertexAttribI1i"); }
+	inline void Init_glVertexAttribI2i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI2i = (Fn_glVertexAttribI2i)fn_GetFunctionAddress("glVertexAttribI2i"); }
+	inline void Init_glVertexAttribI3i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI3i = (Fn_glVertexAttribI3i)fn_GetFunctionAddress("glVertexAttribI3i"); }
+	inline void Init_glVertexAttribI4i(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4i = (Fn_glVertexAttribI4i)fn_GetFunctionAddress("glVertexAttribI4i"); }
+	inline void Init_glVertexAttribI1ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI1ui = (Fn_glVertexAttribI1ui)fn_GetFunctionAddress("glVertexAttribI1ui"); }
+	inline void Init_glVertexAttribI2ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI2ui = (Fn_glVertexAttribI2ui)fn_GetFunctionAddress("glVertexAttribI2ui"); }
+	inline void Init_glVertexAttribI3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI3ui = (Fn_glVertexAttribI3ui)fn_GetFunctionAddress("glVertexAttribI3ui"); }
+	inline void Init_glVertexAttribI4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4ui = (Fn_glVertexAttribI4ui)fn_GetFunctionAddress("glVertexAttribI4ui"); }
+	inline void Init_glVertexAttribI1iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI1iv = (Fn_glVertexAttribI1iv)fn_GetFunctionAddress("glVertexAttribI1iv"); }
+	inline void Init_glVertexAttribI2iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI2iv = (Fn_glVertexAttribI2iv)fn_GetFunctionAddress("glVertexAttribI2iv"); }
+	inline void Init_glVertexAttribI3iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI3iv = (Fn_glVertexAttribI3iv)fn_GetFunctionAddress("glVertexAttribI3iv"); }
+	inline void Init_glVertexAttribI4iv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4iv = (Fn_glVertexAttribI4iv)fn_GetFunctionAddress("glVertexAttribI4iv"); }
+	inline void Init_glVertexAttribI1uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI1uiv = (Fn_glVertexAttribI1uiv)fn_GetFunctionAddress("glVertexAttribI1uiv"); }
+	inline void Init_glVertexAttribI2uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI2uiv = (Fn_glVertexAttribI2uiv)fn_GetFunctionAddress("glVertexAttribI2uiv"); }
+	inline void Init_glVertexAttribI3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI3uiv = (Fn_glVertexAttribI3uiv)fn_GetFunctionAddress("glVertexAttribI3uiv"); }
+	inline void Init_glVertexAttribI4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4uiv = (Fn_glVertexAttribI4uiv)fn_GetFunctionAddress("glVertexAttribI4uiv"); }
+	inline void Init_glVertexAttribI4bv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4bv = (Fn_glVertexAttribI4bv)fn_GetFunctionAddress("glVertexAttribI4bv"); }
+	inline void Init_glVertexAttribI4sv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4sv = (Fn_glVertexAttribI4sv)fn_GetFunctionAddress("glVertexAttribI4sv"); }
+	inline void Init_glVertexAttribI4ubv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4ubv = (Fn_glVertexAttribI4ubv)fn_GetFunctionAddress("glVertexAttribI4ubv"); }
+	inline void Init_glVertexAttribI4usv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribI4usv = (Fn_glVertexAttribI4usv)fn_GetFunctionAddress("glVertexAttribI4usv"); }
+	inline void Init_glGetUniformuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetUniformuiv = (Fn_glGetUniformuiv)fn_GetFunctionAddress("glGetUniformuiv"); }
+	inline void Init_glBindFragDataLocation(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindFragDataLocation = (Fn_glBindFragDataLocation)fn_GetFunctionAddress("glBindFragDataLocation"); }
+	inline void Init_glGetFragDataLocation(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetFragDataLocation = (Fn_glGetFragDataLocation)fn_GetFunctionAddress("glGetFragDataLocation"); }
+	inline void Init_glUniform1ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform1ui = (Fn_glUniform1ui)fn_GetFunctionAddress("glUniform1ui"); }
+	inline void Init_glUniform2ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform2ui = (Fn_glUniform2ui)fn_GetFunctionAddress("glUniform2ui"); }
+	inline void Init_glUniform3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform3ui = (Fn_glUniform3ui)fn_GetFunctionAddress("glUniform3ui"); }
+	inline void Init_glUniform4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform4ui = (Fn_glUniform4ui)fn_GetFunctionAddress("glUniform4ui"); }
+	inline void Init_glUniform1uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform1uiv = (Fn_glUniform1uiv)fn_GetFunctionAddress("glUniform1uiv"); }
+	inline void Init_glUniform2uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform2uiv = (Fn_glUniform2uiv)fn_GetFunctionAddress("glUniform2uiv"); }
+	inline void Init_glUniform3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform3uiv = (Fn_glUniform3uiv)fn_GetFunctionAddress("glUniform3uiv"); }
+	inline void Init_glUniform4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniform4uiv = (Fn_glUniform4uiv)fn_GetFunctionAddress("glUniform4uiv"); }
+	inline void Init_glTexParameterIiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexParameterIiv = (Fn_glTexParameterIiv)fn_GetFunctionAddress("glTexParameterIiv"); }
+	inline void Init_glTexParameterIuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexParameterIuiv = (Fn_glTexParameterIuiv)fn_GetFunctionAddress("glTexParameterIuiv"); }
+	inline void Init_glGetTexParameterIiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexParameterIiv = (Fn_glGetTexParameterIiv)fn_GetFunctionAddress("glGetTexParameterIiv"); }
+	inline void Init_glGetTexParameterIuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetTexParameterIuiv = (Fn_glGetTexParameterIuiv)fn_GetFunctionAddress("glGetTexParameterIuiv"); }
+	inline void Init_glClearBufferiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearBufferiv = (Fn_glClearBufferiv)fn_GetFunctionAddress("glClearBufferiv"); }
+	inline void Init_glClearBufferuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearBufferuiv = (Fn_glClearBufferuiv)fn_GetFunctionAddress("glClearBufferuiv"); }
+	inline void Init_glClearBufferfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearBufferfv = (Fn_glClearBufferfv)fn_GetFunctionAddress("glClearBufferfv"); }
+	inline void Init_glClearBufferfi(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClearBufferfi = (Fn_glClearBufferfi)fn_GetFunctionAddress("glClearBufferfi"); }
+	inline void Init_glGetStringi(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetStringi = (Fn_glGetStringi)fn_GetFunctionAddress("glGetStringi"); }
+	inline void Init_glIsRenderbuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsRenderbuffer = (Fn_glIsRenderbuffer)fn_GetFunctionAddress("glIsRenderbuffer"); }
+	inline void Init_glBindRenderbuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindRenderbuffer = (Fn_glBindRenderbuffer)fn_GetFunctionAddress("glBindRenderbuffer"); }
+	inline void Init_glDeleteRenderbuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteRenderbuffers = (Fn_glDeleteRenderbuffers)fn_GetFunctionAddress("glDeleteRenderbuffers"); }
+	inline void Init_glGenRenderbuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenRenderbuffers = (Fn_glGenRenderbuffers)fn_GetFunctionAddress("glGenRenderbuffers"); }
+	inline void Init_glRenderbufferStorage(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRenderbufferStorage = (Fn_glRenderbufferStorage)fn_GetFunctionAddress("glRenderbufferStorage"); }
+	inline void Init_glGetRenderbufferParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetRenderbufferParameteriv = (Fn_glGetRenderbufferParameteriv)fn_GetFunctionAddress("glGetRenderbufferParameteriv"); }
+	inline void Init_glIsFramebuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsFramebuffer = (Fn_glIsFramebuffer)fn_GetFunctionAddress("glIsFramebuffer"); }
+	inline void Init_glBindFramebuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindFramebuffer = (Fn_glBindFramebuffer)fn_GetFunctionAddress("glBindFramebuffer"); }
+	inline void Init_glDeleteFramebuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteFramebuffers = (Fn_glDeleteFramebuffers)fn_GetFunctionAddress("glDeleteFramebuffers"); }
+	inline void Init_glGenFramebuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenFramebuffers = (Fn_glGenFramebuffers)fn_GetFunctionAddress("glGenFramebuffers"); }
+	inline void Init_glCheckFramebufferStatus(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCheckFramebufferStatus = (Fn_glCheckFramebufferStatus)fn_GetFunctionAddress("glCheckFramebufferStatus"); }
+	inline void Init_glFramebufferTexture1D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFramebufferTexture1D = (Fn_glFramebufferTexture1D)fn_GetFunctionAddress("glFramebufferTexture1D"); }
+	inline void Init_glFramebufferTexture2D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFramebufferTexture2D = (Fn_glFramebufferTexture2D)fn_GetFunctionAddress("glFramebufferTexture2D"); }
+	inline void Init_glFramebufferTexture3D(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFramebufferTexture3D = (Fn_glFramebufferTexture3D)fn_GetFunctionAddress("glFramebufferTexture3D"); }
+	inline void Init_glFramebufferRenderbuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFramebufferRenderbuffer = (Fn_glFramebufferRenderbuffer)fn_GetFunctionAddress("glFramebufferRenderbuffer"); }
+	inline void Init_glGetFramebufferAttachmentParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetFramebufferAttachmentParameteriv = (Fn_glGetFramebufferAttachmentParameteriv)fn_GetFunctionAddress("glGetFramebufferAttachmentParameteriv"); }
+	inline void Init_glGenerateMipmap(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenerateMipmap = (Fn_glGenerateMipmap)fn_GetFunctionAddress("glGenerateMipmap"); }
+	inline void Init_glBlitFramebuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBlitFramebuffer = (Fn_glBlitFramebuffer)fn_GetFunctionAddress("glBlitFramebuffer"); }
+	inline void Init_glRenderbufferStorageMultisample(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glRenderbufferStorageMultisample = (Fn_glRenderbufferStorageMultisample)fn_GetFunctionAddress("glRenderbufferStorageMultisample"); }
+	inline void Init_glFramebufferTextureLayer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFramebufferTextureLayer = (Fn_glFramebufferTextureLayer)fn_GetFunctionAddress("glFramebufferTextureLayer"); }
+	inline void Init_glMapBufferRange(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMapBufferRange = (Fn_glMapBufferRange)fn_GetFunctionAddress("glMapBufferRange"); }
+	inline void Init_glFlushMappedBufferRange(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFlushMappedBufferRange = (Fn_glFlushMappedBufferRange)fn_GetFunctionAddress("glFlushMappedBufferRange"); }
+	inline void Init_glBindVertexArray(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindVertexArray = (Fn_glBindVertexArray)fn_GetFunctionAddress("glBindVertexArray"); }
+	inline void Init_glDeleteVertexArrays(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteVertexArrays = (Fn_glDeleteVertexArrays)fn_GetFunctionAddress("glDeleteVertexArrays"); }
+	inline void Init_glGenVertexArrays(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenVertexArrays = (Fn_glGenVertexArrays)fn_GetFunctionAddress("glGenVertexArrays"); }
+	inline void Init_glIsVertexArray(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsVertexArray = (Fn_glIsVertexArray)fn_GetFunctionAddress("glIsVertexArray"); }
+	inline void Init_glDrawArraysInstanced(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawArraysInstanced = (Fn_glDrawArraysInstanced)fn_GetFunctionAddress("glDrawArraysInstanced"); }
+	inline void Init_glDrawElementsInstanced(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawElementsInstanced = (Fn_glDrawElementsInstanced)fn_GetFunctionAddress("glDrawElementsInstanced"); }
+	inline void Init_glTexBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexBuffer = (Fn_glTexBuffer)fn_GetFunctionAddress("glTexBuffer"); }
+	inline void Init_glPrimitiveRestartIndex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glPrimitiveRestartIndex = (Fn_glPrimitiveRestartIndex)fn_GetFunctionAddress("glPrimitiveRestartIndex"); }
+	inline void Init_glCopyBufferSubData(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glCopyBufferSubData = (Fn_glCopyBufferSubData)fn_GetFunctionAddress("glCopyBufferSubData"); }
+	inline void Init_glGetUniformIndices(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetUniformIndices = (Fn_glGetUniformIndices)fn_GetFunctionAddress("glGetUniformIndices"); }
+	inline void Init_glGetActiveUniformsiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetActiveUniformsiv = (Fn_glGetActiveUniformsiv)fn_GetFunctionAddress("glGetActiveUniformsiv"); }
+	inline void Init_glGetActiveUniformName(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetActiveUniformName = (Fn_glGetActiveUniformName)fn_GetFunctionAddress("glGetActiveUniformName"); }
+	inline void Init_glGetUniformBlockIndex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetUniformBlockIndex = (Fn_glGetUniformBlockIndex)fn_GetFunctionAddress("glGetUniformBlockIndex"); }
+	inline void Init_glGetActiveUniformBlockiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetActiveUniformBlockiv = (Fn_glGetActiveUniformBlockiv)fn_GetFunctionAddress("glGetActiveUniformBlockiv"); }
+	inline void Init_glGetActiveUniformBlockName(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetActiveUniformBlockName = (Fn_glGetActiveUniformBlockName)fn_GetFunctionAddress("glGetActiveUniformBlockName"); }
+	inline void Init_glUniformBlockBinding(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glUniformBlockBinding = (Fn_glUniformBlockBinding)fn_GetFunctionAddress("glUniformBlockBinding"); }
+	inline void Init_glDrawElementsBaseVertex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawElementsBaseVertex = (Fn_glDrawElementsBaseVertex)fn_GetFunctionAddress("glDrawElementsBaseVertex"); }
+	inline void Init_glDrawRangeElementsBaseVertex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawRangeElementsBaseVertex = (Fn_glDrawRangeElementsBaseVertex)fn_GetFunctionAddress("glDrawRangeElementsBaseVertex"); }
+	inline void Init_glDrawElementsInstancedBaseVertex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDrawElementsInstancedBaseVertex = (Fn_glDrawElementsInstancedBaseVertex)fn_GetFunctionAddress("glDrawElementsInstancedBaseVertex"); }
+	inline void Init_glMultiDrawElementsBaseVertex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiDrawElementsBaseVertex = (Fn_glMultiDrawElementsBaseVertex)fn_GetFunctionAddress("glMultiDrawElementsBaseVertex"); }
+	inline void Init_glProvokingVertex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glProvokingVertex = (Fn_glProvokingVertex)fn_GetFunctionAddress("glProvokingVertex"); }
+	inline void Init_glFenceSync(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFenceSync = (Fn_glFenceSync)fn_GetFunctionAddress("glFenceSync"); }
+	inline void Init_glIsSync(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsSync = (Fn_glIsSync)fn_GetFunctionAddress("glIsSync"); }
+	inline void Init_glDeleteSync(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteSync = (Fn_glDeleteSync)fn_GetFunctionAddress("glDeleteSync"); }
+	inline void Init_glClientWaitSync(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glClientWaitSync = (Fn_glClientWaitSync)fn_GetFunctionAddress("glClientWaitSync"); }
+	inline void Init_glWaitSync(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glWaitSync = (Fn_glWaitSync)fn_GetFunctionAddress("glWaitSync"); }
+	inline void Init_glGetInteger64v(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetInteger64v = (Fn_glGetInteger64v)fn_GetFunctionAddress("glGetInteger64v"); }
+	inline void Init_glGetSynciv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetSynciv = (Fn_glGetSynciv)fn_GetFunctionAddress("glGetSynciv"); }
+	inline void Init_glGetInteger64i_v(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetInteger64i_v = (Fn_glGetInteger64i_v)fn_GetFunctionAddress("glGetInteger64i_v"); }
+	inline void Init_glGetBufferParameteri64v(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetBufferParameteri64v = (Fn_glGetBufferParameteri64v)fn_GetFunctionAddress("glGetBufferParameteri64v"); }
+	inline void Init_glFramebufferTexture(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glFramebufferTexture = (Fn_glFramebufferTexture)fn_GetFunctionAddress("glFramebufferTexture"); }
+	inline void Init_glTexImage2DMultisample(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexImage2DMultisample = (Fn_glTexImage2DMultisample)fn_GetFunctionAddress("glTexImage2DMultisample"); }
+	inline void Init_glTexImage3DMultisample(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexImage3DMultisample = (Fn_glTexImage3DMultisample)fn_GetFunctionAddress("glTexImage3DMultisample"); }
+	inline void Init_glGetMultisamplefv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetMultisamplefv = (Fn_glGetMultisamplefv)fn_GetFunctionAddress("glGetMultisamplefv"); }
+	inline void Init_glSampleMaski(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSampleMaski = (Fn_glSampleMaski)fn_GetFunctionAddress("glSampleMaski"); }
+	inline void Init_glBindFragDataLocationIndexed(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindFragDataLocationIndexed = (Fn_glBindFragDataLocationIndexed)fn_GetFunctionAddress("glBindFragDataLocationIndexed"); }
+	inline void Init_glGetFragDataIndex(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetFragDataIndex = (Fn_glGetFragDataIndex)fn_GetFunctionAddress("glGetFragDataIndex"); }
+	inline void Init_glGenSamplers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGenSamplers = (Fn_glGenSamplers)fn_GetFunctionAddress("glGenSamplers"); }
+	inline void Init_glDeleteSamplers(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glDeleteSamplers = (Fn_glDeleteSamplers)fn_GetFunctionAddress("glDeleteSamplers"); }
+	inline void Init_glIsSampler(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glIsSampler = (Fn_glIsSampler)fn_GetFunctionAddress("glIsSampler"); }
+	inline void Init_glBindSampler(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glBindSampler = (Fn_glBindSampler)fn_GetFunctionAddress("glBindSampler"); }
+	inline void Init_glSamplerParameteri(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSamplerParameteri = (Fn_glSamplerParameteri)fn_GetFunctionAddress("glSamplerParameteri"); }
+	inline void Init_glSamplerParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSamplerParameteriv = (Fn_glSamplerParameteriv)fn_GetFunctionAddress("glSamplerParameteriv"); }
+	inline void Init_glSamplerParameterf(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSamplerParameterf = (Fn_glSamplerParameterf)fn_GetFunctionAddress("glSamplerParameterf"); }
+	inline void Init_glSamplerParameterfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSamplerParameterfv = (Fn_glSamplerParameterfv)fn_GetFunctionAddress("glSamplerParameterfv"); }
+	inline void Init_glSamplerParameterIiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSamplerParameterIiv = (Fn_glSamplerParameterIiv)fn_GetFunctionAddress("glSamplerParameterIiv"); }
+	inline void Init_glSamplerParameterIuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSamplerParameterIuiv = (Fn_glSamplerParameterIuiv)fn_GetFunctionAddress("glSamplerParameterIuiv"); }
+	inline void Init_glGetSamplerParameteriv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetSamplerParameteriv = (Fn_glGetSamplerParameteriv)fn_GetFunctionAddress("glGetSamplerParameteriv"); }
+	inline void Init_glGetSamplerParameterIiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetSamplerParameterIiv = (Fn_glGetSamplerParameterIiv)fn_GetFunctionAddress("glGetSamplerParameterIiv"); }
+	inline void Init_glGetSamplerParameterfv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetSamplerParameterfv = (Fn_glGetSamplerParameterfv)fn_GetFunctionAddress("glGetSamplerParameterfv"); }
+	inline void Init_glGetSamplerParameterIuiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetSamplerParameterIuiv = (Fn_glGetSamplerParameterIuiv)fn_GetFunctionAddress("glGetSamplerParameterIuiv"); }
+	inline void Init_glQueryCounter(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glQueryCounter = (Fn_glQueryCounter)fn_GetFunctionAddress("glQueryCounter"); }
+	inline void Init_glGetQueryObjecti64v(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetQueryObjecti64v = (Fn_glGetQueryObjecti64v)fn_GetFunctionAddress("glGetQueryObjecti64v"); }
+	inline void Init_glGetQueryObjectui64v(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glGetQueryObjectui64v = (Fn_glGetQueryObjectui64v)fn_GetFunctionAddress("glGetQueryObjectui64v"); }
+	inline void Init_glVertexAttribDivisor(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribDivisor = (Fn_glVertexAttribDivisor)fn_GetFunctionAddress("glVertexAttribDivisor"); }
+	inline void Init_glVertexAttribP1ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP1ui = (Fn_glVertexAttribP1ui)fn_GetFunctionAddress("glVertexAttribP1ui"); }
+	inline void Init_glVertexAttribP1uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP1uiv = (Fn_glVertexAttribP1uiv)fn_GetFunctionAddress("glVertexAttribP1uiv"); }
+	inline void Init_glVertexAttribP2ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP2ui = (Fn_glVertexAttribP2ui)fn_GetFunctionAddress("glVertexAttribP2ui"); }
+	inline void Init_glVertexAttribP2uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP2uiv = (Fn_glVertexAttribP2uiv)fn_GetFunctionAddress("glVertexAttribP2uiv"); }
+	inline void Init_glVertexAttribP3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP3ui = (Fn_glVertexAttribP3ui)fn_GetFunctionAddress("glVertexAttribP3ui"); }
+	inline void Init_glVertexAttribP3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP3uiv = (Fn_glVertexAttribP3uiv)fn_GetFunctionAddress("glVertexAttribP3uiv"); }
+	inline void Init_glVertexAttribP4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP4ui = (Fn_glVertexAttribP4ui)fn_GetFunctionAddress("glVertexAttribP4ui"); }
+	inline void Init_glVertexAttribP4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexAttribP4uiv = (Fn_glVertexAttribP4uiv)fn_GetFunctionAddress("glVertexAttribP4uiv"); }
+	inline void Init_glVertexP2ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexP2ui = (Fn_glVertexP2ui)fn_GetFunctionAddress("glVertexP2ui"); }
+	inline void Init_glVertexP2uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexP2uiv = (Fn_glVertexP2uiv)fn_GetFunctionAddress("glVertexP2uiv"); }
+	inline void Init_glVertexP3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexP3ui = (Fn_glVertexP3ui)fn_GetFunctionAddress("glVertexP3ui"); }
+	inline void Init_glVertexP3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexP3uiv = (Fn_glVertexP3uiv)fn_GetFunctionAddress("glVertexP3uiv"); }
+	inline void Init_glVertexP4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexP4ui = (Fn_glVertexP4ui)fn_GetFunctionAddress("glVertexP4ui"); }
+	inline void Init_glVertexP4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glVertexP4uiv = (Fn_glVertexP4uiv)fn_GetFunctionAddress("glVertexP4uiv"); }
+	inline void Init_glTexCoordP1ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP1ui = (Fn_glTexCoordP1ui)fn_GetFunctionAddress("glTexCoordP1ui"); }
+	inline void Init_glTexCoordP1uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP1uiv = (Fn_glTexCoordP1uiv)fn_GetFunctionAddress("glTexCoordP1uiv"); }
+	inline void Init_glTexCoordP2ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP2ui = (Fn_glTexCoordP2ui)fn_GetFunctionAddress("glTexCoordP2ui"); }
+	inline void Init_glTexCoordP2uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP2uiv = (Fn_glTexCoordP2uiv)fn_GetFunctionAddress("glTexCoordP2uiv"); }
+	inline void Init_glTexCoordP3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP3ui = (Fn_glTexCoordP3ui)fn_GetFunctionAddress("glTexCoordP3ui"); }
+	inline void Init_glTexCoordP3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP3uiv = (Fn_glTexCoordP3uiv)fn_GetFunctionAddress("glTexCoordP3uiv"); }
+	inline void Init_glTexCoordP4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP4ui = (Fn_glTexCoordP4ui)fn_GetFunctionAddress("glTexCoordP4ui"); }
+	inline void Init_glTexCoordP4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glTexCoordP4uiv = (Fn_glTexCoordP4uiv)fn_GetFunctionAddress("glTexCoordP4uiv"); }
+	inline void Init_glMultiTexCoordP1ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP1ui = (Fn_glMultiTexCoordP1ui)fn_GetFunctionAddress("glMultiTexCoordP1ui"); }
+	inline void Init_glMultiTexCoordP1uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP1uiv = (Fn_glMultiTexCoordP1uiv)fn_GetFunctionAddress("glMultiTexCoordP1uiv"); }
+	inline void Init_glMultiTexCoordP2ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP2ui = (Fn_glMultiTexCoordP2ui)fn_GetFunctionAddress("glMultiTexCoordP2ui"); }
+	inline void Init_glMultiTexCoordP2uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP2uiv = (Fn_glMultiTexCoordP2uiv)fn_GetFunctionAddress("glMultiTexCoordP2uiv"); }
+	inline void Init_glMultiTexCoordP3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP3ui = (Fn_glMultiTexCoordP3ui)fn_GetFunctionAddress("glMultiTexCoordP3ui"); }
+	inline void Init_glMultiTexCoordP3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP3uiv = (Fn_glMultiTexCoordP3uiv)fn_GetFunctionAddress("glMultiTexCoordP3uiv"); }
+	inline void Init_glMultiTexCoordP4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP4ui = (Fn_glMultiTexCoordP4ui)fn_GetFunctionAddress("glMultiTexCoordP4ui"); }
+	inline void Init_glMultiTexCoordP4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glMultiTexCoordP4uiv = (Fn_glMultiTexCoordP4uiv)fn_GetFunctionAddress("glMultiTexCoordP4uiv"); }
+	inline void Init_glNormalP3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormalP3ui = (Fn_glNormalP3ui)fn_GetFunctionAddress("glNormalP3ui"); }
+	inline void Init_glNormalP3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glNormalP3uiv = (Fn_glNormalP3uiv)fn_GetFunctionAddress("glNormalP3uiv"); }
+	inline void Init_glColorP3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorP3ui = (Fn_glColorP3ui)fn_GetFunctionAddress("glColorP3ui"); }
+	inline void Init_glColorP3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorP3uiv = (Fn_glColorP3uiv)fn_GetFunctionAddress("glColorP3uiv"); }
+	inline void Init_glColorP4ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorP4ui = (Fn_glColorP4ui)fn_GetFunctionAddress("glColorP4ui"); }
+	inline void Init_glColorP4uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glColorP4uiv = (Fn_glColorP4uiv)fn_GetFunctionAddress("glColorP4uiv"); }
+	inline void Init_glSecondaryColorP3ui(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColorP3ui = (Fn_glSecondaryColorP3ui)fn_GetFunctionAddress("glSecondaryColorP3ui"); }
+	inline void Init_glSecondaryColorP3uiv(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) { s_fn_glSecondaryColorP3uiv = (Fn_glSecondaryColorP3uiv)fn_GetFunctionAddress("glSecondaryColorP3uiv"); }
+	inline void GLInitFunctions(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress) {
+		Init_glCullFace(fn_GetFunctionAddress);
+		Init_glFrontFace(fn_GetFunctionAddress);
+		Init_glHint(fn_GetFunctionAddress);
+		Init_glLineWidth(fn_GetFunctionAddress);
+		Init_glPointSize(fn_GetFunctionAddress);
+		Init_glPolygonMode(fn_GetFunctionAddress);
+		Init_glScissor(fn_GetFunctionAddress);
+		Init_glTexParameterf(fn_GetFunctionAddress);
+		Init_glTexParameterfv(fn_GetFunctionAddress);
+		Init_glTexParameteri(fn_GetFunctionAddress);
+		Init_glTexParameteriv(fn_GetFunctionAddress);
+		Init_glTexImage1D(fn_GetFunctionAddress);
+		Init_glTexImage2D(fn_GetFunctionAddress);
+		Init_glDrawBuffer(fn_GetFunctionAddress);
+		Init_glClear(fn_GetFunctionAddress);
+		Init_glClearColor(fn_GetFunctionAddress);
+		Init_glClearStencil(fn_GetFunctionAddress);
+		Init_glClearDepth(fn_GetFunctionAddress);
+		Init_glStencilMask(fn_GetFunctionAddress);
+		Init_glColorMask(fn_GetFunctionAddress);
+		Init_glDepthMask(fn_GetFunctionAddress);
+		Init_glDisable(fn_GetFunctionAddress);
+		Init_glEnable(fn_GetFunctionAddress);
+		Init_glFinish(fn_GetFunctionAddress);
+		Init_glFlush(fn_GetFunctionAddress);
+		Init_glBlendFunc(fn_GetFunctionAddress);
+		Init_glLogicOp(fn_GetFunctionAddress);
+		Init_glStencilFunc(fn_GetFunctionAddress);
+		Init_glStencilOp(fn_GetFunctionAddress);
+		Init_glDepthFunc(fn_GetFunctionAddress);
+		Init_glPixelStoref(fn_GetFunctionAddress);
+		Init_glPixelStorei(fn_GetFunctionAddress);
+		Init_glReadBuffer(fn_GetFunctionAddress);
+		Init_glReadPixels(fn_GetFunctionAddress);
+		Init_glGetBooleanv(fn_GetFunctionAddress);
+		Init_glGetDoublev(fn_GetFunctionAddress);
+		Init_glGetError(fn_GetFunctionAddress);
+		Init_glGetFloatv(fn_GetFunctionAddress);
+		Init_glGetIntegerv(fn_GetFunctionAddress);
+		Init_glGetString(fn_GetFunctionAddress);
+		Init_glGetTexImage(fn_GetFunctionAddress);
+		Init_glGetTexParameterfv(fn_GetFunctionAddress);
+		Init_glGetTexParameteriv(fn_GetFunctionAddress);
+		Init_glGetTexLevelParameterfv(fn_GetFunctionAddress);
+		Init_glGetTexLevelParameteriv(fn_GetFunctionAddress);
+		Init_glIsEnabled(fn_GetFunctionAddress);
+		Init_glDepthRange(fn_GetFunctionAddress);
+		Init_glViewport(fn_GetFunctionAddress);
+		Init_glNewList(fn_GetFunctionAddress);
+		Init_glEndList(fn_GetFunctionAddress);
+		Init_glCallList(fn_GetFunctionAddress);
+		Init_glCallLists(fn_GetFunctionAddress);
+		Init_glDeleteLists(fn_GetFunctionAddress);
+		Init_glGenLists(fn_GetFunctionAddress);
+		Init_glListBase(fn_GetFunctionAddress);
+		Init_glBegin(fn_GetFunctionAddress);
+		Init_glBitmap(fn_GetFunctionAddress);
+		Init_glColor3b(fn_GetFunctionAddress);
+		Init_glColor3bv(fn_GetFunctionAddress);
+		Init_glColor3d(fn_GetFunctionAddress);
+		Init_glColor3dv(fn_GetFunctionAddress);
+		Init_glColor3f(fn_GetFunctionAddress);
+		Init_glColor3fv(fn_GetFunctionAddress);
+		Init_glColor3i(fn_GetFunctionAddress);
+		Init_glColor3iv(fn_GetFunctionAddress);
+		Init_glColor3s(fn_GetFunctionAddress);
+		Init_glColor3sv(fn_GetFunctionAddress);
+		Init_glColor3ub(fn_GetFunctionAddress);
+		Init_glColor3ubv(fn_GetFunctionAddress);
+		Init_glColor3ui(fn_GetFunctionAddress);
+		Init_glColor3uiv(fn_GetFunctionAddress);
+		Init_glColor3us(fn_GetFunctionAddress);
+		Init_glColor3usv(fn_GetFunctionAddress);
+		Init_glColor4b(fn_GetFunctionAddress);
+		Init_glColor4bv(fn_GetFunctionAddress);
+		Init_glColor4d(fn_GetFunctionAddress);
+		Init_glColor4dv(fn_GetFunctionAddress);
+		Init_glColor4f(fn_GetFunctionAddress);
+		Init_glColor4fv(fn_GetFunctionAddress);
+		Init_glColor4i(fn_GetFunctionAddress);
+		Init_glColor4iv(fn_GetFunctionAddress);
+		Init_glColor4s(fn_GetFunctionAddress);
+		Init_glColor4sv(fn_GetFunctionAddress);
+		Init_glColor4ub(fn_GetFunctionAddress);
+		Init_glColor4ubv(fn_GetFunctionAddress);
+		Init_glColor4ui(fn_GetFunctionAddress);
+		Init_glColor4uiv(fn_GetFunctionAddress);
+		Init_glColor4us(fn_GetFunctionAddress);
+		Init_glColor4usv(fn_GetFunctionAddress);
+		Init_glEdgeFlag(fn_GetFunctionAddress);
+		Init_glEdgeFlagv(fn_GetFunctionAddress);
+		Init_glEnd(fn_GetFunctionAddress);
+		Init_glIndexd(fn_GetFunctionAddress);
+		Init_glIndexdv(fn_GetFunctionAddress);
+		Init_glIndexf(fn_GetFunctionAddress);
+		Init_glIndexfv(fn_GetFunctionAddress);
+		Init_glIndexi(fn_GetFunctionAddress);
+		Init_glIndexiv(fn_GetFunctionAddress);
+		Init_glIndexs(fn_GetFunctionAddress);
+		Init_glIndexsv(fn_GetFunctionAddress);
+		Init_glNormal3b(fn_GetFunctionAddress);
+		Init_glNormal3bv(fn_GetFunctionAddress);
+		Init_glNormal3d(fn_GetFunctionAddress);
+		Init_glNormal3dv(fn_GetFunctionAddress);
+		Init_glNormal3f(fn_GetFunctionAddress);
+		Init_glNormal3fv(fn_GetFunctionAddress);
+		Init_glNormal3i(fn_GetFunctionAddress);
+		Init_glNormal3iv(fn_GetFunctionAddress);
+		Init_glNormal3s(fn_GetFunctionAddress);
+		Init_glNormal3sv(fn_GetFunctionAddress);
+		Init_glRasterPos2d(fn_GetFunctionAddress);
+		Init_glRasterPos2dv(fn_GetFunctionAddress);
+		Init_glRasterPos2f(fn_GetFunctionAddress);
+		Init_glRasterPos2fv(fn_GetFunctionAddress);
+		Init_glRasterPos2i(fn_GetFunctionAddress);
+		Init_glRasterPos2iv(fn_GetFunctionAddress);
+		Init_glRasterPos2s(fn_GetFunctionAddress);
+		Init_glRasterPos2sv(fn_GetFunctionAddress);
+		Init_glRasterPos3d(fn_GetFunctionAddress);
+		Init_glRasterPos3dv(fn_GetFunctionAddress);
+		Init_glRasterPos3f(fn_GetFunctionAddress);
+		Init_glRasterPos3fv(fn_GetFunctionAddress);
+		Init_glRasterPos3i(fn_GetFunctionAddress);
+		Init_glRasterPos3iv(fn_GetFunctionAddress);
+		Init_glRasterPos3s(fn_GetFunctionAddress);
+		Init_glRasterPos3sv(fn_GetFunctionAddress);
+		Init_glRasterPos4d(fn_GetFunctionAddress);
+		Init_glRasterPos4dv(fn_GetFunctionAddress);
+		Init_glRasterPos4f(fn_GetFunctionAddress);
+		Init_glRasterPos4fv(fn_GetFunctionAddress);
+		Init_glRasterPos4i(fn_GetFunctionAddress);
+		Init_glRasterPos4iv(fn_GetFunctionAddress);
+		Init_glRasterPos4s(fn_GetFunctionAddress);
+		Init_glRasterPos4sv(fn_GetFunctionAddress);
+		Init_glRectd(fn_GetFunctionAddress);
+		Init_glRectdv(fn_GetFunctionAddress);
+		Init_glRectf(fn_GetFunctionAddress);
+		Init_glRectfv(fn_GetFunctionAddress);
+		Init_glRecti(fn_GetFunctionAddress);
+		Init_glRectiv(fn_GetFunctionAddress);
+		Init_glRects(fn_GetFunctionAddress);
+		Init_glRectsv(fn_GetFunctionAddress);
+		Init_glTexCoord1d(fn_GetFunctionAddress);
+		Init_glTexCoord1dv(fn_GetFunctionAddress);
+		Init_glTexCoord1f(fn_GetFunctionAddress);
+		Init_glTexCoord1fv(fn_GetFunctionAddress);
+		Init_glTexCoord1i(fn_GetFunctionAddress);
+		Init_glTexCoord1iv(fn_GetFunctionAddress);
+		Init_glTexCoord1s(fn_GetFunctionAddress);
+		Init_glTexCoord1sv(fn_GetFunctionAddress);
+		Init_glTexCoord2d(fn_GetFunctionAddress);
+		Init_glTexCoord2dv(fn_GetFunctionAddress);
+		Init_glTexCoord2f(fn_GetFunctionAddress);
+		Init_glTexCoord2fv(fn_GetFunctionAddress);
+		Init_glTexCoord2i(fn_GetFunctionAddress);
+		Init_glTexCoord2iv(fn_GetFunctionAddress);
+		Init_glTexCoord2s(fn_GetFunctionAddress);
+		Init_glTexCoord2sv(fn_GetFunctionAddress);
+		Init_glTexCoord3d(fn_GetFunctionAddress);
+		Init_glTexCoord3dv(fn_GetFunctionAddress);
+		Init_glTexCoord3f(fn_GetFunctionAddress);
+		Init_glTexCoord3fv(fn_GetFunctionAddress);
+		Init_glTexCoord3i(fn_GetFunctionAddress);
+		Init_glTexCoord3iv(fn_GetFunctionAddress);
+		Init_glTexCoord3s(fn_GetFunctionAddress);
+		Init_glTexCoord3sv(fn_GetFunctionAddress);
+		Init_glTexCoord4d(fn_GetFunctionAddress);
+		Init_glTexCoord4dv(fn_GetFunctionAddress);
+		Init_glTexCoord4f(fn_GetFunctionAddress);
+		Init_glTexCoord4fv(fn_GetFunctionAddress);
+		Init_glTexCoord4i(fn_GetFunctionAddress);
+		Init_glTexCoord4iv(fn_GetFunctionAddress);
+		Init_glTexCoord4s(fn_GetFunctionAddress);
+		Init_glTexCoord4sv(fn_GetFunctionAddress);
+		Init_glVertex2d(fn_GetFunctionAddress);
+		Init_glVertex2dv(fn_GetFunctionAddress);
+		Init_glVertex2f(fn_GetFunctionAddress);
+		Init_glVertex2fv(fn_GetFunctionAddress);
+		Init_glVertex2i(fn_GetFunctionAddress);
+		Init_glVertex2iv(fn_GetFunctionAddress);
+		Init_glVertex2s(fn_GetFunctionAddress);
+		Init_glVertex2sv(fn_GetFunctionAddress);
+		Init_glVertex3d(fn_GetFunctionAddress);
+		Init_glVertex3dv(fn_GetFunctionAddress);
+		Init_glVertex3f(fn_GetFunctionAddress);
+		Init_glVertex3fv(fn_GetFunctionAddress);
+		Init_glVertex3i(fn_GetFunctionAddress);
+		Init_glVertex3iv(fn_GetFunctionAddress);
+		Init_glVertex3s(fn_GetFunctionAddress);
+		Init_glVertex3sv(fn_GetFunctionAddress);
+		Init_glVertex4d(fn_GetFunctionAddress);
+		Init_glVertex4dv(fn_GetFunctionAddress);
+		Init_glVertex4f(fn_GetFunctionAddress);
+		Init_glVertex4fv(fn_GetFunctionAddress);
+		Init_glVertex4i(fn_GetFunctionAddress);
+		Init_glVertex4iv(fn_GetFunctionAddress);
+		Init_glVertex4s(fn_GetFunctionAddress);
+		Init_glVertex4sv(fn_GetFunctionAddress);
+		Init_glClipPlane(fn_GetFunctionAddress);
+		Init_glColorMaterial(fn_GetFunctionAddress);
+		Init_glFogf(fn_GetFunctionAddress);
+		Init_glFogfv(fn_GetFunctionAddress);
+		Init_glFogi(fn_GetFunctionAddress);
+		Init_glFogiv(fn_GetFunctionAddress);
+		Init_glLightf(fn_GetFunctionAddress);
+		Init_glLightfv(fn_GetFunctionAddress);
+		Init_glLighti(fn_GetFunctionAddress);
+		Init_glLightiv(fn_GetFunctionAddress);
+		Init_glLightModelf(fn_GetFunctionAddress);
+		Init_glLightModelfv(fn_GetFunctionAddress);
+		Init_glLightModeli(fn_GetFunctionAddress);
+		Init_glLightModeliv(fn_GetFunctionAddress);
+		Init_glLineStipple(fn_GetFunctionAddress);
+		Init_glMaterialf(fn_GetFunctionAddress);
+		Init_glMaterialfv(fn_GetFunctionAddress);
+		Init_glMateriali(fn_GetFunctionAddress);
+		Init_glMaterialiv(fn_GetFunctionAddress);
+		Init_glPolygonStipple(fn_GetFunctionAddress);
+		Init_glShadeModel(fn_GetFunctionAddress);
+		Init_glTexEnvf(fn_GetFunctionAddress);
+		Init_glTexEnvfv(fn_GetFunctionAddress);
+		Init_glTexEnvi(fn_GetFunctionAddress);
+		Init_glTexEnviv(fn_GetFunctionAddress);
+		Init_glTexGend(fn_GetFunctionAddress);
+		Init_glTexGendv(fn_GetFunctionAddress);
+		Init_glTexGenf(fn_GetFunctionAddress);
+		Init_glTexGenfv(fn_GetFunctionAddress);
+		Init_glTexGeni(fn_GetFunctionAddress);
+		Init_glTexGeniv(fn_GetFunctionAddress);
+		Init_glFeedbackBuffer(fn_GetFunctionAddress);
+		Init_glSelectBuffer(fn_GetFunctionAddress);
+		Init_glRenderMode(fn_GetFunctionAddress);
+		Init_glInitNames(fn_GetFunctionAddress);
+		Init_glLoadName(fn_GetFunctionAddress);
+		Init_glPassThrough(fn_GetFunctionAddress);
+		Init_glPopName(fn_GetFunctionAddress);
+		Init_glPushName(fn_GetFunctionAddress);
+		Init_glClearAccum(fn_GetFunctionAddress);
+		Init_glClearIndex(fn_GetFunctionAddress);
+		Init_glIndexMask(fn_GetFunctionAddress);
+		Init_glAccum(fn_GetFunctionAddress);
+		Init_glPopAttrib(fn_GetFunctionAddress);
+		Init_glPushAttrib(fn_GetFunctionAddress);
+		Init_glMap1d(fn_GetFunctionAddress);
+		Init_glMap1f(fn_GetFunctionAddress);
+		Init_glMap2d(fn_GetFunctionAddress);
+		Init_glMap2f(fn_GetFunctionAddress);
+		Init_glMapGrid1d(fn_GetFunctionAddress);
+		Init_glMapGrid1f(fn_GetFunctionAddress);
+		Init_glMapGrid2d(fn_GetFunctionAddress);
+		Init_glMapGrid2f(fn_GetFunctionAddress);
+		Init_glEvalCoord1d(fn_GetFunctionAddress);
+		Init_glEvalCoord1dv(fn_GetFunctionAddress);
+		Init_glEvalCoord1f(fn_GetFunctionAddress);
+		Init_glEvalCoord1fv(fn_GetFunctionAddress);
+		Init_glEvalCoord2d(fn_GetFunctionAddress);
+		Init_glEvalCoord2dv(fn_GetFunctionAddress);
+		Init_glEvalCoord2f(fn_GetFunctionAddress);
+		Init_glEvalCoord2fv(fn_GetFunctionAddress);
+		Init_glEvalMesh1(fn_GetFunctionAddress);
+		Init_glEvalPoint1(fn_GetFunctionAddress);
+		Init_glEvalMesh2(fn_GetFunctionAddress);
+		Init_glEvalPoint2(fn_GetFunctionAddress);
+		Init_glAlphaFunc(fn_GetFunctionAddress);
+		Init_glPixelZoom(fn_GetFunctionAddress);
+		Init_glPixelTransferf(fn_GetFunctionAddress);
+		Init_glPixelTransferi(fn_GetFunctionAddress);
+		Init_glPixelMapfv(fn_GetFunctionAddress);
+		Init_glPixelMapuiv(fn_GetFunctionAddress);
+		Init_glPixelMapusv(fn_GetFunctionAddress);
+		Init_glCopyPixels(fn_GetFunctionAddress);
+		Init_glDrawPixels(fn_GetFunctionAddress);
+		Init_glGetClipPlane(fn_GetFunctionAddress);
+		Init_glGetLightfv(fn_GetFunctionAddress);
+		Init_glGetLightiv(fn_GetFunctionAddress);
+		Init_glGetMapdv(fn_GetFunctionAddress);
+		Init_glGetMapfv(fn_GetFunctionAddress);
+		Init_glGetMapiv(fn_GetFunctionAddress);
+		Init_glGetMaterialfv(fn_GetFunctionAddress);
+		Init_glGetMaterialiv(fn_GetFunctionAddress);
+		Init_glGetPixelMapfv(fn_GetFunctionAddress);
+		Init_glGetPixelMapuiv(fn_GetFunctionAddress);
+		Init_glGetPixelMapusv(fn_GetFunctionAddress);
+		Init_glGetPolygonStipple(fn_GetFunctionAddress);
+		Init_glGetTexEnvfv(fn_GetFunctionAddress);
+		Init_glGetTexEnviv(fn_GetFunctionAddress);
+		Init_glGetTexGendv(fn_GetFunctionAddress);
+		Init_glGetTexGenfv(fn_GetFunctionAddress);
+		Init_glGetTexGeniv(fn_GetFunctionAddress);
+		Init_glIsList(fn_GetFunctionAddress);
+		Init_glFrustum(fn_GetFunctionAddress);
+		Init_glLoadIdentity(fn_GetFunctionAddress);
+		Init_glLoadMatrixf(fn_GetFunctionAddress);
+		Init_glLoadMatrixd(fn_GetFunctionAddress);
+		Init_glMatrixMode(fn_GetFunctionAddress);
+		Init_glMultMatrixf(fn_GetFunctionAddress);
+		Init_glMultMatrixd(fn_GetFunctionAddress);
+		Init_glOrtho(fn_GetFunctionAddress);
+		Init_glPopMatrix(fn_GetFunctionAddress);
+		Init_glPushMatrix(fn_GetFunctionAddress);
+		Init_glRotated(fn_GetFunctionAddress);
+		Init_glRotatef(fn_GetFunctionAddress);
+		Init_glScaled(fn_GetFunctionAddress);
+		Init_glScalef(fn_GetFunctionAddress);
+		Init_glTranslated(fn_GetFunctionAddress);
+		Init_glTranslatef(fn_GetFunctionAddress);
+		Init_glDrawArrays(fn_GetFunctionAddress);
+		Init_glDrawElements(fn_GetFunctionAddress);
+		Init_glGetPointerv(fn_GetFunctionAddress);
+		Init_glPolygonOffset(fn_GetFunctionAddress);
+		Init_glCopyTexImage1D(fn_GetFunctionAddress);
+		Init_glCopyTexImage2D(fn_GetFunctionAddress);
+		Init_glCopyTexSubImage1D(fn_GetFunctionAddress);
+		Init_glCopyTexSubImage2D(fn_GetFunctionAddress);
+		Init_glTexSubImage1D(fn_GetFunctionAddress);
+		Init_glTexSubImage2D(fn_GetFunctionAddress);
+		Init_glBindTexture(fn_GetFunctionAddress);
+		Init_glDeleteTextures(fn_GetFunctionAddress);
+		Init_glGenTextures(fn_GetFunctionAddress);
+		Init_glIsTexture(fn_GetFunctionAddress);
+		Init_glArrayElement(fn_GetFunctionAddress);
+		Init_glColorPointer(fn_GetFunctionAddress);
+		Init_glDisableClientState(fn_GetFunctionAddress);
+		Init_glEdgeFlagPointer(fn_GetFunctionAddress);
+		Init_glEnableClientState(fn_GetFunctionAddress);
+		Init_glIndexPointer(fn_GetFunctionAddress);
+		Init_glInterleavedArrays(fn_GetFunctionAddress);
+		Init_glNormalPointer(fn_GetFunctionAddress);
+		Init_glTexCoordPointer(fn_GetFunctionAddress);
+		Init_glVertexPointer(fn_GetFunctionAddress);
+		Init_glAreTexturesResident(fn_GetFunctionAddress);
+		Init_glPrioritizeTextures(fn_GetFunctionAddress);
+		Init_glIndexub(fn_GetFunctionAddress);
+		Init_glIndexubv(fn_GetFunctionAddress);
+		Init_glPopClientAttrib(fn_GetFunctionAddress);
+		Init_glPushClientAttrib(fn_GetFunctionAddress);
+		Init_glDrawRangeElements(fn_GetFunctionAddress);
+		Init_glTexImage3D(fn_GetFunctionAddress);
+		Init_glTexSubImage3D(fn_GetFunctionAddress);
+		Init_glCopyTexSubImage3D(fn_GetFunctionAddress);
+		Init_glActiveTexture(fn_GetFunctionAddress);
+		Init_glSampleCoverage(fn_GetFunctionAddress);
+		Init_glCompressedTexImage3D(fn_GetFunctionAddress);
+		Init_glCompressedTexImage2D(fn_GetFunctionAddress);
+		Init_glCompressedTexImage1D(fn_GetFunctionAddress);
+		Init_glCompressedTexSubImage3D(fn_GetFunctionAddress);
+		Init_glCompressedTexSubImage2D(fn_GetFunctionAddress);
+		Init_glCompressedTexSubImage1D(fn_GetFunctionAddress);
+		Init_glGetCompressedTexImage(fn_GetFunctionAddress);
+		Init_glClientActiveTexture(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1d(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1dv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1f(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1fv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1i(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1iv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1s(fn_GetFunctionAddress);
+		Init_glMultiTexCoord1sv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2d(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2dv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2f(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2fv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2i(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2iv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2s(fn_GetFunctionAddress);
+		Init_glMultiTexCoord2sv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3d(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3dv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3f(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3fv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3i(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3iv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3s(fn_GetFunctionAddress);
+		Init_glMultiTexCoord3sv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4d(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4dv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4f(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4fv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4i(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4iv(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4s(fn_GetFunctionAddress);
+		Init_glMultiTexCoord4sv(fn_GetFunctionAddress);
+		Init_glLoadTransposeMatrixf(fn_GetFunctionAddress);
+		Init_glLoadTransposeMatrixd(fn_GetFunctionAddress);
+		Init_glMultTransposeMatrixf(fn_GetFunctionAddress);
+		Init_glMultTransposeMatrixd(fn_GetFunctionAddress);
+		Init_glBlendFuncSeparate(fn_GetFunctionAddress);
+		Init_glMultiDrawArrays(fn_GetFunctionAddress);
+		Init_glMultiDrawElements(fn_GetFunctionAddress);
+		Init_glPointParameterf(fn_GetFunctionAddress);
+		Init_glPointParameterfv(fn_GetFunctionAddress);
+		Init_glPointParameteri(fn_GetFunctionAddress);
+		Init_glPointParameteriv(fn_GetFunctionAddress);
+		Init_glFogCoordf(fn_GetFunctionAddress);
+		Init_glFogCoordfv(fn_GetFunctionAddress);
+		Init_glFogCoordd(fn_GetFunctionAddress);
+		Init_glFogCoorddv(fn_GetFunctionAddress);
+		Init_glFogCoordPointer(fn_GetFunctionAddress);
+		Init_glSecondaryColor3b(fn_GetFunctionAddress);
+		Init_glSecondaryColor3bv(fn_GetFunctionAddress);
+		Init_glSecondaryColor3d(fn_GetFunctionAddress);
+		Init_glSecondaryColor3dv(fn_GetFunctionAddress);
+		Init_glSecondaryColor3f(fn_GetFunctionAddress);
+		Init_glSecondaryColor3fv(fn_GetFunctionAddress);
+		Init_glSecondaryColor3i(fn_GetFunctionAddress);
+		Init_glSecondaryColor3iv(fn_GetFunctionAddress);
+		Init_glSecondaryColor3s(fn_GetFunctionAddress);
+		Init_glSecondaryColor3sv(fn_GetFunctionAddress);
+		Init_glSecondaryColor3ub(fn_GetFunctionAddress);
+		Init_glSecondaryColor3ubv(fn_GetFunctionAddress);
+		Init_glSecondaryColor3ui(fn_GetFunctionAddress);
+		Init_glSecondaryColor3uiv(fn_GetFunctionAddress);
+		Init_glSecondaryColor3us(fn_GetFunctionAddress);
+		Init_glSecondaryColor3usv(fn_GetFunctionAddress);
+		Init_glSecondaryColorPointer(fn_GetFunctionAddress);
+		Init_glWindowPos2d(fn_GetFunctionAddress);
+		Init_glWindowPos2dv(fn_GetFunctionAddress);
+		Init_glWindowPos2f(fn_GetFunctionAddress);
+		Init_glWindowPos2fv(fn_GetFunctionAddress);
+		Init_glWindowPos2i(fn_GetFunctionAddress);
+		Init_glWindowPos2iv(fn_GetFunctionAddress);
+		Init_glWindowPos2s(fn_GetFunctionAddress);
+		Init_glWindowPos2sv(fn_GetFunctionAddress);
+		Init_glWindowPos3d(fn_GetFunctionAddress);
+		Init_glWindowPos3dv(fn_GetFunctionAddress);
+		Init_glWindowPos3f(fn_GetFunctionAddress);
+		Init_glWindowPos3fv(fn_GetFunctionAddress);
+		Init_glWindowPos3i(fn_GetFunctionAddress);
+		Init_glWindowPos3iv(fn_GetFunctionAddress);
+		Init_glWindowPos3s(fn_GetFunctionAddress);
+		Init_glWindowPos3sv(fn_GetFunctionAddress);
+		Init_glBlendColor(fn_GetFunctionAddress);
+		Init_glBlendEquation(fn_GetFunctionAddress);
+		Init_glGenQueries(fn_GetFunctionAddress);
+		Init_glDeleteQueries(fn_GetFunctionAddress);
+		Init_glIsQuery(fn_GetFunctionAddress);
+		Init_glBeginQuery(fn_GetFunctionAddress);
+		Init_glEndQuery(fn_GetFunctionAddress);
+		Init_glGetQueryiv(fn_GetFunctionAddress);
+		Init_glGetQueryObjectiv(fn_GetFunctionAddress);
+		Init_glGetQueryObjectuiv(fn_GetFunctionAddress);
+		Init_glBindBuffer(fn_GetFunctionAddress);
+		Init_glDeleteBuffers(fn_GetFunctionAddress);
+		Init_glGenBuffers(fn_GetFunctionAddress);
+		Init_glIsBuffer(fn_GetFunctionAddress);
+		Init_glBufferData(fn_GetFunctionAddress);
+		Init_glBufferSubData(fn_GetFunctionAddress);
+		Init_glGetBufferSubData(fn_GetFunctionAddress);
+		Init_glMapBuffer(fn_GetFunctionAddress);
+		Init_glUnmapBuffer(fn_GetFunctionAddress);
+		Init_glGetBufferParameteriv(fn_GetFunctionAddress);
+		Init_glGetBufferPointerv(fn_GetFunctionAddress);
+		Init_glBlendEquationSeparate(fn_GetFunctionAddress);
+		Init_glDrawBuffers(fn_GetFunctionAddress);
+		Init_glStencilOpSeparate(fn_GetFunctionAddress);
+		Init_glStencilFuncSeparate(fn_GetFunctionAddress);
+		Init_glStencilMaskSeparate(fn_GetFunctionAddress);
+		Init_glAttachShader(fn_GetFunctionAddress);
+		Init_glBindAttribLocation(fn_GetFunctionAddress);
+		Init_glCompileShader(fn_GetFunctionAddress);
+		Init_glCreateProgram(fn_GetFunctionAddress);
+		Init_glCreateShader(fn_GetFunctionAddress);
+		Init_glDeleteProgram(fn_GetFunctionAddress);
+		Init_glDeleteShader(fn_GetFunctionAddress);
+		Init_glDetachShader(fn_GetFunctionAddress);
+		Init_glDisableVertexAttribArray(fn_GetFunctionAddress);
+		Init_glEnableVertexAttribArray(fn_GetFunctionAddress);
+		Init_glGetActiveAttrib(fn_GetFunctionAddress);
+		Init_glGetActiveUniform(fn_GetFunctionAddress);
+		Init_glGetAttachedShaders(fn_GetFunctionAddress);
+		Init_glGetAttribLocation(fn_GetFunctionAddress);
+		Init_glGetProgramiv(fn_GetFunctionAddress);
+		Init_glGetProgramInfoLog(fn_GetFunctionAddress);
+		Init_glGetShaderiv(fn_GetFunctionAddress);
+		Init_glGetShaderInfoLog(fn_GetFunctionAddress);
+		Init_glGetShaderSource(fn_GetFunctionAddress);
+		Init_glGetUniformLocation(fn_GetFunctionAddress);
+		Init_glGetUniformfv(fn_GetFunctionAddress);
+		Init_glGetUniformiv(fn_GetFunctionAddress);
+		Init_glGetVertexAttribdv(fn_GetFunctionAddress);
+		Init_glGetVertexAttribfv(fn_GetFunctionAddress);
+		Init_glGetVertexAttribiv(fn_GetFunctionAddress);
+		Init_glGetVertexAttribPointerv(fn_GetFunctionAddress);
+		Init_glIsProgram(fn_GetFunctionAddress);
+		Init_glIsShader(fn_GetFunctionAddress);
+		Init_glLinkProgram(fn_GetFunctionAddress);
+		Init_glShaderSource(fn_GetFunctionAddress);
+		Init_glUseProgram(fn_GetFunctionAddress);
+		Init_glUniform1f(fn_GetFunctionAddress);
+		Init_glUniform2f(fn_GetFunctionAddress);
+		Init_glUniform3f(fn_GetFunctionAddress);
+		Init_glUniform4f(fn_GetFunctionAddress);
+		Init_glUniform1i(fn_GetFunctionAddress);
+		Init_glUniform2i(fn_GetFunctionAddress);
+		Init_glUniform3i(fn_GetFunctionAddress);
+		Init_glUniform4i(fn_GetFunctionAddress);
+		Init_glUniform1fv(fn_GetFunctionAddress);
+		Init_glUniform2fv(fn_GetFunctionAddress);
+		Init_glUniform3fv(fn_GetFunctionAddress);
+		Init_glUniform4fv(fn_GetFunctionAddress);
+		Init_glUniform1iv(fn_GetFunctionAddress);
+		Init_glUniform2iv(fn_GetFunctionAddress);
+		Init_glUniform3iv(fn_GetFunctionAddress);
+		Init_glUniform4iv(fn_GetFunctionAddress);
+		Init_glUniformMatrix2fv(fn_GetFunctionAddress);
+		Init_glUniformMatrix3fv(fn_GetFunctionAddress);
+		Init_glUniformMatrix4fv(fn_GetFunctionAddress);
+		Init_glValidateProgram(fn_GetFunctionAddress);
+		Init_glVertexAttrib1d(fn_GetFunctionAddress);
+		Init_glVertexAttrib1dv(fn_GetFunctionAddress);
+		Init_glVertexAttrib1f(fn_GetFunctionAddress);
+		Init_glVertexAttrib1fv(fn_GetFunctionAddress);
+		Init_glVertexAttrib1s(fn_GetFunctionAddress);
+		Init_glVertexAttrib1sv(fn_GetFunctionAddress);
+		Init_glVertexAttrib2d(fn_GetFunctionAddress);
+		Init_glVertexAttrib2dv(fn_GetFunctionAddress);
+		Init_glVertexAttrib2f(fn_GetFunctionAddress);
+		Init_glVertexAttrib2fv(fn_GetFunctionAddress);
+		Init_glVertexAttrib2s(fn_GetFunctionAddress);
+		Init_glVertexAttrib2sv(fn_GetFunctionAddress);
+		Init_glVertexAttrib3d(fn_GetFunctionAddress);
+		Init_glVertexAttrib3dv(fn_GetFunctionAddress);
+		Init_glVertexAttrib3f(fn_GetFunctionAddress);
+		Init_glVertexAttrib3fv(fn_GetFunctionAddress);
+		Init_glVertexAttrib3s(fn_GetFunctionAddress);
+		Init_glVertexAttrib3sv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4Nbv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4Niv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4Nsv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4Nub(fn_GetFunctionAddress);
+		Init_glVertexAttrib4Nubv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4Nuiv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4Nusv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4bv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4d(fn_GetFunctionAddress);
+		Init_glVertexAttrib4dv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4f(fn_GetFunctionAddress);
+		Init_glVertexAttrib4fv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4iv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4s(fn_GetFunctionAddress);
+		Init_glVertexAttrib4sv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4ubv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4uiv(fn_GetFunctionAddress);
+		Init_glVertexAttrib4usv(fn_GetFunctionAddress);
+		Init_glVertexAttribPointer(fn_GetFunctionAddress);
+		Init_glUniformMatrix2x3fv(fn_GetFunctionAddress);
+		Init_glUniformMatrix3x2fv(fn_GetFunctionAddress);
+		Init_glUniformMatrix2x4fv(fn_GetFunctionAddress);
+		Init_glUniformMatrix4x2fv(fn_GetFunctionAddress);
+		Init_glUniformMatrix3x4fv(fn_GetFunctionAddress);
+		Init_glUniformMatrix4x3fv(fn_GetFunctionAddress);
+		Init_glColorMaski(fn_GetFunctionAddress);
+		Init_glGetBooleani_v(fn_GetFunctionAddress);
+		Init_glGetIntegeri_v(fn_GetFunctionAddress);
+		Init_glEnablei(fn_GetFunctionAddress);
+		Init_glDisablei(fn_GetFunctionAddress);
+		Init_glIsEnabledi(fn_GetFunctionAddress);
+		Init_glBeginTransformFeedback(fn_GetFunctionAddress);
+		Init_glEndTransformFeedback(fn_GetFunctionAddress);
+		Init_glBindBufferRange(fn_GetFunctionAddress);
+		Init_glBindBufferBase(fn_GetFunctionAddress);
+		Init_glTransformFeedbackVaryings(fn_GetFunctionAddress);
+		Init_glGetTransformFeedbackVarying(fn_GetFunctionAddress);
+		Init_glClampColor(fn_GetFunctionAddress);
+		Init_glBeginConditionalRender(fn_GetFunctionAddress);
+		Init_glEndConditionalRender(fn_GetFunctionAddress);
+		Init_glVertexAttribIPointer(fn_GetFunctionAddress);
+		Init_glGetVertexAttribIiv(fn_GetFunctionAddress);
+		Init_glGetVertexAttribIuiv(fn_GetFunctionAddress);
+		Init_glVertexAttribI1i(fn_GetFunctionAddress);
+		Init_glVertexAttribI2i(fn_GetFunctionAddress);
+		Init_glVertexAttribI3i(fn_GetFunctionAddress);
+		Init_glVertexAttribI4i(fn_GetFunctionAddress);
+		Init_glVertexAttribI1ui(fn_GetFunctionAddress);
+		Init_glVertexAttribI2ui(fn_GetFunctionAddress);
+		Init_glVertexAttribI3ui(fn_GetFunctionAddress);
+		Init_glVertexAttribI4ui(fn_GetFunctionAddress);
+		Init_glVertexAttribI1iv(fn_GetFunctionAddress);
+		Init_glVertexAttribI2iv(fn_GetFunctionAddress);
+		Init_glVertexAttribI3iv(fn_GetFunctionAddress);
+		Init_glVertexAttribI4iv(fn_GetFunctionAddress);
+		Init_glVertexAttribI1uiv(fn_GetFunctionAddress);
+		Init_glVertexAttribI2uiv(fn_GetFunctionAddress);
+		Init_glVertexAttribI3uiv(fn_GetFunctionAddress);
+		Init_glVertexAttribI4uiv(fn_GetFunctionAddress);
+		Init_glVertexAttribI4bv(fn_GetFunctionAddress);
+		Init_glVertexAttribI4sv(fn_GetFunctionAddress);
+		Init_glVertexAttribI4ubv(fn_GetFunctionAddress);
+		Init_glVertexAttribI4usv(fn_GetFunctionAddress);
+		Init_glGetUniformuiv(fn_GetFunctionAddress);
+		Init_glBindFragDataLocation(fn_GetFunctionAddress);
+		Init_glGetFragDataLocation(fn_GetFunctionAddress);
+		Init_glUniform1ui(fn_GetFunctionAddress);
+		Init_glUniform2ui(fn_GetFunctionAddress);
+		Init_glUniform3ui(fn_GetFunctionAddress);
+		Init_glUniform4ui(fn_GetFunctionAddress);
+		Init_glUniform1uiv(fn_GetFunctionAddress);
+		Init_glUniform2uiv(fn_GetFunctionAddress);
+		Init_glUniform3uiv(fn_GetFunctionAddress);
+		Init_glUniform4uiv(fn_GetFunctionAddress);
+		Init_glTexParameterIiv(fn_GetFunctionAddress);
+		Init_glTexParameterIuiv(fn_GetFunctionAddress);
+		Init_glGetTexParameterIiv(fn_GetFunctionAddress);
+		Init_glGetTexParameterIuiv(fn_GetFunctionAddress);
+		Init_glClearBufferiv(fn_GetFunctionAddress);
+		Init_glClearBufferuiv(fn_GetFunctionAddress);
+		Init_glClearBufferfv(fn_GetFunctionAddress);
+		Init_glClearBufferfi(fn_GetFunctionAddress);
+		Init_glGetStringi(fn_GetFunctionAddress);
+		Init_glIsRenderbuffer(fn_GetFunctionAddress);
+		Init_glBindRenderbuffer(fn_GetFunctionAddress);
+		Init_glDeleteRenderbuffers(fn_GetFunctionAddress);
+		Init_glGenRenderbuffers(fn_GetFunctionAddress);
+		Init_glRenderbufferStorage(fn_GetFunctionAddress);
+		Init_glGetRenderbufferParameteriv(fn_GetFunctionAddress);
+		Init_glIsFramebuffer(fn_GetFunctionAddress);
+		Init_glBindFramebuffer(fn_GetFunctionAddress);
+		Init_glDeleteFramebuffers(fn_GetFunctionAddress);
+		Init_glGenFramebuffers(fn_GetFunctionAddress);
+		Init_glCheckFramebufferStatus(fn_GetFunctionAddress);
+		Init_glFramebufferTexture1D(fn_GetFunctionAddress);
+		Init_glFramebufferTexture2D(fn_GetFunctionAddress);
+		Init_glFramebufferTexture3D(fn_GetFunctionAddress);
+		Init_glFramebufferRenderbuffer(fn_GetFunctionAddress);
+		Init_glGetFramebufferAttachmentParameteriv(fn_GetFunctionAddress);
+		Init_glGenerateMipmap(fn_GetFunctionAddress);
+		Init_glBlitFramebuffer(fn_GetFunctionAddress);
+		Init_glRenderbufferStorageMultisample(fn_GetFunctionAddress);
+		Init_glFramebufferTextureLayer(fn_GetFunctionAddress);
+		Init_glMapBufferRange(fn_GetFunctionAddress);
+		Init_glFlushMappedBufferRange(fn_GetFunctionAddress);
+		Init_glBindVertexArray(fn_GetFunctionAddress);
+		Init_glDeleteVertexArrays(fn_GetFunctionAddress);
+		Init_glGenVertexArrays(fn_GetFunctionAddress);
+		Init_glIsVertexArray(fn_GetFunctionAddress);
+		Init_glDrawArraysInstanced(fn_GetFunctionAddress);
+		Init_glDrawElementsInstanced(fn_GetFunctionAddress);
+		Init_glTexBuffer(fn_GetFunctionAddress);
+		Init_glPrimitiveRestartIndex(fn_GetFunctionAddress);
+		Init_glCopyBufferSubData(fn_GetFunctionAddress);
+		Init_glGetUniformIndices(fn_GetFunctionAddress);
+		Init_glGetActiveUniformsiv(fn_GetFunctionAddress);
+		Init_glGetActiveUniformName(fn_GetFunctionAddress);
+		Init_glGetUniformBlockIndex(fn_GetFunctionAddress);
+		Init_glGetActiveUniformBlockiv(fn_GetFunctionAddress);
+		Init_glGetActiveUniformBlockName(fn_GetFunctionAddress);
+		Init_glUniformBlockBinding(fn_GetFunctionAddress);
+		Init_glDrawElementsBaseVertex(fn_GetFunctionAddress);
+		Init_glDrawRangeElementsBaseVertex(fn_GetFunctionAddress);
+		Init_glDrawElementsInstancedBaseVertex(fn_GetFunctionAddress);
+		Init_glMultiDrawElementsBaseVertex(fn_GetFunctionAddress);
+		Init_glProvokingVertex(fn_GetFunctionAddress);
+		Init_glFenceSync(fn_GetFunctionAddress);
+		Init_glIsSync(fn_GetFunctionAddress);
+		Init_glDeleteSync(fn_GetFunctionAddress);
+		Init_glClientWaitSync(fn_GetFunctionAddress);
+		Init_glWaitSync(fn_GetFunctionAddress);
+		Init_glGetInteger64v(fn_GetFunctionAddress);
+		Init_glGetSynciv(fn_GetFunctionAddress);
+		Init_glGetInteger64i_v(fn_GetFunctionAddress);
+		Init_glGetBufferParameteri64v(fn_GetFunctionAddress);
+		Init_glFramebufferTexture(fn_GetFunctionAddress);
+		Init_glTexImage2DMultisample(fn_GetFunctionAddress);
+		Init_glTexImage3DMultisample(fn_GetFunctionAddress);
+		Init_glGetMultisamplefv(fn_GetFunctionAddress);
+		Init_glSampleMaski(fn_GetFunctionAddress);
+		Init_glBindFragDataLocationIndexed(fn_GetFunctionAddress);
+		Init_glGetFragDataIndex(fn_GetFunctionAddress);
+		Init_glGenSamplers(fn_GetFunctionAddress);
+		Init_glDeleteSamplers(fn_GetFunctionAddress);
+		Init_glIsSampler(fn_GetFunctionAddress);
+		Init_glBindSampler(fn_GetFunctionAddress);
+		Init_glSamplerParameteri(fn_GetFunctionAddress);
+		Init_glSamplerParameteriv(fn_GetFunctionAddress);
+		Init_glSamplerParameterf(fn_GetFunctionAddress);
+		Init_glSamplerParameterfv(fn_GetFunctionAddress);
+		Init_glSamplerParameterIiv(fn_GetFunctionAddress);
+		Init_glSamplerParameterIuiv(fn_GetFunctionAddress);
+		Init_glGetSamplerParameteriv(fn_GetFunctionAddress);
+		Init_glGetSamplerParameterIiv(fn_GetFunctionAddress);
+		Init_glGetSamplerParameterfv(fn_GetFunctionAddress);
+		Init_glGetSamplerParameterIuiv(fn_GetFunctionAddress);
+		Init_glQueryCounter(fn_GetFunctionAddress);
+		Init_glGetQueryObjecti64v(fn_GetFunctionAddress);
+		Init_glGetQueryObjectui64v(fn_GetFunctionAddress);
+		Init_glVertexAttribDivisor(fn_GetFunctionAddress);
+		Init_glVertexAttribP1ui(fn_GetFunctionAddress);
+		Init_glVertexAttribP1uiv(fn_GetFunctionAddress);
+		Init_glVertexAttribP2ui(fn_GetFunctionAddress);
+		Init_glVertexAttribP2uiv(fn_GetFunctionAddress);
+		Init_glVertexAttribP3ui(fn_GetFunctionAddress);
+		Init_glVertexAttribP3uiv(fn_GetFunctionAddress);
+		Init_glVertexAttribP4ui(fn_GetFunctionAddress);
+		Init_glVertexAttribP4uiv(fn_GetFunctionAddress);
+		Init_glVertexP2ui(fn_GetFunctionAddress);
+		Init_glVertexP2uiv(fn_GetFunctionAddress);
+		Init_glVertexP3ui(fn_GetFunctionAddress);
+		Init_glVertexP3uiv(fn_GetFunctionAddress);
+		Init_glVertexP4ui(fn_GetFunctionAddress);
+		Init_glVertexP4uiv(fn_GetFunctionAddress);
+		Init_glTexCoordP1ui(fn_GetFunctionAddress);
+		Init_glTexCoordP1uiv(fn_GetFunctionAddress);
+		Init_glTexCoordP2ui(fn_GetFunctionAddress);
+		Init_glTexCoordP2uiv(fn_GetFunctionAddress);
+		Init_glTexCoordP3ui(fn_GetFunctionAddress);
+		Init_glTexCoordP3uiv(fn_GetFunctionAddress);
+		Init_glTexCoordP4ui(fn_GetFunctionAddress);
+		Init_glTexCoordP4uiv(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP1ui(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP1uiv(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP2ui(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP2uiv(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP3ui(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP3uiv(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP4ui(fn_GetFunctionAddress);
+		Init_glMultiTexCoordP4uiv(fn_GetFunctionAddress);
+		Init_glNormalP3ui(fn_GetFunctionAddress);
+		Init_glNormalP3uiv(fn_GetFunctionAddress);
+		Init_glColorP3ui(fn_GetFunctionAddress);
+		Init_glColorP3uiv(fn_GetFunctionAddress);
+		Init_glColorP4ui(fn_GetFunctionAddress);
+		Init_glColorP4uiv(fn_GetFunctionAddress);
+		Init_glSecondaryColorP3ui(fn_GetFunctionAddress);
+		Init_glSecondaryColorP3uiv(fn_GetFunctionAddress);
 	}
 }
 }

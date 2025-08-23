@@ -270,41 +270,75 @@ inline EGLContext eglGetCurrentContext() { return HLFGL::s_fn_eglGetCurrentConte
 #endif // EGL_VERSION_1_4
 
 namespace HLFGL {
-	inline void EGLInitFunctionPointers(Fn_GetProcAddress proc) {
-		s_fn_eglChooseConfig = (Fn_eglChooseConfig)proc("eglChooseConfig");
-		s_fn_eglCopyBuffers = (Fn_eglCopyBuffers)proc("eglCopyBuffers");
-		s_fn_eglCreateContext = (Fn_eglCreateContext)proc("eglCreateContext");
-		s_fn_eglCreatePbufferSurface = (Fn_eglCreatePbufferSurface)proc("eglCreatePbufferSurface");
-		s_fn_eglCreatePixmapSurface = (Fn_eglCreatePixmapSurface)proc("eglCreatePixmapSurface");
-		s_fn_eglCreateWindowSurface = (Fn_eglCreateWindowSurface)proc("eglCreateWindowSurface");
-		s_fn_eglDestroyContext = (Fn_eglDestroyContext)proc("eglDestroyContext");
-		s_fn_eglDestroySurface = (Fn_eglDestroySurface)proc("eglDestroySurface");
-		s_fn_eglGetConfigAttrib = (Fn_eglGetConfigAttrib)proc("eglGetConfigAttrib");
-		s_fn_eglGetConfigs = (Fn_eglGetConfigs)proc("eglGetConfigs");
-		s_fn_eglGetCurrentDisplay = (Fn_eglGetCurrentDisplay)proc("eglGetCurrentDisplay");
-		s_fn_eglGetCurrentSurface = (Fn_eglGetCurrentSurface)proc("eglGetCurrentSurface");
-		s_fn_eglGetDisplay = (Fn_eglGetDisplay)proc("eglGetDisplay");
-		s_fn_eglGetError = (Fn_eglGetError)proc("eglGetError");
-		s_fn_eglGetProcAddress = (Fn_eglGetProcAddress)proc("eglGetProcAddress");
-		s_fn_eglInitialize = (Fn_eglInitialize)proc("eglInitialize");
-		s_fn_eglMakeCurrent = (Fn_eglMakeCurrent)proc("eglMakeCurrent");
-		s_fn_eglQueryContext = (Fn_eglQueryContext)proc("eglQueryContext");
-		s_fn_eglQueryString = (Fn_eglQueryString)proc("eglQueryString");
-		s_fn_eglQuerySurface = (Fn_eglQuerySurface)proc("eglQuerySurface");
-		s_fn_eglSwapBuffers = (Fn_eglSwapBuffers)proc("eglSwapBuffers");
-		s_fn_eglTerminate = (Fn_eglTerminate)proc("eglTerminate");
-		s_fn_eglWaitGL = (Fn_eglWaitGL)proc("eglWaitGL");
-		s_fn_eglWaitNative = (Fn_eglWaitNative)proc("eglWaitNative");
-		s_fn_eglBindTexImage = (Fn_eglBindTexImage)proc("eglBindTexImage");
-		s_fn_eglReleaseTexImage = (Fn_eglReleaseTexImage)proc("eglReleaseTexImage");
-		s_fn_eglSurfaceAttrib = (Fn_eglSurfaceAttrib)proc("eglSurfaceAttrib");
-		s_fn_eglSwapInterval = (Fn_eglSwapInterval)proc("eglSwapInterval");
-		s_fn_eglBindAPI = (Fn_eglBindAPI)proc("eglBindAPI");
-		s_fn_eglQueryAPI = (Fn_eglQueryAPI)proc("eglQueryAPI");
-		s_fn_eglCreatePbufferFromClientBuffer = (Fn_eglCreatePbufferFromClientBuffer)proc("eglCreatePbufferFromClientBuffer");
-		s_fn_eglReleaseThread = (Fn_eglReleaseThread)proc("eglReleaseThread");
-		s_fn_eglWaitClient = (Fn_eglWaitClient)proc("eglWaitClient");
-		s_fn_eglGetCurrentContext = (Fn_eglGetCurrentContext)proc("eglGetCurrentContext");
+	inline void Init_eglChooseConfig(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglChooseConfig = (Fn_eglChooseConfig)fn_GetFunctionAddress("eglChooseConfig"); }
+	inline void Init_eglCopyBuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglCopyBuffers = (Fn_eglCopyBuffers)fn_GetFunctionAddress("eglCopyBuffers"); }
+	inline void Init_eglCreateContext(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglCreateContext = (Fn_eglCreateContext)fn_GetFunctionAddress("eglCreateContext"); }
+	inline void Init_eglCreatePbufferSurface(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglCreatePbufferSurface = (Fn_eglCreatePbufferSurface)fn_GetFunctionAddress("eglCreatePbufferSurface"); }
+	inline void Init_eglCreatePixmapSurface(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglCreatePixmapSurface = (Fn_eglCreatePixmapSurface)fn_GetFunctionAddress("eglCreatePixmapSurface"); }
+	inline void Init_eglCreateWindowSurface(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglCreateWindowSurface = (Fn_eglCreateWindowSurface)fn_GetFunctionAddress("eglCreateWindowSurface"); }
+	inline void Init_eglDestroyContext(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglDestroyContext = (Fn_eglDestroyContext)fn_GetFunctionAddress("eglDestroyContext"); }
+	inline void Init_eglDestroySurface(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglDestroySurface = (Fn_eglDestroySurface)fn_GetFunctionAddress("eglDestroySurface"); }
+	inline void Init_eglGetConfigAttrib(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetConfigAttrib = (Fn_eglGetConfigAttrib)fn_GetFunctionAddress("eglGetConfigAttrib"); }
+	inline void Init_eglGetConfigs(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetConfigs = (Fn_eglGetConfigs)fn_GetFunctionAddress("eglGetConfigs"); }
+	inline void Init_eglGetCurrentDisplay(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetCurrentDisplay = (Fn_eglGetCurrentDisplay)fn_GetFunctionAddress("eglGetCurrentDisplay"); }
+	inline void Init_eglGetCurrentSurface(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetCurrentSurface = (Fn_eglGetCurrentSurface)fn_GetFunctionAddress("eglGetCurrentSurface"); }
+	inline void Init_eglGetDisplay(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetDisplay = (Fn_eglGetDisplay)fn_GetFunctionAddress("eglGetDisplay"); }
+	inline void Init_eglGetError(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetError = (Fn_eglGetError)fn_GetFunctionAddress("eglGetError"); }
+	inline void Init_eglGetProcAddress(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetProcAddress = (Fn_eglGetProcAddress)fn_GetFunctionAddress("eglGetProcAddress"); }
+	inline void Init_eglInitialize(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglInitialize = (Fn_eglInitialize)fn_GetFunctionAddress("eglInitialize"); }
+	inline void Init_eglMakeCurrent(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglMakeCurrent = (Fn_eglMakeCurrent)fn_GetFunctionAddress("eglMakeCurrent"); }
+	inline void Init_eglQueryContext(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglQueryContext = (Fn_eglQueryContext)fn_GetFunctionAddress("eglQueryContext"); }
+	inline void Init_eglQueryString(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglQueryString = (Fn_eglQueryString)fn_GetFunctionAddress("eglQueryString"); }
+	inline void Init_eglQuerySurface(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglQuerySurface = (Fn_eglQuerySurface)fn_GetFunctionAddress("eglQuerySurface"); }
+	inline void Init_eglSwapBuffers(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglSwapBuffers = (Fn_eglSwapBuffers)fn_GetFunctionAddress("eglSwapBuffers"); }
+	inline void Init_eglTerminate(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglTerminate = (Fn_eglTerminate)fn_GetFunctionAddress("eglTerminate"); }
+	inline void Init_eglWaitGL(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglWaitGL = (Fn_eglWaitGL)fn_GetFunctionAddress("eglWaitGL"); }
+	inline void Init_eglWaitNative(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglWaitNative = (Fn_eglWaitNative)fn_GetFunctionAddress("eglWaitNative"); }
+	inline void Init_eglBindTexImage(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglBindTexImage = (Fn_eglBindTexImage)fn_GetFunctionAddress("eglBindTexImage"); }
+	inline void Init_eglReleaseTexImage(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglReleaseTexImage = (Fn_eglReleaseTexImage)fn_GetFunctionAddress("eglReleaseTexImage"); }
+	inline void Init_eglSurfaceAttrib(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglSurfaceAttrib = (Fn_eglSurfaceAttrib)fn_GetFunctionAddress("eglSurfaceAttrib"); }
+	inline void Init_eglSwapInterval(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglSwapInterval = (Fn_eglSwapInterval)fn_GetFunctionAddress("eglSwapInterval"); }
+	inline void Init_eglBindAPI(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglBindAPI = (Fn_eglBindAPI)fn_GetFunctionAddress("eglBindAPI"); }
+	inline void Init_eglQueryAPI(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglQueryAPI = (Fn_eglQueryAPI)fn_GetFunctionAddress("eglQueryAPI"); }
+	inline void Init_eglCreatePbufferFromClientBuffer(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglCreatePbufferFromClientBuffer = (Fn_eglCreatePbufferFromClientBuffer)fn_GetFunctionAddress("eglCreatePbufferFromClientBuffer"); }
+	inline void Init_eglReleaseThread(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglReleaseThread = (Fn_eglReleaseThread)fn_GetFunctionAddress("eglReleaseThread"); }
+	inline void Init_eglWaitClient(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglWaitClient = (Fn_eglWaitClient)fn_GetFunctionAddress("eglWaitClient"); }
+	inline void Init_eglGetCurrentContext(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) { s_fn_eglGetCurrentContext = (Fn_eglGetCurrentContext)fn_GetFunctionAddress("eglGetCurrentContext"); }
+	inline void EGLInitFunctions(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress) {
+		Init_eglChooseConfig(fn_GetFunctionAddress);
+		Init_eglCopyBuffers(fn_GetFunctionAddress);
+		Init_eglCreateContext(fn_GetFunctionAddress);
+		Init_eglCreatePbufferSurface(fn_GetFunctionAddress);
+		Init_eglCreatePixmapSurface(fn_GetFunctionAddress);
+		Init_eglCreateWindowSurface(fn_GetFunctionAddress);
+		Init_eglDestroyContext(fn_GetFunctionAddress);
+		Init_eglDestroySurface(fn_GetFunctionAddress);
+		Init_eglGetConfigAttrib(fn_GetFunctionAddress);
+		Init_eglGetConfigs(fn_GetFunctionAddress);
+		Init_eglGetCurrentDisplay(fn_GetFunctionAddress);
+		Init_eglGetCurrentSurface(fn_GetFunctionAddress);
+		Init_eglGetDisplay(fn_GetFunctionAddress);
+		Init_eglGetError(fn_GetFunctionAddress);
+		Init_eglGetProcAddress(fn_GetFunctionAddress);
+		Init_eglInitialize(fn_GetFunctionAddress);
+		Init_eglMakeCurrent(fn_GetFunctionAddress);
+		Init_eglQueryContext(fn_GetFunctionAddress);
+		Init_eglQueryString(fn_GetFunctionAddress);
+		Init_eglQuerySurface(fn_GetFunctionAddress);
+		Init_eglSwapBuffers(fn_GetFunctionAddress);
+		Init_eglTerminate(fn_GetFunctionAddress);
+		Init_eglWaitGL(fn_GetFunctionAddress);
+		Init_eglWaitNative(fn_GetFunctionAddress);
+		Init_eglBindTexImage(fn_GetFunctionAddress);
+		Init_eglReleaseTexImage(fn_GetFunctionAddress);
+		Init_eglSurfaceAttrib(fn_GetFunctionAddress);
+		Init_eglSwapInterval(fn_GetFunctionAddress);
+		Init_eglBindAPI(fn_GetFunctionAddress);
+		Init_eglQueryAPI(fn_GetFunctionAddress);
+		Init_eglCreatePbufferFromClientBuffer(fn_GetFunctionAddress);
+		Init_eglReleaseThread(fn_GetFunctionAddress);
+		Init_eglWaitClient(fn_GetFunctionAddress);
+		Init_eglGetCurrentContext(fn_GetFunctionAddress);
 	}
 }
 }

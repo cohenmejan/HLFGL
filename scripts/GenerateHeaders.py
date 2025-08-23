@@ -231,9 +231,14 @@ def generate_api(api_prefix, api_name):
         if name not in api_extensions: continue
         output += generate_api_tree(extension, name)
 
-    output += f"\nnamespace HLFGL {{\n\tinline void {api_prefix}InitFunctionPointers(Fn_GetProcAddress proc) {{\n"
+    output += f"\nnamespace HLFGL {{"
+
     for function in api_functions:
-        output += f"\t\ts_fn_{function.name} = (Fn_{function.name})proc(\"{function.name}\");\n"
+        output += f"\n\tinline void Init_{function.name}(Fn_GetFunctionAddress fn_GetFunctionAddress = {api_prefix}GetFunctionAddress) {{ s_fn_{function.name} = (Fn_{function.name})fn_GetFunctionAddress(\"{function.name}\"); }}"
+
+    output += f"\n\tinline void {api_prefix}InitFunctions(Fn_GetFunctionAddress fn_GetFunctionAddress = {api_prefix}GetFunctionAddress) {{\n"
+    for function in api_functions:
+        output += f"\t\tInit_{function.name}(fn_GetFunctionAddress);\n"
     output += "\t}\n}\n}"
 
     return output
