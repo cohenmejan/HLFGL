@@ -166,13 +166,8 @@ def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
         # append to output
 
         output = f"\n\n// {tree_name}\n"
-        gl_define_name = tree_name
-        define_name = f"HLFGL_ENABLE_{gl_define_name}"
-        output += f"#ifndef {define_name}"
-        output += f"\n#define {define_name} 1"
-        output += f"\n#endif"
-        output += f"\n#if {define_name} && !defined({gl_define_name})"
-        output += f"\n#define {gl_define_name} 1"
+        output += f"#ifndef {tree_name}"
+        output += f"\n#define {tree_name} 1"
 
         for typedef in typedefs:
             if typedef is None or typedef.definition is None or len(typedef.definition) == 0: continue
@@ -196,7 +191,7 @@ def generate_api(api_prefix, api_name, api_version, api_extensions, xml_path):
             body = f"return HLFGL::s_fn_{function.name}({', '.join(param.name for param in function.params)});"
             output += f"\ninline {function.return_type} {function.name}{function.formatted_params} {{ {body} }}"
 
-        output += f"\n#endif // {define_name}\n"
+        output += f"\n#endif // {tree_name}\n"
         return output
 
     for feature in root.findall("feature"):

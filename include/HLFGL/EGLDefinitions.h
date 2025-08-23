@@ -4,10 +4,7 @@
 extern "C" {
 
 // EGL_VERSION_1_0
-#ifndef HLFGL_ENABLE_EGL_VERSION_1_0
-#define HLFGL_ENABLE_EGL_VERSION_1_0 1
-#endif
-#if HLFGL_ENABLE_EGL_VERSION_1_0 && !defined(EGL_VERSION_1_0)
+#ifndef EGL_VERSION_1_0
 #define EGL_VERSION_1_0 1
 typedef unsigned int EGLBoolean;
 typedef void *EGLDisplay;
@@ -150,14 +147,11 @@ inline EGLBoolean eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) { return HL
 inline EGLBoolean eglTerminate(EGLDisplay dpy) { return HLFGL::s_fn_eglTerminate(dpy); }
 inline EGLBoolean eglWaitGL() { return HLFGL::s_fn_eglWaitGL(); }
 inline EGLBoolean eglWaitNative(EGLint engine) { return HLFGL::s_fn_eglWaitNative(engine); }
-#endif // HLFGL_ENABLE_EGL_VERSION_1_0
+#endif // EGL_VERSION_1_0
 
 
 // EGL_VERSION_1_1
-#ifndef HLFGL_ENABLE_EGL_VERSION_1_1
-#define HLFGL_ENABLE_EGL_VERSION_1_1 1
-#endif
-#if HLFGL_ENABLE_EGL_VERSION_1_1 && !defined(EGL_VERSION_1_1)
+#ifndef EGL_VERSION_1_1
 #define EGL_VERSION_1_1 1
 #define EGL_BACK_BUFFER 0x3084
 #define EGL_BIND_TO_TEXTURE_RGB 0x3039
@@ -187,14 +181,11 @@ inline EGLBoolean eglBindTexImage(EGLDisplay dpy, EGLSurface surface, EGLint buf
 inline EGLBoolean eglReleaseTexImage(EGLDisplay dpy, EGLSurface surface, EGLint buffer) { return HLFGL::s_fn_eglReleaseTexImage(dpy, surface, buffer); }
 inline EGLBoolean eglSurfaceAttrib(EGLDisplay dpy, EGLSurface surface, EGLint attribute, EGLint value) { return HLFGL::s_fn_eglSurfaceAttrib(dpy, surface, attribute, value); }
 inline EGLBoolean eglSwapInterval(EGLDisplay dpy, EGLint interval) { return HLFGL::s_fn_eglSwapInterval(dpy, interval); }
-#endif // HLFGL_ENABLE_EGL_VERSION_1_1
+#endif // EGL_VERSION_1_1
 
 
 // EGL_VERSION_1_2
-#ifndef HLFGL_ENABLE_EGL_VERSION_1_2
-#define HLFGL_ENABLE_EGL_VERSION_1_2 1
-#endif
-#if HLFGL_ENABLE_EGL_VERSION_1_2 && !defined(EGL_VERSION_1_2)
+#ifndef EGL_VERSION_1_2
 #define EGL_VERSION_1_2 1
 typedef unsigned int EGLenum;
 typedef void *EGLClientBuffer;
@@ -244,14 +235,11 @@ inline EGLenum eglQueryAPI() { return HLFGL::s_fn_eglQueryAPI(); }
 inline EGLSurface eglCreatePbufferFromClientBuffer(EGLDisplay dpy, EGLenum buftype, EGLClientBuffer buffer, EGLConfig config, const EGLint * attrib_list) { return HLFGL::s_fn_eglCreatePbufferFromClientBuffer(dpy, buftype, buffer, config, attrib_list); }
 inline EGLBoolean eglReleaseThread() { return HLFGL::s_fn_eglReleaseThread(); }
 inline EGLBoolean eglWaitClient() { return HLFGL::s_fn_eglWaitClient(); }
-#endif // HLFGL_ENABLE_EGL_VERSION_1_2
+#endif // EGL_VERSION_1_2
 
 
 // EGL_VERSION_1_3
-#ifndef HLFGL_ENABLE_EGL_VERSION_1_3
-#define HLFGL_ENABLE_EGL_VERSION_1_3 1
-#endif
-#if HLFGL_ENABLE_EGL_VERSION_1_3 && !defined(EGL_VERSION_1_3)
+#ifndef EGL_VERSION_1_3
 #define EGL_VERSION_1_3 1
 #define EGL_CONFORMANT 0x3042
 #define EGL_CONTEXT_CLIENT_VERSION 0x3098
@@ -265,14 +253,11 @@ inline EGLBoolean eglWaitClient() { return HLFGL::s_fn_eglWaitClient(); }
 #define EGL_VG_COLORSPACE_sRGB 0x3089
 #define EGL_VG_COLORSPACE_LINEAR 0x308A
 #define EGL_VG_COLORSPACE_LINEAR_BIT 0x0020
-#endif // HLFGL_ENABLE_EGL_VERSION_1_3
+#endif // EGL_VERSION_1_3
 
 
 // EGL_VERSION_1_4
-#ifndef HLFGL_ENABLE_EGL_VERSION_1_4
-#define HLFGL_ENABLE_EGL_VERSION_1_4 1
-#endif
-#if HLFGL_ENABLE_EGL_VERSION_1_4 && !defined(EGL_VERSION_1_4)
+#ifndef EGL_VERSION_1_4
 #define EGL_VERSION_1_4 1
 #define EGL_DEFAULT_DISPLAY EGL_CAST(EGLNativeDisplayType,0)
 #define EGL_MULTISAMPLE_RESOLVE_BOX_BIT 0x0200
@@ -287,7 +272,7 @@ namespace HLFGL {
 	inline Fn_eglGetCurrentContext s_fn_eglGetCurrentContext {};
 }
 inline EGLContext eglGetCurrentContext() { return HLFGL::s_fn_eglGetCurrentContext(); }
-#endif // HLFGL_ENABLE_EGL_VERSION_1_4
+#endif // EGL_VERSION_1_4
 
 namespace HLFGL {
 	inline void EGLInitFunctionPointers(Fn_GetProcAddress proc) {

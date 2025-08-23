@@ -4,10 +4,7 @@
 extern "C" {
 
 // GL_VERSION_1_0
-#ifndef HLFGL_ENABLE_GL_VERSION_1_0
-#define HLFGL_ENABLE_GL_VERSION_1_0 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_1_0 && !defined(GL_VERSION_1_0)
+#ifndef GL_VERSION_1_0
 #define GL_VERSION_1_0 1
 typedef void GLvoid;
 typedef unsigned int GLenum;
@@ -1367,14 +1364,11 @@ inline void glScaled(GLdouble x, GLdouble y, GLdouble z) { return HLFGL::s_fn_gl
 inline void glScalef(GLfloat x, GLfloat y, GLfloat z) { return HLFGL::s_fn_glScalef(x, y, z); }
 inline void glTranslated(GLdouble x, GLdouble y, GLdouble z) { return HLFGL::s_fn_glTranslated(x, y, z); }
 inline void glTranslatef(GLfloat x, GLfloat y, GLfloat z) { return HLFGL::s_fn_glTranslatef(x, y, z); }
-#endif // HLFGL_ENABLE_GL_VERSION_1_0
+#endif // GL_VERSION_1_0
 
 
 // GL_VERSION_1_1
-#ifndef HLFGL_ENABLE_GL_VERSION_1_1
-#define HLFGL_ENABLE_GL_VERSION_1_1 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_1_1 && !defined(GL_VERSION_1_1)
+#ifndef GL_VERSION_1_1
 #define GL_VERSION_1_1 1
 typedef khronos_float_t GLclampf;
 typedef double GLclampd;
@@ -1574,14 +1568,11 @@ inline void glIndexub(GLubyte c) { return HLFGL::s_fn_glIndexub(c); }
 inline void glIndexubv(const GLubyte * c) { return HLFGL::s_fn_glIndexubv(c); }
 inline void glPopClientAttrib() { return HLFGL::s_fn_glPopClientAttrib(); }
 inline void glPushClientAttrib(GLbitfield mask) { return HLFGL::s_fn_glPushClientAttrib(mask); }
-#endif // HLFGL_ENABLE_GL_VERSION_1_1
+#endif // GL_VERSION_1_1
 
 
 // GL_VERSION_1_2
-#ifndef HLFGL_ENABLE_GL_VERSION_1_2
-#define HLFGL_ENABLE_GL_VERSION_1_2 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_1_2 && !defined(GL_VERSION_1_2)
+#ifndef GL_VERSION_1_2
 #define GL_VERSION_1_2 1
 #define GL_UNSIGNED_BYTE_3_3_2 0x8032
 #define GL_UNSIGNED_SHORT_4_4_4_4 0x8033
@@ -1638,14 +1629,11 @@ inline void glDrawRangeElements(GLenum mode, GLuint start, GLuint end, GLsizei c
 inline void glTexImage3D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void * pixels) { return HLFGL::s_fn_glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels); }
 inline void glTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void * pixels) { return HLFGL::s_fn_glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels); }
 inline void glCopyTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height) { return HLFGL::s_fn_glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height); }
-#endif // HLFGL_ENABLE_GL_VERSION_1_2
+#endif // GL_VERSION_1_2
 
 
 // GL_VERSION_1_3
-#ifndef HLFGL_ENABLE_GL_VERSION_1_3
-#define HLFGL_ENABLE_GL_VERSION_1_3 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_1_3 && !defined(GL_VERSION_1_3)
+#ifndef GL_VERSION_1_3
 #define GL_VERSION_1_3 1
 #define GL_TEXTURE0 0x84C0
 #define GL_TEXTURE1 0x84C1
@@ -1883,14 +1871,11 @@ inline void glLoadTransposeMatrixf(const GLfloat * m) { return HLFGL::s_fn_glLoa
 inline void glLoadTransposeMatrixd(const GLdouble * m) { return HLFGL::s_fn_glLoadTransposeMatrixd(m); }
 inline void glMultTransposeMatrixf(const GLfloat * m) { return HLFGL::s_fn_glMultTransposeMatrixf(m); }
 inline void glMultTransposeMatrixd(const GLdouble * m) { return HLFGL::s_fn_glMultTransposeMatrixd(m); }
-#endif // HLFGL_ENABLE_GL_VERSION_1_3
+#endif // GL_VERSION_1_3
 
 
 // GL_VERSION_1_4
-#ifndef HLFGL_ENABLE_GL_VERSION_1_4
-#define HLFGL_ENABLE_GL_VERSION_1_4 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_1_4 && !defined(GL_VERSION_1_4)
+#ifndef GL_VERSION_1_4
 #define GL_VERSION_1_4 1
 #define GL_BLEND_DST_RGB 0x80C8
 #define GL_BLEND_SRC_RGB 0x80C9
@@ -2068,14 +2053,11 @@ inline void glWindowPos3i(GLint x, GLint y, GLint z) { return HLFGL::s_fn_glWind
 inline void glWindowPos3iv(const GLint * v) { return HLFGL::s_fn_glWindowPos3iv(v); }
 inline void glWindowPos3s(GLshort x, GLshort y, GLshort z) { return HLFGL::s_fn_glWindowPos3s(x, y, z); }
 inline void glWindowPos3sv(const GLshort * v) { return HLFGL::s_fn_glWindowPos3sv(v); }
-#endif // HLFGL_ENABLE_GL_VERSION_1_4
+#endif // GL_VERSION_1_4
 
 
 // GL_VERSION_1_5
-#ifndef HLFGL_ENABLE_GL_VERSION_1_5
-#define HLFGL_ENABLE_GL_VERSION_1_5 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_1_5 && !defined(GL_VERSION_1_5)
+#ifndef GL_VERSION_1_5
 #define GL_VERSION_1_5 1
 typedef khronos_ssize_t GLsizeiptr;
 typedef khronos_intptr_t GLintptr;
@@ -2188,14 +2170,11 @@ inline void * glMapBuffer(GLenum target, GLenum access) { return HLFGL::s_fn_glM
 inline GLboolean glUnmapBuffer(GLenum target) { return HLFGL::s_fn_glUnmapBuffer(target); }
 inline void glGetBufferParameteriv(GLenum target, GLenum pname, GLint * params) { return HLFGL::s_fn_glGetBufferParameteriv(target, pname, params); }
 inline void glGetBufferPointerv(GLenum target, GLenum pname, void ** params) { return HLFGL::s_fn_glGetBufferPointerv(target, pname, params); }
-#endif // HLFGL_ENABLE_GL_VERSION_1_5
+#endif // GL_VERSION_1_5
 
 
 // GL_VERSION_2_0
-#ifndef HLFGL_ENABLE_GL_VERSION_2_0
-#define HLFGL_ENABLE_GL_VERSION_2_0 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_2_0 && !defined(GL_VERSION_2_0)
+#ifndef GL_VERSION_2_0
 #define GL_VERSION_2_0 1
 typedef char GLchar;
 #define GL_BLEND_EQUATION_RGB 0x8009
@@ -2563,14 +2542,11 @@ inline void glVertexAttrib4ubv(GLuint index, const GLubyte * v) { return HLFGL::
 inline void glVertexAttrib4uiv(GLuint index, const GLuint * v) { return HLFGL::s_fn_glVertexAttrib4uiv(index, v); }
 inline void glVertexAttrib4usv(GLuint index, const GLushort * v) { return HLFGL::s_fn_glVertexAttrib4usv(index, v); }
 inline void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void * pointer) { return HLFGL::s_fn_glVertexAttribPointer(index, size, type, normalized, stride, pointer); }
-#endif // HLFGL_ENABLE_GL_VERSION_2_0
+#endif // GL_VERSION_2_0
 
 
 // GL_VERSION_2_1
-#ifndef HLFGL_ENABLE_GL_VERSION_2_1
-#define HLFGL_ENABLE_GL_VERSION_2_1 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_2_1 && !defined(GL_VERSION_2_1)
+#ifndef GL_VERSION_2_1
 #define GL_VERSION_2_1 1
 #define GL_PIXEL_PACK_BUFFER 0x88EB
 #define GL_PIXEL_UNPACK_BUFFER 0x88EC
@@ -2615,14 +2591,11 @@ inline void glUniformMatrix2x4fv(GLint location, GLsizei count, GLboolean transp
 inline void glUniformMatrix4x2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value) { return HLFGL::s_fn_glUniformMatrix4x2fv(location, count, transpose, value); }
 inline void glUniformMatrix3x4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value) { return HLFGL::s_fn_glUniformMatrix3x4fv(location, count, transpose, value); }
 inline void glUniformMatrix4x3fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value) { return HLFGL::s_fn_glUniformMatrix4x3fv(location, count, transpose, value); }
-#endif // HLFGL_ENABLE_GL_VERSION_2_1
+#endif // GL_VERSION_2_1
 
 
 // GL_VERSION_3_0
-#ifndef HLFGL_ENABLE_GL_VERSION_3_0
-#define HLFGL_ENABLE_GL_VERSION_3_0 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_3_0 && !defined(GL_VERSION_3_0)
+#ifndef GL_VERSION_3_0
 #define GL_VERSION_3_0 1
 #define GL_COMPARE_REF_TO_TEXTURE 0x884E
 #define GL_CLIP_DISTANCE0 0x3000
@@ -2900,14 +2873,11 @@ inline void glClearBufferuiv(GLenum buffer, GLint drawbuffer, const GLuint * val
 inline void glClearBufferfv(GLenum buffer, GLint drawbuffer, const GLfloat * value) { return HLFGL::s_fn_glClearBufferfv(buffer, drawbuffer, value); }
 inline void glClearBufferfi(GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil) { return HLFGL::s_fn_glClearBufferfi(buffer, drawbuffer, depth, stencil); }
 inline const GLubyte * glGetStringi(GLenum name, GLuint index) { return HLFGL::s_fn_glGetStringi(name, index); }
-#endif // HLFGL_ENABLE_GL_VERSION_3_0
+#endif // GL_VERSION_3_0
 
 
 // GL_VERSION_3_1
-#ifndef HLFGL_ENABLE_GL_VERSION_3_1
-#define HLFGL_ENABLE_GL_VERSION_3_1 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_3_1 && !defined(GL_VERSION_3_1)
+#ifndef GL_VERSION_3_1
 #define GL_VERSION_3_1 1
 #define GL_SAMPLER_2D_RECT 0x8B63
 #define GL_SAMPLER_2D_RECT_SHADOW 0x8B64
@@ -2949,14 +2919,11 @@ inline void glDrawArraysInstanced(GLenum mode, GLint first, GLsizei count, GLsiz
 inline void glDrawElementsInstanced(GLenum mode, GLsizei count, GLenum type, const void * indices, GLsizei instancecount) { return HLFGL::s_fn_glDrawElementsInstanced(mode, count, type, indices, instancecount); }
 inline void glTexBuffer(GLenum target, GLenum internalformat, GLuint buffer) { return HLFGL::s_fn_glTexBuffer(target, internalformat, buffer); }
 inline void glPrimitiveRestartIndex(GLuint index) { return HLFGL::s_fn_glPrimitiveRestartIndex(index); }
-#endif // HLFGL_ENABLE_GL_VERSION_3_1
+#endif // GL_VERSION_3_1
 
 
 // GL_VERSION_3_2
-#ifndef HLFGL_ENABLE_GL_VERSION_3_2
-#define HLFGL_ENABLE_GL_VERSION_3_2 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_3_2 && !defined(GL_VERSION_3_2)
+#ifndef GL_VERSION_3_2
 #define GL_VERSION_3_2 1
 #define GL_CONTEXT_CORE_PROFILE_BIT 0x00000001
 #define GL_CONTEXT_COMPATIBILITY_PROFILE_BIT 0x00000002
@@ -2980,17 +2947,14 @@ inline void glPrimitiveRestartIndex(GLuint index) { return HLFGL::s_fn_glPrimiti
 #define GL_MAX_GEOMETRY_OUTPUT_COMPONENTS 0x9124
 #define GL_MAX_FRAGMENT_INPUT_COMPONENTS 0x9125
 #define GL_CONTEXT_PROFILE_MASK 0x9126
-#endif // HLFGL_ENABLE_GL_VERSION_3_2
+#endif // GL_VERSION_3_2
 
 
 // GL_VERSION_3_3
-#ifndef HLFGL_ENABLE_GL_VERSION_3_3
-#define HLFGL_ENABLE_GL_VERSION_3_3 1
-#endif
-#if HLFGL_ENABLE_GL_VERSION_3_3 && !defined(GL_VERSION_3_3)
+#ifndef GL_VERSION_3_3
 #define GL_VERSION_3_3 1
 #define GL_VERTEX_ATTRIB_ARRAY_DIVISOR 0x88FE
-#endif // HLFGL_ENABLE_GL_VERSION_3_3
+#endif // GL_VERSION_3_3
 
 namespace HLFGL {
 	inline void GLInitFunctionPointers(Fn_GetProcAddress proc) {
