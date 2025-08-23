@@ -250,4 +250,5 @@ def write(content, name):
 write(generate_api("GL", "gl"), "GLDefinitions.h")
 write(generate_api("EGL", "egl"), "EGLDefinitions.h")
 
-print(f"files generated")
+print("files generated")
+print("press any key to exit...")
