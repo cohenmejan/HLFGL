@@ -9,6 +9,7 @@
 * Remove version and extension-specific `HLFGL_ENABLE_*` definitions
 * Moved generator script and config files to `/scripts/` directory
 * Moved generated headers to `/include/HLFGL/gen/` directory
+* Set default EGL Core version to 1.4
 
 ### Fixes
 
