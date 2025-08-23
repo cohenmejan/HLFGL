@@ -8,6 +8,10 @@
 
 * Remove version and extension-specific HLFGL_ENABLE_* definitions
 
+### Fixes
+
+* Fix locations of khrplatform.h and eglplatform.h
+
 ---
 
 ## 0.0.1
