@@ -36,9 +36,9 @@ extensions, and they include core versions as follows:
 
 You can regenerate the GL definition headers to suit the APIs and extensions your project needs.
 
-Edit `GeneratorConfig.py`:
+Edit `scripts/GenerateHeadersConfig.cfg`, or copy it to some external location:
 
-```py
+```ini
 # GL
 
 # enable GL header generation
@@ -64,10 +64,17 @@ EGL_EXTENSIONS = [
 ]
 ```
 
-Once configured, run `GenerateHeaders.py` from within the root HLFGL directory:
+Once configured, run `scripts/GenerateHeaders.py`:
 
 ```
-python GenerateHeaders.py
+python scripts/GenerateHeaders.py
+```
+
+If you made your own external config file, you can run the script with ```--config``` or ```-c``` 
+with the path to your config:
+
+```
+python path/to/HLFGL/scripts/GenerateHeaders.py --config path/to/your/GenerateHeadersConfig.cfg
 ```
 
 ## Usage

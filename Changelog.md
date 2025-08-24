@@ -7,6 +7,7 @@
 ### Features
 
 * Add `HLFGL::Init_{glFunctionName}` functions to initialize individual functions easily
+* Add `--config` parameter 
 
 ### Changes
 

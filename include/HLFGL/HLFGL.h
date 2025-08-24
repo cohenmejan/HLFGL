@@ -31,7 +31,7 @@ namespace HLFGL {
 	/// @return the address of the function
 	void* GLGetFunctionAddress(const char* functionName);
 
-	/// loads the GL library and initializes GL function pointers. requires an existing GL context
+	/// initializes the GL library and its functions. requires an existing GL context
 	/// @param fn_GetFunctionAddress the function that will be used to load each function
 	/// @return true on success
 	bool GLInit(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress);

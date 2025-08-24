@@ -13,6 +13,7 @@ config_path = ""
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument("--config", help="path to config file")
+argparser.add_argument("-c", help="path to config file", dest="config")
 args = argparser.parse_args()
 
 if args.config is not None: config_path = args.config
