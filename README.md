@@ -39,29 +39,25 @@ You can regenerate the GL definition headers to suit the APIs and extensions you
 Edit `scripts/GenerateHeadersConfig.cfg`, or copy it to some external location:
 
 ```ini
-# GL
-
+[GL]
 # enable GL header generation
-GL_ENABLED = True 
-# generates GL 1.0 through 4.5     
-GL_CORE_VERSION = (4, 5)   
+Enabled: True
+# generates GL 1.0 through 4.5    
+CoreVersion: 4.5
 # list of GL extensions to generate
-GL_EXTENSIONS = [
-    "GL_ARB_debug_output",
-    "GL_EXT_texture_filter_anisotropic"
-]
+Extensions: 
+    GL_ARB_debug_output
+    GL_EXT_texture_filter_anisotropic
 
-# EGL
-
+[EGL]
 # enable EGL header generation
-EGL_ENABLED = True
+Enabled: True
 # generates EGL 1.0 through 1.5
-EGL_CORE_VERSION = (1, 5)
+CoreVersion: 1.5
 # list of EGL extensions to generate
-EGL_EXTENSIONS = [
-    "EGL_KHR_create_context",
-    "EGL_EXT_platform_wayland"
-]
+Extensions: 
+    EGL_KHR_create_context
+    EGL_EXT_platform_wayland
 ```
 
 Once configured, run `scripts/GenerateHeaders.py`:
