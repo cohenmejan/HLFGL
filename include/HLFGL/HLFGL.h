@@ -1,6 +1,8 @@
 #pragma once
 
-#include <HLFGL/Platform.h>
+#if __linux__ || __linux || linux
+#define HLFGL_SYSTEM_LINUX 1
+#endif
 
 #include <KHR/khrplatform.h>
 
