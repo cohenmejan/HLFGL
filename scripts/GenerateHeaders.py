@@ -47,7 +47,7 @@ class TypedefData:
 
 def generate_api(api_prefix, api_name):
     api_enabled = config.getboolean(api_prefix, "Enabled")
-    if not api_enabled: return ""
+    if not api_enabled: return f"\n#define HLFGL_{api_prefix}_ENABLED 0"
 
     api_version = tuple(int(x) for x in config.get(api_prefix, "CoreVersion").split("."))
     api_extensions = config.get(api_prefix, "Extensions").replace('\n', ',').split(",")
@@ -66,7 +66,7 @@ def generate_api(api_prefix, api_name):
     api_constants = []
     api_functions = []
 
-    output = "\nextern \"C\" {"
+    output = f"\nextern \"C\" {{\n#define HLFGL_{api_prefix}_ENABLED 1"
 
     print(f"generating header for {api_prefix}...")
     root = etree.parse(xml_path)

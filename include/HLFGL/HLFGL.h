@@ -1,7 +1,20 @@
 #pragma once
 
 #include <HLFGL/Platform.h>
-#include <HLFGL/Config.h>
+
+#include <KHR/khrplatform.h>
+
+#ifndef GLAPI
+#define GLAPI KHRONOS_APICALL
+#endif
+
+#ifndef GLAPIENTRY
+#define GLAPIENTRY KHRONOS_APIENTRY
+#endif
+
+#ifndef GLAPIENTRYP
+#define GLAPIENTRYP GLAPIENTRY *
+#endif
 
 namespace HLFGL {
 	using Fn_GetFunctionAddress = void*(*)(const char* name);
@@ -10,58 +23,16 @@ namespace HLFGL {
 	bool DeleteLibrary(void* handle);
 	void* GetLibraryFunctionAddress(void* library, const char* functionName);
 
-#if HLFGL_ENABLE_GL
-
-	inline void* s_glLibraryHandle {};
-
-	/// handle to the platform's GL API (e.g., EGL, WGL)
-	inline void* s_glPlatformLibraryHandle {};
-	inline Fn_GetFunctionAddress s_fn_GLPlatformGetFunctionAddress {};
-
-	/// loads the GL library and the platform's GL library (e.g., EGL/WGL),
-	/// as well as the platform's GL function loader
-	/// @return true on success
-	bool GLInitLibraries();
-
-	/// gets the function's address via the platform's GL API (e.g., EGL, WGL)
-	void* GLPlatformGetFunctionAddress(const char* functionName);
-
 	/// gets the function's address first using the platform's GL API.
 	/// if that fails, it will attempt to load the function using the OS
 	/// @return the address of the function
 	void* GLGetFunctionAddress(const char* functionName);
 
-	/// initializes the GL library and its functions. requires an existing GL context
-	/// @param fn_GetFunctionAddress the function that will be used to load each function
-	/// @return true on success
-	bool GLInit(Fn_GetFunctionAddress fn_GetFunctionAddress = GLGetFunctionAddress);
-
-	/// unloads the GL libraries and frees their resources
-	/// @return true on success
-	bool GLDelete();
-
-#endif // HLFGL_ENABLE_GL
-
-#if HLFGL_ENABLE_EGL
-
-	inline void* s_eglLibraryHandle {};
-
-	/// @return true on success
-	bool EGLInitLibrary();
-
 	void* EGLGetFunctionAddress(const char* functionName);
-
-	/// loads the EGL library and then initializes its function pointers
-	/// @return true on success
-	bool EGLInit(Fn_GetFunctionAddress fn_GetFunctionAddress = EGLGetFunctionAddress);
-
-	/// unloads the EGL library and frees resources
-	/// @return true on success
-	bool EGLDelete();
-
-#endif // HLFGL_ENABLE_EGL
-
 }
+
+#include <HLFGL/gen/GLDefinitions.h>
+#include <HLFGL/gen/EGLDefinitions.h>
 
 #if HLFGL_SYSTEM_LINUX
 
@@ -86,11 +57,20 @@ namespace HLFGL {
 
 #endif // HLFGL_SYSTEM_LINUX
 
-#if HLFGL_ENABLE_GL
-
-#include <HLFGL/gen/GLDefinitions.h>
+#if HLFGL_GL_ENABLED
 
 namespace HLFGL {
+	inline void* s_glLibraryHandle {};
+
+	/// handle to the platform's GL API (e.g., EGL, WGL)
+	inline void* s_glPlatformLibraryHandle {};
+	inline Fn_GetFunctionAddress s_fn_GLPlatformGetFunctionAddress {};
+
+	/// loads the GL library and the platform's GL library (e.g., EGL/WGL),
+	/// as well as the platform's GL function loader
+	/// @return true on success
+	bool GLInitLibraries();
+
 	inline void* GLPlatformGetFunctionAddress(const char* functionName) {
 		if(!s_fn_GLPlatformGetFunctionAddress && !GLInitLibraries()) return 0;
 		return s_fn_GLPlatformGetFunctionAddress(functionName);
@@ -165,13 +145,16 @@ namespace HLFGL {
 }
 
 #endif // HLFGL_SYSTEM_LINUX
-#endif // HLFGL_ENABLE_GL
+#endif // HLFGL_GL_ENABLED
 
-#if HLFGL_ENABLE_EGL
-
-#include <HLFGL/gen/EGLDefinitions.h>
+#if HLFGL_EGL_ENABLED
 
 namespace HLFGL {
+	inline void* s_eglLibraryHandle {};
+
+	/// @return true on success
+	bool EGLInitLibrary();
+
 	inline void* EGLGetFunctionAddress(const char* functionName) {
 		void* ptr {(void*)eglGetProcAddress(functionName)};
 		if(!ptr) ptr = GetLibraryFunctionAddress(s_eglLibraryHandle, functionName);
@@ -221,4 +204,4 @@ namespace HLFGL {
 }
 
 #endif // HLFGL_SYSTEM_LINUX
-#endif // HLFGL_ENABLE_EGL
+#endif // HLFGL_EGL_ENABLED

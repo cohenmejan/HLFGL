@@ -98,11 +98,3 @@ int main() {
     HLFGL::EGLDelete();
 }
 ```
-
-To control which APIs are enabled, either modify Config.h, or add definitions before including HLFGL.h:
-
-```c++
-#define HLFGL_ENABLE_GL 1
-#define HLFGL_ENABLE_EGL 0
-#include <HLFGL/HLFGL.h>
-```

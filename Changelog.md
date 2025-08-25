@@ -7,13 +7,14 @@
 ### Features
 
 * Add `HLFGL::Init_{glFunctionName}` functions to initialize individual functions easily
-* Add `--config` parameter 
+* Add `--config` parameter to generator script
 
 ### Changes
 
+* Default EGL Enabled in generator config to False
+* Set default EGL Core version to 1.4
 * Rename `GetProcAddress` functions to `GetFunctionAddress`
 * Rename `LoadLibrary` and `UnloadLibrary` (and similar API functions) to `InitLibrary` and `DeleteLibrary`
-* Set default EGL Core version to 1.4
 * Moved generator script and config files to `/scripts/` directory
 * Moved generated headers to `/include/HLFGL/gen/` directory
 * Remove version and extension-specific `HLFGL_ENABLE_*` definitions
@@ -23,7 +24,7 @@
 * Fix instances of `GenerateHeaders.py` not generating all requirements for some versions / extensions
 * Fix locations of `khrplatform.h` and `eglplatform.h`
 * Fix missing shebang in `GenerateHeaders.py`
-* Fix potential crash if a GL lib is not found
+* Fix potential crash if a library is not found
 
 ---
 

@@ -2,6 +2,7 @@
 
 #pragma once
 extern "C" {
+#define HLFGL_GL_ENABLED 1
 // GL_VERSION_1_0
 #ifndef GL_VERSION_1_0
 #define GL_VERSION_1_0 1
