@@ -129,7 +129,8 @@ namespace HLFGL {
 				"libGL.so.1",
 				"usr/lib/libGL.so.1",
 				"libGL.so",
-				"usr/lib/libGL.so"
+				"usr/lib/libGL.so",
+				0
 			};
 
 			for(const char** name = glLibNames; *name; ++name) {
@@ -199,7 +200,8 @@ namespace HLFGL {
 				"libEGL.so.1",
 				"usr/lib/libEGL.so.1",
 				"libEGL.so",
-				"usr/lib/libEGL.so"
+				"usr/lib/libEGL.so",
+				0
 			};
 
 			for(const char** name = eglLibNames; *name; ++name) {
