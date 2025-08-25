@@ -79,6 +79,7 @@ namespace HLFGL {
 	}
 
 	inline void* GLGetFunctionAddress(const char* functionName) {
+		if(!GLInitLibraries()) return 0;
 		void* ptr {GLPlatformGetFunctionAddress(functionName)};
 		if(!ptr) ptr = GetLibraryFunctionAddress(s_glLibraryHandle, functionName);
 		return ptr;
@@ -97,7 +98,7 @@ namespace HLFGL {
 
 	inline bool GLInit(Fn_GetFunctionAddress fn_GetFunctionAddress) {
 		if(!s_glLibraryHandle && !GLInitLibraries()) return false;
-		GLInitFunctions(fn_GetFunctionAddress);
+		Functions::GLInitFunctions(fn_GetFunctionAddress);
 		return true;
 	}
 }
@@ -115,7 +116,7 @@ namespace HLFGL {
 				0
 			};
 
-			for(const char** name = glLibNames; *name; ++name) {
+			for(const char** name {glLibNames}; *name; ++name) {
 				s_glLibraryHandle = InitLibrary(*name);
 				if(s_glLibraryHandle) break;
 			}
@@ -130,7 +131,7 @@ namespace HLFGL {
 				"usr/lib/libEGL.so"
 			};
 
-			for(const char** name = eglLibNames; *name; ++name) {
+			for(const char** name {eglLibNames}; *name; ++name) {
 				s_glPlatformLibraryHandle = InitLibrary(*name);
 				if(s_glPlatformLibraryHandle) break;
 			}
@@ -138,7 +139,8 @@ namespace HLFGL {
 		}
 
 		if(!s_fn_GLPlatformGetFunctionAddress) {
-			s_fn_GLPlatformGetFunctionAddress = (Fn_GetFunctionAddress)dlsym(s_glPlatformLibraryHandle, "eglGetProcAddress");
+			s_fn_GLPlatformGetFunctionAddress = (Fn_GetFunctionAddress)dlsym(
+				s_glPlatformLibraryHandle, "eglGetProcAddress");
 			if(!s_fn_GLPlatformGetFunctionAddress) return false;
 		}
 
@@ -158,6 +160,7 @@ namespace HLFGL {
 	bool EGLInitLibrary();
 
 	inline void* EGLGetFunctionAddress(const char* functionName) {
+		if(!EGLInitLibrary()) return 0;
 		void* ptr {(void*)eglGetProcAddress(functionName)};
 		if(!ptr) ptr = GetLibraryFunctionAddress(s_eglLibraryHandle, functionName);
 		return ptr;
@@ -171,7 +174,7 @@ namespace HLFGL {
 
 	inline bool EGLInit(Fn_GetFunctionAddress fn_GetFunctionAddress) {
 		if(!s_eglLibraryHandle && !EGLInitLibrary()) return false;
-		EGLInitFunctions(fn_GetFunctionAddress);
+		Functions::EGLInitFunctions(fn_GetFunctionAddress);
 		return true;
 	}
 }
@@ -180,6 +183,8 @@ namespace HLFGL {
 
 namespace HLFGL {
 	inline bool EGLInitLibrary() {
+		using namespace Functions;
+
 		if(!s_eglLibraryHandle) {
 			const char* eglLibNames[] {
 				"libEGL.so.1",
@@ -189,7 +194,7 @@ namespace HLFGL {
 				0
 			};
 
-			for(const char** name = eglLibNames; *name; ++name) {
+			for(const char** name {eglLibNames}; *name; ++name) {
 				s_eglLibraryHandle = InitLibrary(*name);
 				if(s_eglLibraryHandle) break;
 			}
@@ -197,7 +202,9 @@ namespace HLFGL {
 		}
 
 		if(!s_fn_eglGetProcAddress) {
-			s_fn_eglGetProcAddress = (Fn_eglGetProcAddress)GetLibraryFunctionAddress(s_eglLibraryHandle, "eglGetProcAddress");
+			s_fn_eglGetProcAddress = (Fn_eglGetProcAddress)GetLibraryFunctionAddress(
+				s_eglLibraryHandle, "eglGetProcAddress"
+			);
 			if(!s_fn_eglGetProcAddress) return false;
 		}
 

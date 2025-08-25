@@ -6,7 +6,7 @@
 
 ### Features
 
-* Add `HLFGL::Init_{glFunctionName}` functions to initialize individual functions easily
+* Add `HLFGL::Functions::Init_{glFunctionName}` functions to initialize individual functions easily
 * Add `--config` parameter to generator script
 
 ### Changes
@@ -17,6 +17,7 @@
 * Rename `LoadLibrary` and `UnloadLibrary` (and similar API functions) to `InitLibrary` and `DeleteLibrary`
 * Moved generator script and config files to `/scripts/` directory
 * Moved generated headers to `/include/HLFGL/gen/` directory
+* Moved generated function definitions to HLFGL::Functions namespace
 * Remove version and extension-specific `HLFGL_ENABLE_*` definitions
 
 ### Fixes

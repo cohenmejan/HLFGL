@@ -200,7 +200,7 @@ def generate_api(api_prefix, api_name):
             output += f"\n#define {constant.name} {constant.value}"
 
         if len(functions) != 0:
-            output += "\nnamespace HLFGL {"
+            output += "\nnamespace HLFGL::Functions {"
             for function in functions:
                 if function is None: continue
                 fn_typename = f"Fn_{function.name}"
@@ -210,7 +210,7 @@ def generate_api(api_prefix, api_name):
 
         for function in functions:
             if function is None: continue
-            body = f"return HLFGL::s_fn_{function.name}({', '.join(param.name for param in function.params)});"
+            body = f"return HLFGL::Functions::s_fn_{function.name}({', '.join(param.name for param in function.params)});"
             output += f"\ninline {function.return_type} {function.name}{function.formatted_params} {{ {body} }}"
 
         output += f"\n#endif // {tree_name}\n"
@@ -232,7 +232,7 @@ def generate_api(api_prefix, api_name):
         if name not in api_extensions: continue
         output += generate_api_tree(extension, name)
 
-    output += f"\nnamespace HLFGL {{"
+    output += f"\nnamespace HLFGL::Functions {{"
 
     for function in api_functions:
         output += f"\n\tinline void Init_{function.name}(Fn_GetFunctionAddress fn_GetFunctionAddress = {api_prefix}GetFunctionAddress) {{ s_fn_{function.name} = (Fn_{function.name})fn_GetFunctionAddress(\"{function.name}\"); }}"
